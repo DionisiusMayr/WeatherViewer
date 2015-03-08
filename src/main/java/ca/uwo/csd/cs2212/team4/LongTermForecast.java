@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 
-public class LocalWeather extends JFrame {
+public class LongTermForecast extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtLondonOnt;
@@ -31,7 +31,7 @@ public class LocalWeather extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LocalWeather frame = new LocalWeather();
+					LongTermForecast frame = new LongTermForecast();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class LocalWeather extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LocalWeather() {
+	public LongTermForecast() {
 		setTitle("Short-Term Weather");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 840, 477);
