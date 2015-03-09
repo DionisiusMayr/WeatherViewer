@@ -7,15 +7,18 @@ import java.io.IOException;
 
 public class LocalWeatherView {
 
+	public LocalWeatherView() {
+		
+	}
 	static WebInterface data = new WebInterface("mississauga");
 	
-	public static String getTemperature() throws JSONException, IOException {
+	public String getTemperature() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
 		JSONObject main = object.optJSONObject("main");
 		return main.optString("temp", null);
 	}
 	
-	public String getPressure() throws JSONException, IOException {
+	public static String getPressure() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
 		JSONObject main = object.optJSONObject("main");
 		return main.optString("pressure", null);
@@ -70,4 +73,7 @@ public class LocalWeatherView {
 		return weather.optString("main", null);
 	}
 	
+	public static void main(String[] args) throws JSONException, IOException {
+		System.out.println(LocalWeatherView.getPressure());
+}
 }
