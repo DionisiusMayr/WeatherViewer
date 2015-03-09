@@ -1,7 +1,9 @@
 package ca.uwo.csd.cs2212.team4;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Scanner; 
 
@@ -16,10 +18,11 @@ public class App {
 
 		WebInterface data = new WebInterface(cityName);
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
-		JSONObject sys = object.optJSONObject("sys");
 		JSONObject main = object.optJSONObject("main");
 		JSONObject wind = object.optJSONObject("wind");
-
+		JSONObject sys = object.optJSONObject("sys");
+		JSONArray weatherArray = object.optJSONArray("weather");
+		JSONObject weather = weatherArray.getJSONObject(0);
 		/* 
         System.out.println(webGetter.httpGET(webGetter.buildURL()));
         System.out.println();
@@ -29,20 +32,22 @@ public class App {
             System.out.println("JSON is (as string): " + jsonObject.toString());
         }
 		 */
-
-		System.out.println("City: \t\t\t" + object.optString("name", null));
-		System.out.println("Temperature: \t\t" + main.optString("temp", null));
-		System.out.println("Wind Speed: \t\t" + wind.optString("speed", null));
-		System.out.println("Wind Direction: \t" + wind.optString("deg", null));
 		
+		System.out.println("City: \t\t\t" + object.optString("name", null));
+		
+		System.out.println("Temperature: \t\t" + main.optString("temp", null));
 		System.out.println("Air Pressure: \t\t" + main.optString("pressure", null));
 		System.out.println("Humidity: \t\t" + main.optString("humidity", null));
-				
 		System.out.println("Minimum temperature: \t" + main.optString("temp_min", null));
 		System.out.println("Maximum temperature: \t" + main.optString("temp_max", null));
 		
+		System.out.println("Wind Speed: \t\t" + wind.optString("speed", null));
+		System.out.println("Wind Direction: \t" + wind.optString("deg", null));
+		
 		System.out.println("Time of sunrise: \t" + sys.optString("sunrise", null));
 		System.out.println("Time of sunset: \t" + sys.optString("sunset", null));
+
+		System.out.println("Weather Main: \t\t" + weather.optString("main", null));
 
 		/* End of execution 
 		System.out.println("End of execution.");
