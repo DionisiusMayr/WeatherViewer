@@ -3,11 +3,19 @@ package ca.uwo.csd.cs2212.team4;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+
 
 public class GUICurrentWeather extends JFrame{
 
+	private LocalWeatherView local;
+	
 	public GUICurrentWeather(){
 		this.initUI();
+		local = new LocalWeatherView();
 	}
 	
 	private void initUI(){
@@ -135,7 +143,20 @@ public class GUICurrentWeather extends JFrame{
 	private JPanel createTempPanel(){
 		
 		JPanel panel = new JPanel();
-		JLabel lblTemp = new JLabel("Current temperature: 789 C");
+		
+		String tempString = "DEFAULT"; /**LOOK HERE*/
+		try{
+			tempString = local.getTemperature();
+		}
+		catch(JSONException e){
+			System.out.println("JSON Exception");
+		}
+		catch(IOException e){
+			System.out.println("IOException");
+		}
+	
+		JLabel lblTemp = new JLabel("Current temperature:"+tempString);
+		
 		JLabel lblCondition = new JLabel("Sky condition: Cloudy");
 		
 		JPanel pnlNorth = new JPanel();
@@ -148,10 +169,13 @@ public class GUICurrentWeather extends JFrame{
 		JPanel pnlSouth = new JPanel();
 		pnlSouth.add(lblTemp);
 		
+		
+		
 		panel.setLayout(new BorderLayout());
 		panel.add(pnlNorth, BorderLayout.NORTH);
 		panel.add(pnlCenter, BorderLayout.CENTER);
 		panel.add(pnlSouth, BorderLayout.SOUTH);
+		
 
 		return panel;
 	}
