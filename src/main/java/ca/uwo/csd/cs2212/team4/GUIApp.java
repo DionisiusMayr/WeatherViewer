@@ -1,3 +1,5 @@
+/**This class contains the main method to run the GUI window of the weather viewer*/
+
 package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONArray;
