@@ -22,7 +22,7 @@ public class GUICurrentWeather extends JFrame{
 		
 		//General window settings
 		this.setTitle("Current Weather");
-		this.setSize(500, 400);
+		this.setSize(700, 400);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -115,7 +115,7 @@ public class GUICurrentWeather extends JFrame{
 	private JPanel createInfoPanel(){
 		
 		JPanel panel = new JPanel();
-		JLabel lblLoc = new JLabel("LOCATION: London, Ontario ");
+		JLabel lblLoc = new JLabel("Location: London");
 		JLabel lblTime = new JLabel("Time of last update: 01/03/2015 17:30");
 		
 		GroupLayout layout = new GroupLayout(panel);
@@ -159,9 +159,9 @@ public class GUICurrentWeather extends JFrame{
 			System.out.println("IOException");
 		}
 	
-		JLabel lblTemp = new JLabel("Current temperature: "+tempString
-									+"\nMax Temperature: "+maxtempString
-									+"\nMin Temperature: "+mintempString);
+		JLabel lblTemp = new JLabel("Current temperature: " + tempString);
+		JLabel lblMax = new JLabel("Max Temperature: " + maxtempString);
+		JLabel lblMin = new JLabel("Min Temperature: " + mintempString);
 				
 		String conditionString = "DEFAULT"; /**LOOK HERE*/
 		try{
@@ -185,7 +185,9 @@ public class GUICurrentWeather extends JFrame{
 		
 		JPanel pnlSouth = new JPanel();
 		pnlSouth.add(lblTemp);
-		
+		pnlSouth.add(lblMax);
+		pnlSouth.add(lblMin);
+
 		
 		
 		panel.setLayout(new BorderLayout());
@@ -207,7 +209,7 @@ public class GUICurrentWeather extends JFrame{
 		String winddirString = "DEFAULT";
 		String sunriseString = "DEFAULT";
 		String sunsetString = "DEFAULT";
-		String humidity = "DEFAULT";
+		String humidityString = "DEFAULT";
 		
 		try{
 			pressureString = LocalWeatherView.getPressure();

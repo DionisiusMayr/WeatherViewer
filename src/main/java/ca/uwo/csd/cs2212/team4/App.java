@@ -10,7 +10,9 @@ import java.util.Scanner;
 public class App {
 	public static void main(String [] args) throws IOException, JSONException {
 		//System.out.println("Start of execution.");
-
+/**
+ * 
+ */
 		Scanner in = new Scanner(System.in);
 
 		System.out.print("Please insert the city name: ");
