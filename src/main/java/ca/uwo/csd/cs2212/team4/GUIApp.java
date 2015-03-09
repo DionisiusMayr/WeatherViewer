@@ -6,6 +6,9 @@ import javax.swing.SwingUtilities;
 
 public class GUIApp {
 	public static void main(String[]args) throws JSONException, IOException {
+		
+		//System.out.println(LocalWeatherView.getTemperature());
+		//System.out.println(LocalWeatherView.getPressure());
 
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
