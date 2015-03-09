@@ -18,6 +18,7 @@ public class LocalWeatherView {
 	static WebInterface data = new WebInterface("london");
        
        /** getTemperature method to return temperature
+        * @return string temperature
  */
        
        
@@ -29,6 +30,7 @@ public class LocalWeatherView {
 
 
        /** getPressure method to return pressure
+        * @return strong pressure
  */
 	public static String getPressure() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -37,6 +39,7 @@ public class LocalWeatherView {
 	}
 
       /** getHumidity method to return humidity
+       * @return humidity value
  */
 	public static String getHumidity() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -45,6 +48,7 @@ public class LocalWeatherView {
 	}
 
  /** getTempMin method to return min Temp
+  * @return TempMin
  */
 
 
@@ -54,6 +58,7 @@ public class LocalWeatherView {
 		return main.optString("temp_min", null);
 	}
  /** getTempMax method to return Max temp
+  * @return GetTempMax
  */
 	public static String getTempMax() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -62,6 +67,7 @@ public class LocalWeatherView {
 	}
 
  /** getWindSpeed method to return wind speed
+  * @return the value of windspeed
  */
 
 	public static String getWindSpeed() throws JSONException, IOException {
@@ -70,6 +76,7 @@ public class LocalWeatherView {
 		return wind.optString("speed", null);
 	}
  /** getWindDirection method to return wind direction
+  * @return the value of wind direction
  */
 	public static String getWindDirection() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -77,6 +84,7 @@ public class LocalWeatherView {
 		return wind.optString("deg", null);
 	}
  /** getSunrise method to return sunrise time
+  * @return the value of sunrise
  */
 	public static String getSunrise() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -84,6 +92,7 @@ public class LocalWeatherView {
 		return sys.optString("sunrise", null);
 	}
  /** getSunset method to return sunset time
+  * @return the string sunset
  */
 	public static String getSunset() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
@@ -91,6 +100,7 @@ public class LocalWeatherView {
 		return sys.optString("sunset", null);
 	}
  /** getSkyCondition method to return Sky condition
+  * @return the string sky condition
  */
 	public static String getSkyCondition() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
