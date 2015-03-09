@@ -145,8 +145,12 @@ public class GUICurrentWeather extends JFrame{
 		JPanel panel = new JPanel();
 		
 		String tempString = "DEFAULT"; /**LOOK HERE*/
+		String maxtempString = "DEFAULT";
+		String mintempString = "DEFAULT";
 		try{
 			tempString = LocalWeatherView.getTemperature();
+			maxtempString = LocalWeatherView.getTempMax();
+			mintempString = LocalWeatherView.getTempMin();
 		}
 		catch(JSONException e){
 			System.out.println("JSON Exception");
@@ -155,9 +159,22 @@ public class GUICurrentWeather extends JFrame{
 			System.out.println("IOException");
 		}
 	
-		JLabel lblTemp = new JLabel("Current temperature:"+tempString);
+		JLabel lblTemp = new JLabel("Current temperature: "+tempString
+									+"\nMax Temperature: "+maxtempString
+									+"\nMin Temperature: "+mintempString);
+				
+		String conditionString = "DEFAULT"; /**LOOK HERE*/
+		try{
+			conditionString = LocalWeatherView.getSkyCondition();
+		}
+		catch(JSONException e){
+			System.out.println("JSON Exception");
+		}
+		catch(IOException e){
+			System.out.println("IOException");
+		}
 		
-		JLabel lblCondition = new JLabel("Sky condition: Cloudy");
+		JLabel lblCondition = new JLabel("Sky condition: "+conditionString);
 		
 		JPanel pnlNorth = new JPanel();
 		pnlNorth.add(lblCondition);
@@ -183,12 +200,35 @@ public class GUICurrentWeather extends JFrame{
 	//Bottom panel specs
 	private JPanel createBottomPanel(){
 		
-		JPanel panel = new JPanel();
-		JLabel lblPressure = new JLabel("Pressure: ");
-		JLabel lblWindSpd = new JLabel("Wind speed: ");
-		JLabel lblWindDir = new JLabel("Wind direction: ");
-		JLabel lblSunrise = new JLabel("Sunrise time: ");
-		JLabel lblSunset = new JLabel("Sunset time: ");
+		JPanel panel = new JPanel();		
+		
+		String pressureString = "DEFAULT"; /**LOOK HERE*/
+		String windspdString = "DEFAULT";
+		String winddirString = "DEFAULT";
+		String sunriseString = "DEFAULT";
+		String sunsetString = "DEFAULT";
+		String humidity = "DEFAULT";
+		
+		try{
+			pressureString = LocalWeatherView.getPressure();
+			windspdString = LocalWeatherView.getWindSpeed();
+			winddirString = LocalWeatherView.getWindDirection();
+			sunriseString = LocalWeatherView.getSunrise();
+			sunsetString = LocalWeatherView.getSunset();
+			humidityString = LocalWeatherView.getHumidity();
+		}
+		catch(JSONException e){
+			System.out.println("JSON Exception");
+		}
+		catch(IOException e){
+			System.out.println("IOException");
+		}
+		JLabel lblPressure = new JLabel("Pressure: "+pressureString);
+		JLabel lblWindSpd = new JLabel("Wind speed: " + windspdString);
+		JLabel lblWindDir = new JLabel("Wind direction: "+winddirString);
+		JLabel lblSunrise = new JLabel("Sunrise time: "+sunriseString);
+		JLabel lblSunset = new JLabel("Sunset time: "+sunsetString);
+		JLabel lblHumidity = new JLabel("Humidity: "+ humidityString);
 		
 		GroupLayout layout = new GroupLayout(panel);
 		layout.setAutoCreateGaps(true);
@@ -201,6 +241,7 @@ public class GUICurrentWeather extends JFrame{
 						.addComponent(lblWindDir)
 						.addComponent(lblSunrise)
 						.addComponent(lblSunset)
+						.addComponent(lblHumidity)
 				)
 		);
 		
@@ -219,6 +260,9 @@ public class GUICurrentWeather extends JFrame{
 				)
 				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 						.addComponent(lblSunset)
+				)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						.addComponent(lblHumidity)
 				)
 		);
 		
