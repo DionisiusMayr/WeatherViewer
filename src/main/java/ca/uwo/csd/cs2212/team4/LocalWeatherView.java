@@ -73,9 +73,4 @@ public class LocalWeatherView {
 		JSONObject weather = weatherArray.getJSONObject(0);
 		return weather.optString("main", null);
 	}
-
-	public static void main(String[] args) throws JSONException, IOException {
-		System.out.println(LocalWeatherView.getTemperature());
-		System.out.println(LocalWeatherView.getPressure());
-	}
 }
