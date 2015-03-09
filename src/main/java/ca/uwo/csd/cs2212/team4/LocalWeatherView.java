@@ -1,3 +1,7 @@
+/**this class is for local weatherview
+@author
+ */
+
 package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONArray;
@@ -12,13 +16,20 @@ public class LocalWeatherView {
 	}
 
 	static WebInterface data = new WebInterface("london");
-
+       
+       /** getTemperature method to return temperature
+ */
+       
+       
 	public static String getTemperature() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
 		JSONObject main = object.optJSONObject("main");
 		return main.optString("temp", null);
 	}
 
+
+       /** getPressure method to return pressure
+ */
 	public static String getPressure() throws JSONException, IOException {
 		JSONObject object = data.createJsonObject(data.getContentOfURL());
 		JSONObject main = object.optJSONObject("main");
