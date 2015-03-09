@@ -1,4 +1,4 @@
-Enter file contents hereimport java.awt.EventQueue;
+import java.awt.EventQueue;
 
 
 public class GUI {
@@ -43,16 +43,27 @@ public class GUI {
 		table.setShowHorizontalLines(false);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
+ 				//7days per a Week from Monday to Sunday
 				{null, "MO", "TU", "WED", "TH", "FR", "SA", "SU"},
+				//Need to have a getter method to get the weather conditions from website
 				{"Weather Condition", null, null, null, null, null, null, null},
+				//It is the picture that symbolizes each weather conditions
 				{null, getpicture(), null, null, null, null, null, null},
+				//Need to have a getter method to get the weather Temperature from website
 				{"Temp", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the weather Maximum Temperature from website
 				{"Max Temp", null, null, null, null, null, null, null},
+				////Need to have a getter method to get the weather Minimum Temperature from website
 				{"Min Temp", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the weather humidity from website
 				{"Humidity", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the wind speed from website
 				{"Wind Speed", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the wind direction from website
 				{"Wind Direction", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the time of sun rise from website
 				{"Sun Rise", null, null, null, null, null, null, null},
+				//Need to have a getter method to get the time of sun set from website
 				{"Sun Set", null, null, null, null, null, null, null},
 			},
 			new String[] {
