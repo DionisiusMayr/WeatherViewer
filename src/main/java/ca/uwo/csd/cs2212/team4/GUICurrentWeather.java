@@ -146,7 +146,7 @@ public class GUICurrentWeather extends JFrame{
 		
 		String tempString = "DEFAULT"; /**LOOK HERE*/
 		try{
-			tempString = local.getTemperature();
+			tempString = LocalWeatherView.getTemperature();
 		}
 		catch(JSONException e){
 			System.out.println("JSON Exception");
