@@ -1,5 +1,5 @@
 /**this class is for local weatherview
-@author
+@author team4
  */
 
 package ca.uwo.csd.cs2212.team4;
