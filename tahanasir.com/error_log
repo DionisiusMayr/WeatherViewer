@@ -1,0 +1,11 @@
+[20-Aug-2014 21:04:14 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/essce/public_html/tahanasir.com/new/index.php on line 199
+[20-Aug-2014 21:04:17 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/essce/public_html/tahanasir.com/new/index.php on line 199
+[20-Aug-2014 21:06:17 America/Chicago] PHP Parse error:  syntax error, unexpected '{', expecting '(' in /home3/essce/public_html/tahanasir.com/new/index.php on line 199
+[20-Aug-2014 21:06:18 America/Chicago] PHP Parse error:  syntax error, unexpected '{', expecting '(' in /home3/essce/public_html/tahanasir.com/new/index.php on line 199
+[20-Aug-2014 21:06:41 America/Chicago] PHP Parse error:  syntax error, unexpected '}' in /home3/essce/public_html/tahanasir.com/new/index.php on line 216
+[20-Aug-2014 21:28:08 America/Chicago] PHP Parse error:  syntax error, unexpected '"', expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home3/essce/public_html/tahanasir.com/new/index.php on line 191
+[20-Aug-2014 21:28:51 America/Chicago] PHP Parse error:  syntax error, unexpected '"', expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home3/essce/public_html/tahanasir.com/new/index.php on line 191
+[20-Aug-2014 21:28:54 America/Chicago] PHP Parse error:  syntax error, unexpected '"', expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home3/essce/public_html/tahanasir.com/new/index.php on line 191
+[21-Aug-2014 02:25:54 America/Chicago] PHP Parse error:  syntax error, unexpected '$email' (T_VARIABLE) in /home3/essce/public_html/tahanasir.com/new/contact.php on line 56
+[22-Aug-2014 00:36:40 America/Chicago] PHP Parse error:  syntax error, unexpected 'll' (T_STRING), expecting ',' or ';' in /home3/essce/public_html/tahanasir.com/new/contact.php on line 52
+[22-Aug-2014 00:37:11 America/Chicago] PHP Parse error:  syntax error, unexpected '"', expecting ',' or ';' in /home3/essce/public_html/tahanasir.com/new/contact.php on line 52

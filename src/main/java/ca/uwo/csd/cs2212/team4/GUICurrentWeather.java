@@ -1,3 +1,7 @@
+/**This class contains the GUI object for the weather viewer
+*@author TEAM4
+*/
+
 package ca.uwo.csd.cs2212.team4;
 
 import javax.swing.*;
@@ -13,11 +17,17 @@ public class GUICurrentWeather extends JFrame{
 
 	private LocalWeatherView local;
 	
+	/**
+	 * Constructor to build the main window
+	*/
 	public GUICurrentWeather(){
 		this.initUI();
 		local = new LocalWeatherView();
 	}
 	
+	/**
+	 * Build the main frame window
+	*/
 	private void initUI(){
 		
 		//General window settings
@@ -59,7 +69,10 @@ public class GUICurrentWeather extends JFrame{
 	}	
 		
 		
-	//Menu bar specs
+	/**
+	 * Build the menu bar
+	 * @return manu bar
+	*/
 	private JMenuBar createMenubar(){
 		JMenuBar menubar = new JMenuBar();
 		JMenu mnuTools = new JMenu("Tools");
@@ -81,7 +94,10 @@ public class GUICurrentWeather extends JFrame{
 		return menubar;
 	}
 	
-	//Top panel specs
+	/**
+	 * Build the top panel, which contains the tempPanel and infoPanel
+	 * @return top panel JPanel
+	*/
 	private JPanel createTopPanel(){
 		
 		JPanel panel = new JPanel();
@@ -111,7 +127,10 @@ public class GUICurrentWeather extends JFrame{
 		return panel;
 	}
 	
-	//panel for location info and last time updated
+	/**
+	 * Create the information panel which contains location and time information
+	 * @return information panel JPanel
+	*/
 	private JPanel createInfoPanel(){
 		
 		JPanel panel = new JPanel();
@@ -139,7 +158,10 @@ public class GUICurrentWeather extends JFrame{
 		return panel;
 	}
 	
-	//panel for current temperature and sky condition
+	/**
+	 * Create the temperature panel
+	 * @return temperature JPanel
+	*/
 	private JPanel createTempPanel(){
 		
 		JPanel panel = new JPanel();
@@ -199,7 +221,10 @@ public class GUICurrentWeather extends JFrame{
 		return panel;
 	}
 	
-	//Bottom panel specs
+	/**
+	 * Create bottom panel, which contains other weather info
+	 * @return bottom panel JPanel
+	*/
 	private JPanel createBottomPanel(){
 		
 		JPanel panel = new JPanel();		
