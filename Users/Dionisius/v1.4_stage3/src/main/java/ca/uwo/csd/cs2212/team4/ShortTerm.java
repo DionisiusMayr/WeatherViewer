@@ -1,4 +1,7 @@
 /**Class for short-term weather forecast.
+ * -> Still need to implement something to build the url, but i think it should be on the webgetter class.
+ * -> I think it is also a good thing to put the getDate/getCity/getCountry method on the current weather class; but we might need to change some little details on these methods.
+ * ->
  * @author team4
  */
 
