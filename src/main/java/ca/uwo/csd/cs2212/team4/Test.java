@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Scanner; 
 
-public class App {
+public class Test {
 	public static void main(String [] args) throws IOException, JSONException {
 		//System.out.println("Start of execution.");
 /**
