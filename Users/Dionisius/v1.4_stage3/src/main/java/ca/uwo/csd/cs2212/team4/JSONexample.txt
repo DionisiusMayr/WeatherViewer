@@ -1,0 +1,99 @@
+{
+"cod":"200",
+"message":0.0151,
+"city":
+{
+  "id":1851632,
+  "name":"Shuzenji",
+  "coord":
+  {
+    "lon":138.933334,
+    "lat":34.966671
+  },
+  "country":"JP",
+  "population":0
+},
+"cnt":41,
+"list":
+[
+  {
+    "dt":1426539600,
+    "main":
+    {
+      "temp":281.38,
+      "temp_min":277.25,
+      "temp_max":281.38,
+      "pressure":935.91,
+      "sea_level":1034.96,
+      "grnd_level":935.91,
+      "humidity":100,
+      "temp_kf":4.13
+    },
+    "weather":
+    [
+      {
+        "id":500,
+        "main":"Rain",
+        "description":"light rain",
+        "icon":"10n"
+      }
+    ],
+    "clouds":
+    {
+      "all":56
+    },
+    "wind":
+    {
+      "speed":0.86,
+      "deg":338.501
+    },
+    "rain":
+    {
+      "3h":0.055
+    },
+    "sys":
+    {
+      "pod":"n"
+    },
+    "dt_txt":"2015-03-16 21:00:00"
+  },
+  {
+    "dt":1426550400,
+    "main":
+    {
+      "temp":285.3,
+      "temp_min":281.378,
+      "temp_max":285.3,
+      "pressure":936.2,
+      "sea_level":1034.92,
+      "grnd_level":936.2,
+      "humidity":92,
+      "temp_kf":3.92
+    },
+    "weather":
+    [
+      {
+        "id":500,
+        "main":"Rain",
+        "description":"light rain",
+        "icon":"10d"
+      }
+    ],
+    "clouds":    {
+      "all":12
+    },
+    "wind":    {
+      "speed":1.05,
+      "deg":348.001
+    },
+    "rain":    {
+      "3h":0.02
+    },
+    "sys":    {
+      "pod":"d"
+    },
+    "dt_txt":"2015-03-17 00:00:00"
+  },
+  {
+    "dt":1426561200,
+    "main":{"temp":291.87,"temp_min":288.157,"temp_max":291.87,"pressure":935.09,"sea_level":1032.54,"grnd_level":935.09,"humidity":73,"temp_kf":3.72},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"}],"clouds":{"all":8},"wind":{"speed":0.91,"deg":170.501},"rain":{"3h":0.0050000000000026},"sys":{"pod":"d"},"dt_txt":"2015-03-17 03:00:00"},{"dt":1426572000,"main":
