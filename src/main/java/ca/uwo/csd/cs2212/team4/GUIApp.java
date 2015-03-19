@@ -16,9 +16,17 @@ public class GUIApp {
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			@Override
-			public void run(){
-				GUICurrentWeather window = new GUICurrentWeather();
-				window.setVisible(true);
+			public void run() {
+				GUICurrentWeather window;
+				try {
+					window = new GUICurrentWeather();
+					window.setVisible(true);
+
+				} catch (JSONException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					
+				}
 			}
 		});
 		

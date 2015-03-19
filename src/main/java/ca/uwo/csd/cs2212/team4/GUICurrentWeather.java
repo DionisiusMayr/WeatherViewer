@@ -5,11 +5,14 @@
 package ca.uwo.csd.cs2212.team4;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 
 
@@ -19,17 +22,21 @@ public class GUICurrentWeather extends JFrame{
 	
 	/**
 	 * Constructor to build the main window
+	 * @throws IOException 
+	 * @throws JSONException 
 	*/
-	public GUICurrentWeather(){
+	public GUICurrentWeather() throws JSONException, IOException {
 		this.initUI();
-		local = new LocalWeatherView();
 	}
 	
 	/**
 	 * Build the main frame window
+	 * @throws IOException 
+	 * @throws JSONException 
 	*/
-	private void initUI(){
-		
+	private void initUI() throws JSONException, IOException{
+		local = new LocalWeatherView("mississauga");
+
 		//General window settings
 		this.setTitle("Current Weather");
 		this.setSize(700, 400);
@@ -170,9 +177,9 @@ public class GUICurrentWeather extends JFrame{
 		String maxtempString = "DEFAULT";
 		String mintempString = "DEFAULT";
 		try{
-			tempString = LocalWeatherView.getTemperature();
-			maxtempString = LocalWeatherView.getTempMax();
-			mintempString = LocalWeatherView.getTempMin();
+			tempString = local.getTemperature();
+			maxtempString = local.getTempMax();
+			mintempString = local.getTempMin();
 		}
 		catch(JSONException e){
 			System.out.println("JSON Exception");
@@ -187,7 +194,7 @@ public class GUICurrentWeather extends JFrame{
 				
 		String conditionString = "DEFAULT"; /**LOOK HERE*/
 		try{
-			conditionString = LocalWeatherView.getSkyCondition();
+			conditionString = local.getSkyCondition();
 		}
 		catch(JSONException e){
 			System.out.println("JSON Exception");
@@ -237,12 +244,12 @@ public class GUICurrentWeather extends JFrame{
 		String humidityString = "DEFAULT";
 		
 		try{
-			pressureString = LocalWeatherView.getPressure();
-			windspdString = LocalWeatherView.getWindSpeed();
-			winddirString = LocalWeatherView.getWindDirection();
-			sunriseString = LocalWeatherView.getSunrise();
-			sunsetString = LocalWeatherView.getSunset();
-			humidityString = LocalWeatherView.getHumidity();
+			pressureString = local.getPressure();
+			windspdString = local.getWindSpeed();
+			winddirString = local.getWindDirection();
+			sunriseString = local.getSunrise();
+			sunsetString = local.getSunset();
+			humidityString = local.getHumidity();
 		}
 		catch(JSONException e){
 			System.out.println("JSON Exception");

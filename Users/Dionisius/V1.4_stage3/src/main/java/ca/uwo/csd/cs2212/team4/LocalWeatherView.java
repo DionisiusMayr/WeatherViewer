@@ -24,6 +24,8 @@ public class LocalWeatherView {
 		return main.optString("temp", null);
 	}
 
+	data.createJsonObject(data.getContentOfURL()).optJSONObject("main").optString("temp", null);
+	
 	/** getPressure method to return pressure
 	 *  @return strong pressure
 	 */

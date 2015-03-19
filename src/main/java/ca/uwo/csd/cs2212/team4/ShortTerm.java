@@ -25,19 +25,19 @@ public class ShortTerm {
     static WebInterface data = new WebInterface("london");
 
     public static String getCityName() throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONObject city = object.getJSONObject("city");
         return city.optString("name");
     }
 
     public static String getCountry() throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONObject city = object.getJSONObject("city");
         return city.optString("country");
     }
 
     public static String getTemperature(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONObject main = internObject.getJSONObject("main");
@@ -45,7 +45,7 @@ public class ShortTerm {
     }
 
     public static String getTempMin(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONObject main = internObject.getJSONObject("main");
@@ -53,7 +53,7 @@ public class ShortTerm {
     }
 
     public static String getTempMax(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONObject main = internObject.getJSONObject("main");
@@ -61,7 +61,7 @@ public class ShortTerm {
     }
 
     public static String getSkyCondition(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONArray weatherArray = internObject.getJSONArray("weather");
@@ -70,7 +70,7 @@ public class ShortTerm {
     }
 
 		public static String getIcon(int i) throws  JSONException, IOException {
-				JSONObject object = data.createJsonObject(data.getJSON(URL));
+				JSONObject object = data.createJSONObject(data.getJSON(URL));
 				JSONArray list = object.getJSONArray("list");
 				JSONObject internObject = list.getJSONObject(i);
 				JSONArray weatherArray = internObject.getJSONArray("weather");
@@ -79,7 +79,7 @@ public class ShortTerm {
 		}
 
     public static String getDate(int i) throws JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
+        JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         Date date = new Date(internObject.getInt("dt") * 1000); // It has to be in miliseconds, thus the * 1000.
@@ -90,7 +90,7 @@ public class ShortTerm {
     public static void main(String[] args) throws JSONException, IOException {
         System.out.println("Starting execution.");
 
-        JSONObject json = data.createJsonObject(data.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139"));
+        JSONObject json = data.createJSONObject(data.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139"));
 
         System.out.println("City name: \t\t" + ShortTerm.getCityName());
         System.out.println("Country: \t\t" + ShortTerm.getCountry());
