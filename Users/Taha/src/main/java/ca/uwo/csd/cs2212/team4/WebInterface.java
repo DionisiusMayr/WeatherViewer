@@ -14,23 +14,36 @@ public class WebInterface {
 	private static final String APPID = "appId=f74197d83bc45827574fcf77670f8a63";
 	private static final String UNITS = "units=metric";
 
-	private String cityName;
+	private String cityName; 
+	private String countryCode;
 
 	public WebInterface(String cityName) {
 		this.cityName = cityName;
+		
 	}
 
+	public WebInterface(String cityName, String countryCode) {
+		this.cityName = cityName;
+		this.countryCode = countryCode;
+	}
+	
 	public String buildURL() throws UnsupportedEncodingException {
-		return new StringBuilder()
-		.append(URL).append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
-		.append(UNITS).append("&").append(APPID).toString();
+		if (this.countryCode != null) {
+			return new StringBuilder().append(URL)
+					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
+					.append("&").append(UNITS).append("&").append(APPID).toString();
+		}
+		
+		return new StringBuilder().append(URL)
+				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
+				.append(UNITS).append("&").append(APPID).toString();
 	}
 
 	public String getContentOfURL() throws IOException{
 		return getJSON(buildURL());
 	}
 
-	public JSONObject createJsonObject(String stringNotParsed) throws JSONException {
+	public JSONObject createJSONObject(String stringNotParsed) throws JSONException {
 		JSONObject jsonObject;
 		if(stringNotParsed != null)
 			jsonObject = new JSONObject(stringNotParsed);
