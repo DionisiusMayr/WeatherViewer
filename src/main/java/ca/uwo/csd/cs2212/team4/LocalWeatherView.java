@@ -22,12 +22,12 @@ public class LocalWeatherView {
 	private static JSONObject sys;
 
 	private JSONArray weatherArray;
-	private static  JSONObject weather;
+	private static JSONObject weather;
 
 	public LocalWeatherView(String cityName) throws JSONException, IOException {
 		city = cityName;
 		data = new WebInterface(city);
-		this.object = data.createJSONObject(data.getContentOfURL());
+		this.object = data.createJSONObject(data.getLocalWeatherURL());
 
 		main = this.object.optJSONObject("main");
 		wind = this.object.optJSONObject("wind");
@@ -42,7 +42,7 @@ public class LocalWeatherView {
 		city = cityName;
 		country = countryCode;
 		data = new WebInterface(city);
-		this.object = data.createJSONObject(data.getContentOfURL());
+		this.object = data.createJSONObject(data.getLocalWeatherURL());
 
 		main = this.object.optJSONObject("main");
 		wind = this.object.optJSONObject("wind");

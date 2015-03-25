@@ -1,82 +1,91 @@
 package ca.uwo.csd.cs2212.team4;
 
-/**Class for short-term weather forecast.
- * -> Still need to implement something to build the url, but i think it should be on the webgetter class.
- * -> I think it is also a good thing to put the getDate/getCity/getCountry method on the current weather class; but we might need to change some little details on these methods.
- * ->
- * @author team4
- */
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Date;
 
+/**
+ * Class for short-term weather forecast.
+ * @author team4
+ */
 public class ShortTerm {
-    public ShortTerm() {
-    }
+	
+	private String city;
+	private String country;
 
-    /** URL of the short-term forecast. Just for testing purposes.
-     *
-     * */
-    private static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139";
+	private WebInterface data;
+	private JSONObject object;
+	
+	private static JSONObject main;
+	private JSONArray weatherArray;
+	private static  JSONObject weather;
 
-    static WebInterface data = new WebInterface("london");
+	public ShortTerm(String cityName) throws JSONException, IOException {
+		city = cityName;
+		data = new WebInterface(city);
+		this.object = data.createJSONObject(data.getShortTermURL());
 
-    public static String getCityName() throws  JSONException, IOException {
+		main = this.object.optJSONObject("main");
+		weatherArray = object.optJSONArray("weather");
+		weather = weatherArray.getJSONObject(0);
+		
+	}
+
+	public ShortTerm(String cityName, String countryCode) throws JSONException, IOException {
+		city = cityName;
+		country = countryCode;
+		data = new WebInterface(city);
+		this.object = data.createJSONObject(data.getShortTermURL());
+
+		main = this.object.optJSONObject("main");
+		weatherArray = object.optJSONArray("weather");
+		weather = weatherArray.getJSONObject(0);
+	}
+	
+	private static JSONObject getCityJSONObject() throws JSONException, IOException {
         JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONObject city = object.getJSONObject("city");
-        return city.optString("name");
+        return city;
     }
 
-    public static String getCountry() throws  JSONException, IOException {
-        JSONObject object = data.createJSONObject(data.getJSON(URL));
-        JSONObject city = object.getJSONObject("city");
-        return city.optString("country");
-    }
-
-    public static String getTemperature(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJSONObject(data.getJSON(URL));
+    private static JSONObject getMainJSONObject(int i) throws JSONException, IOException {
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONObject main = internObject.getJSONObject("main");
-        return main.optString("temp");
+        return main;
     }
 
-    public static String getTempMin(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJSONObject(data.getJSON(URL));
-        JSONArray list = object.getJSONArray("list");
-        JSONObject internObject = list.getJSONObject(i);
-        JSONObject main = internObject.getJSONObject("main");
-        return main.optString("temp_min");
-    }
-
-    public static String getTempMax(int i) throws  JSONException, IOException {
-        JSONObject object = data.createJSONObject(data.getJSON(URL));
-        JSONArray list = object.getJSONArray("list");
-        JSONObject internObject = list.getJSONObject(i);
-        JSONObject main = internObject.getJSONObject("main");
-        return main.optString("temp_max");
-    }
-
-    public static String getSkyCondition(int i) throws  JSONException, IOException {
+    private static JSONObject getWeatherJSONObject(int i) throws JSONException, IOException {
         JSONObject object = data.createJSONObject(data.getJSON(URL));
         JSONArray list = object.getJSONArray("list");
         JSONObject internObject = list.getJSONObject(i);
         JSONArray weatherArray = internObject.getJSONArray("weather");
         JSONObject weatherObject = weatherArray.getJSONObject(0);
-        return weatherObject.optString("main");
+        return weatherObject;
     }
 
-		public static String getIcon(int i) throws  JSONException, IOException {
-				JSONObject object = data.createJSONObject(data.getJSON(URL));
-				JSONArray list = object.getJSONArray("list");
-				JSONObject internObject = list.getJSONObject(i);
-				JSONArray weatherArray = internObject.getJSONArray("weather");
-				JSONObject weatherObject = weatherArray.getJSONObject(0);
-				return weatherObject.optString("icon");
-		}
+    public static String getCityName() throws  JSONException, IOException {
+        return getCityJSONObject().optString("name");
+    }
+
+    public static String getCountry() throws  JSONException, IOException {
+        return getCityJSONObject().optString("country");
+    }
+
+    public static String getTemperature(int i) throws  JSONException, IOException {
+        return getMainJSONObject(i).optString("temp");
+    }
+
+    public static String getSkyCondition(int i) throws  JSONException, IOException {
+        return getWeatherJSONObject(i).optString("main");
+    }
+
+    public static String getIcon(int i) throws  JSONException, IOException {
+        return getWeatherJSONObject(i).optString("icon");
+    }
 
     public static String getDate(int i) throws JSONException, IOException {
         JSONObject object = data.createJSONObject(data.getJSON(URL));
