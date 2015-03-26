@@ -10,27 +10,58 @@ import java.net.*;
 
 public class WebInterface {
 	
-	private static final String URL = "http://api.openweathermap.org/data/2.5/weather?q=";
-	private static final String APPID = "appId=f74197d83bc45827574fcf77670f8a63";
-	private static final String UNITS = "units=metric";
+	private static final String LOCAL_WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+	private static final String SHORT_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
+	private static final String LONG_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=10&mode=json&q=";
 
-	private String cityName;
+	private static final String APPID = "appId=f74197d83bc45827574fcf77670f8a63";
+
+	private String cityName; 
+	private String countryCode;
 
 	public WebInterface(String cityName) {
 		this.cityName = cityName;
+		
 	}
 
-	public String buildURL() throws UnsupportedEncodingException {
-		return new StringBuilder()
-		.append(URL).append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
-		.append(UNITS).append("&").append(APPID).toString();
+	public WebInterface(String cityName, String countryCode) {
+		this.cityName = cityName;
+		this.countryCode = countryCode;
+	}
+	
+	public String buildLocalWeatherURL() throws UnsupportedEncodingException {
+		if (this.countryCode != null) {
+			return new StringBuilder().append(LOCAL_WEATHER_URL)
+					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
+					.append("&").append(APPID).toString();
+		}
+		
+		return new StringBuilder().append(LOCAL_WEATHER_URL)
+				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
+				.append(APPID).toString();
 	}
 
-	public String getContentOfURL() throws IOException{
-		return getJSON(buildURL());
+	public String getLocalWeatherURL() throws IOException{
+		return getJSON(buildLocalWeatherURL());
+	}
+	
+	public String buildShortTermURL() throws UnsupportedEncodingException {
+		if (this.countryCode != null) {
+			return new StringBuilder().append(LOCAL_WEATHER_URL)
+					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
+					.append("&").append(APPID).toString();
+		}
+		
+		return new StringBuilder().append(LOCAL_WEATHER_URL)
+				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
+				.append(APPID).toString();
 	}
 
-	public JSONObject createJsonObject(String stringNotParsed) throws JSONException {
+	public String getShortTermURL() throws IOException{
+		return getJSON(buildLocalWeatherURL());
+	}
+
+	public JSONObject createJSONObject(String stringNotParsed) throws JSONException {
 		JSONObject jsonObject;
 		if(stringNotParsed != null)
 			jsonObject = new JSONObject(stringNotParsed);

@@ -10,7 +10,9 @@ public class CustomLabel extends JLabel{
 		
 		super(text);
 		this.setFont(new Font("Gotham Light", Font.PLAIN, 12));
-		this.setForeground(Color.white);
+		//this.setForeground(Color.white);
+		this.setForeground(Color.BLACK);
+
 		try{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Gotham Light.ttf")));

@@ -11,18 +11,24 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 public class GUIApp {
+	
 	public static void main(String[]args) throws JSONException, IOException {
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			
 			public void run(){
-				GUIFullWindow window = new GUIFullWindow();
+				
+				GUIFullWindow window = null;
+				try {
+					window = new GUIFullWindow();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				window.setVisible(true);
 			}
 		});
-		
-		
-		
 		
 	}
 

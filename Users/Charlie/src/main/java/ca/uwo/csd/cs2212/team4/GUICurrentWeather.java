@@ -7,6 +7,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
 
+import org.json.JSONException;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
@@ -18,7 +20,9 @@ public class GUICurrentWeather extends JFrame {
 	private DateFormat dateFormat;
 	private String strTemp, strMin, strMax, strPressure, strSunrise, strSunset, strHumidity, strWdSpd, strWdDir, location, strCondition;
 	private CustomLabel lblTemp, lblMin, lblMax, lblPressure_1, lblSunrise_1, lblSunset_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
-	
+	private LocalWeatherView weather;
+	private BufferedImage img;
+	private JLabel lblIcon;
 	/**
 	 * Launch the application.
 	 */
@@ -38,32 +42,40 @@ public class GUICurrentWeather extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws IOException 
+	 * @throws JSONException 
 	 */
-	public GUICurrentWeather() {
+	public GUICurrentWeather() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 320, 500);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(8,194,184));
+		//contentPane.setBackground(new Color(8,194,184));
+		contentPane.setBackground(Color.WHITE);
 		
 		contentPane.setBorder(BorderFactory.createRaisedBevelBorder());
 		setContentPane(contentPane);
-		
+
+		/***
+		 * Initialize local weather object
+		 * *********************************************/
+		weather = new LocalWeatherView("London");
+	
 /***********************************************************************************************
  * initialize all strings and labels
  * ************************************************************************************************/
 		
 		strTemp=strMin=strMax=strPressure=strSunrise=strSunset=strHumidity=strWdSpd=strWdDir=location=strCondition="NA";
 		try{
-			strTemp = LocalWeatherView.getTemperature();
-			strMin = LocalWeatherView.getTempMin();
-			strMax = LocalWeatherView.getTempMax();
-			strPressure = LocalWeatherView.getPressure();
-			strSunrise = LocalWeatherView.getSunrise();
-			strSunset = LocalWeatherView.getSunset();
-			strHumidity = LocalWeatherView.getHumidity();
-			strWdSpd = LocalWeatherView.getWindSpeed();
-			strWdDir = LocalWeatherView.getWindDirection();
-			strCondition = LocalWeatherView.getSkyCondition();
+			strTemp = weather.getTemperature();
+			strMin = weather.getTempMin();
+			strMax = weather.getTempMax();
+			strPressure = weather.getPressure();
+			strSunrise = weather.getSunrise();
+			strSunset = weather.getSunset();
+			strHumidity = weather.getHumidity();
+			strWdSpd = weather.getWindSpeed();
+			strWdDir = weather.getWindDirection();
+			strCondition = weather.getSkyCondition();
 		}
 		catch(Exception e){
 			System.out.println("Error getting info");
@@ -330,14 +342,14 @@ public class GUICurrentWeather extends JFrame {
  * Weather condition icon
  * *************************************************************************************************/
 		
-		BufferedImage img = null;
+		img = null;
 		try{
 			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
 		}
 		catch(IOException e){
 			System.out.println("Can't open image file");
 		}
-		JLabel lblIcon = new JLabel(new ImageIcon(img));
+		lblIcon = new JLabel(new ImageIcon(img));
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 
 	}
@@ -345,21 +357,25 @@ public class GUICurrentWeather extends JFrame {
 	public JPanel getPanel(){
 		return contentPane;
 	}
+
+/*****************************REFRESH**************************/
 	
 	public void refresh(){
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
 		try{
-			strTemp = LocalWeatherView.getTemperature();
-			strMin = LocalWeatherView.getTempMin();
-			strMax = LocalWeatherView.getTempMax();
-			strPressure = LocalWeatherView.getPressure();
-			strSunrise = LocalWeatherView.getSunrise();
-			strSunset = LocalWeatherView.getSunset();
-			strHumidity = LocalWeatherView.getHumidity();
-			strWdSpd = LocalWeatherView.getWindSpeed();
-			strWdDir = LocalWeatherView.getWindDirection();
-			strCondition = LocalWeatherView.getSkyCondition();
+
+			strTemp = weather.getTemperature();
+			strMin = weather.getTempMin();
+			strMax = weather.getTempMax();
+			strPressure = weather.getPressure();
+			strSunrise = weather.getSunrise();
+			strSunset = weather.getSunset();
+			strHumidity = weather.getHumidity();
+			strWdSpd = weather.getWindSpeed();
+			strWdDir = weather.getWindDirection();
+			strCondition = weather.getSkyCondition();
+			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
 		}
 		catch(Exception e){
 			System.out.println("Error getting info");
@@ -375,5 +391,16 @@ public class GUICurrentWeather extends JFrame {
 		lblWddir_1.setText(strWdDir);
 		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
+		lblIcon.setIcon(new ImageIcon(img));
+	}
+	
+	public void refresh(String cityOrCountry) throws JSONException, IOException{
+		weather = new LocalWeatherView(cityOrCountry);
+		this.refresh();
+	}
+	
+	public void refresh(String city, String country) throws JSONException, IOException{
+		weather = new LocalWeatherView(city, country);
+		this.refresh();
 	}
 }
