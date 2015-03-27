@@ -19,8 +19,8 @@ public class GUICurrentWeather extends JFrame {
 	private JPanel contentPane;
 	private Date date;
 	private DateFormat dateFormat;
-	private String strTemp, strMin, strMax, strPressure, strSunrise, strSunset, strHumidity, strWdSpd, strWdDir, location, strCondition;
-	private CustomLabel lblTemp, lblMin, lblMax, lblPressure_1, lblSunrise_1, lblSunset_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
+	private String strTemp, strMin, strMax, strPressure, strSunrise, strSunset, strHumidity, strWdSpd, strWdDir, strLocation, strCondition;
+	private CustomLabel lblLocation, lblTemp, lblMin, lblMax, lblPressure_1, lblSunrise_1, lblSunset_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
 	private LocalWeatherView weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
@@ -65,7 +65,7 @@ public class GUICurrentWeather extends JFrame {
  * initialize all strings and labels
  * ************************************************************************************************/
 		
-		strTemp=strMin=strMax=strPressure=strSunrise=strSunset=strHumidity=strWdSpd=strWdDir=location=strCondition="NA";
+		strTemp=strMin=strMax=strPressure=strSunrise=strSunset=strHumidity=strWdSpd=strWdDir=strLocation=strCondition="NA";
 		try{
 			strTemp = weather.getTemperature();
 			strMin = weather.getTempMin();
@@ -77,6 +77,7 @@ public class GUICurrentWeather extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
+			strLocation = weather.getCityName();
 		}
 		catch(Exception e){
 			System.out.println("Error getting info");
@@ -301,7 +302,7 @@ public class GUICurrentWeather extends JFrame {
 		infoPanel.setOpaque(false);
 		topPanel.add(infoPanel, BorderLayout.NORTH);
 		
-		CustomLabel lblLocation = new CustomLabel("LOCATION");
+		lblLocation = new CustomLabel(strLocation);
 		
 		CustomLabel lblLastUpdate = new CustomLabel("Last Update:");
 
@@ -374,6 +375,7 @@ public class GUICurrentWeather extends JFrame {
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
 			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
+			strLocation =  weather.getCityName();
 		}
 		catch(Exception e){
 			System.out.println("Error getting info");
@@ -390,6 +392,7 @@ public class GUICurrentWeather extends JFrame {
 		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
 		lblIcon.setIcon(new ImageIcon(img));
+		lblLocation.setText(strLocation);
 	}
 	
 	public void refresh(String cityOrCountry) throws JSONException, IOException{

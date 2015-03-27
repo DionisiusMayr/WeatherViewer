@@ -62,14 +62,14 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		
 		JPanel userPanel = new JPanel();
 		lblCity = new CustomLabel("City: ");
-		lblCity.setFont(new Font("Gotham Light", Font.PLAIN, 20));
+		lblCity.setFont(new Font("Gotham Light", Font.PLAIN, 16));
 		txtCity = new JTextField("");
 		txtCity.setPreferredSize(new Dimension(100,25));
 		userPanel.add(lblCity);
 		userPanel.add(txtCity);
 		
 		lblCountry = new CustomLabel("Country: ");
-		lblCountry.setFont(new Font("Gotham Light", Font.PLAIN, 20));
+		lblCountry.setFont(new Font("Gotham Light", Font.PLAIN, 16));
 		txtCountry = new JTextField("");
 		txtCountry.setPreferredSize(new Dimension(100,25));
 		userPanel.add(lblCountry);
@@ -77,9 +77,14 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		
 		JButton btnRefresh = new JButton("Refresh");
 		this.getRootPane().setDefaultButton(btnRefresh);
-		btnRefresh.setFont(new Font("Gotham Light", Font.PLAIN, 20));
+		btnRefresh.setFont(new Font("Gotham Light", Font.PLAIN, 16));
 		btnRefresh.addActionListener(this);
 		userPanel.add(btnRefresh);
+		
+		JButton btnMars = new JButton("Take me to Mars!");
+		btnMars.setFont(new Font("Gotham Light", Font.PLAIN, 16));
+		btnMars.addActionListener(this);
+		userPanel.add(btnMars);
 		
 		userPanel.setOpaque(false);
 		contentPane.add(userPanel, BorderLayout.NORTH);
@@ -94,6 +99,8 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		GUIShortTermWeather shortForecastWindow = new GUIShortTermWeather("London Canada");
 		GUILongTermWeather longForecastWindow = new GUILongTermWeather();
 		
+		
+		String strShortTermForecast = "Short Term Forecast";
 		tabbedPane.addTab("Short Term Forecast", null, shortForecastWindow.getPanel(), null);
 		tabbedPane.addTab("Long Term Forecast", null, longForecastWindow.getPanel(), null);
 
@@ -105,46 +112,54 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent ae){
 		
-		LocalWeatherView tester = null; 
-		strCity = txtCity.getText().toLowerCase();
-		strCountry = txtCountry.getText().toLowerCase();
+		if(ae.getActionCommand().equals("Refresh")){
 		
-		if(strCity.equals("") && strCountry.equals("")){
-			currentWeatherWindow.refresh();
-		}
-		else if(strCity.equals("")){
-			try{
-				tester = new LocalWeatherView(strCountry);
-				currentWeatherWindow.refresh(strCountry);
-			}
-			catch(Exception e){
-				this.showErrorWindow();
-				txtCity.setText("");
-				txtCountry.setText("");
-			}
-		}
-		else if(strCountry.equals("")){
-			try{
-				tester = new LocalWeatherView(strCity);
-				currentWeatherWindow.refresh(strCity);
-			}
-			catch(Exception e){
-				this.showErrorWindow();
-				txtCity.setText("");
-				txtCountry.setText("");
-			}
-		}
-		else{
-			try{
-				tester = new LocalWeatherView(strCity, strCountry);
-				currentWeatherWindow.refresh(strCity, strCountry);
-			}
-			catch(Exception e){
-				this.showErrorWindow();
-				txtCity.setText("");
-				txtCountry.setText("");
-			}
+			LocalWeatherView tester = null; 
+			strCity = txtCity.getText().toLowerCase();
+			strCountry = txtCountry.getText().toLowerCase();
 			
+			if(strCity.equals("") && strCountry.equals("")){
+				currentWeatherWindow.refresh();
+			}
+			else if(strCity.equals("")){
+				try{
+					tester = new LocalWeatherView(strCountry);
+					currentWeatherWindow.refresh(strCountry);
+				}
+				catch(Exception e){
+					this.showErrorWindow();
+					txtCity.setText("");
+					txtCountry.setText("");
+				}
+			}
+			else if(strCountry.equals("")){
+				try{
+					tester = new LocalWeatherView(strCity);
+					currentWeatherWindow.refresh(strCity);
+				}
+				catch(Exception e){
+					this.showErrorWindow();
+					txtCity.setText("");
+					txtCountry.setText("");
+				}
+			}
+			else{
+				try{
+					tester = new LocalWeatherView(strCity, strCountry);
+					currentWeatherWindow.refresh(strCity, strCountry);
+				}
+				catch(Exception e){
+					this.showErrorWindow();
+					txtCity.setText("");
+					txtCountry.setText("");
+				}
+				
+			}
+		}
+		else if(ae.getActionCommand().equals("Take me to Mars!")){
+			
+			GUIMars mars = new GUIMars();
+			mars.setVisible(true);
 		}
 		
 		
