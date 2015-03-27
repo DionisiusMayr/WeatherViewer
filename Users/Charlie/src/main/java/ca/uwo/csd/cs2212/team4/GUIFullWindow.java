@@ -165,7 +165,16 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		}
 		else if(ae.getActionCommand().equals("Take me to Mars!")){
 			
-			GUIMars mars = new GUIMars();
+			GUIMars mars =null;
+			try {
+				mars = new GUIMars();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mars.setVisible(true);
 		}
 		
