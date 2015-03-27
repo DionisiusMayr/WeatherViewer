@@ -2,14 +2,14 @@ package ca.uwo.csd.cs2212.team4;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -21,14 +21,19 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class GUIShortTermWeather extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtLondonOnt;
-	//private JLabel temp3,temp6,temp9;
-	private JLabel[] tempMax,tempMin,windSpeed,windDirection,airPressure,humidity,skyCondition;
+	private BufferedImage img;
+	private String city,country;
+	private ShortTerm weather;
+	private JLabel[] temp,skyCondition,icon,date;
 
 	/**
 	 * Launch the application.
@@ -50,346 +55,293 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GUIShortTermWeather(String location) {
+		this.city = location;
+		
 		setTitle("Short-Term Weather");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 982, 523);
+		setBounds(100, 100, 465, 500);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.BLACK);
 		contentPane.setMinimumSize(new Dimension(650, 40));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new MigLayout("", "[107.00][17.00][-48.00][85][10.00][85][][85][][85][][85][][85][0][85.00][][85]", "[][18.00][23.00][40][40][40][40][40][40][40][40]"));
+		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Current Location:");
-		contentPane.add(lblNewLabel_2, "cell 0 0,alignx trailing");
+		CustomLabel lbl3 = new CustomLabel("3");
+		lbl3.setBounds(85, 36, 10, 20);
+		contentPane.add(lbl3);
 		
-		txtLondonOnt = new JTextField();
-		txtLondonOnt.setText(location);
-		contentPane.add(txtLondonOnt, "cell 1 0 3 1,alignx center");
-		txtLondonOnt.setColumns(10);
+		CustomLabel lbl6 = new CustomLabel("6");
+		lbl6.setBounds(185, 36, 10, 20);
+		contentPane.add(lbl6);
 		
-		JLabel lblUpdated = new JLabel("Updated:");
-		contentPane.add(lblUpdated, "cell 11 0,alignx right");
+		CustomLabel lbl9 = new CustomLabel("9");
+		lbl9.setBounds(285, 36, 10, 20);
+		contentPane.add(lbl9);
 		
-		JLabel lblNow = new JLabel("\"time\"");
-		contentPane.add(lblNow, "cell 12 0 2 1");
+		CustomLabel lbl12 = new CustomLabel("12");
+		lbl12.setBounds(385, 36, 20, 20);
+		contentPane.add(lbl12);
 		
-		JLabel lblThree = new JLabel("3");
-		lblThree.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblThree, "cell 3 2,alignx center");
+		CustomLabel lbl15 = new CustomLabel("15");
+		lbl15.setBounds(485, 36, 20, 20);
+		contentPane.add(lbl15);
 		
-		JLabel lblSix = new JLabel("6");
-		lblSix.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblSix, "cell 5 2,alignx center");
+		CustomLabel lbl18 = new CustomLabel("18");
+		lbl18.setBounds(585, 36, 20, 20);
+		contentPane.add(lbl18);
 		
-		JLabel lblNine = new JLabel("9");
-		lblNine.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblNine, "cell 7 2,alignx center");
+		CustomLabel lbl21 = new CustomLabel("21");
+		lbl21.setBounds(685, 36, 20, 20);
+		contentPane.add(lbl21);
 		
-		JLabel lblTwelve = new JLabel("12");
-		lblTwelve.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblTwelve, "cell 9 2,alignx center");
+		CustomLabel lbl24 = new CustomLabel("24");
+		lbl24.setBounds(785, 36, 20, 20);
+		contentPane.add(lbl24);
 		
-		JLabel lblFifteen = new JLabel("15");
-		lblFifteen.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblFifteen, "cell 11 2,alignx center");
-		
-		JLabel lblEighteen = new JLabel("18");
-		lblEighteen.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblEighteen, "cell 13 2,alignx center");
-		
-		JLabel lblTwentyOne = new JLabel("21");
-		lblTwentyOne.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblTwentyOne, "cell 15 2,alignx center");
-		
-		JLabel lblTwentyFour = new JLabel("24");
-		lblTwentyFour.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblTwentyFour, "cell 17 2,alignx center");
-		
-		JLabel lblMaxTemp = new JLabel("Max Temp:");
-		lblMaxTemp.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblMaxTemp, "cell 0 3");
-		
-		
-		//Temperature
-		JLabel lblTemp = new JLabel("Min Temp:");
-		lblTemp.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblTemp, "cell 0 4,growx,aligny center");
-		
-		JLabel temp3 = new JLabel();
-		contentPane.add(temp3, "cell 3 4,alignx center,aligny center");
+		CustomLabel temp3 = new CustomLabel("temp");
+		temp3.setBounds(65, 180, 50, 14);
+		contentPane.add(temp3);
 		temp3.setText("temp");
 		
-		JLabel temp6 = new JLabel();
-		contentPane.add(temp6, "cell 5 4,alignx center,aligny center");
+		CustomLabel temp6 = new CustomLabel("temp");
+		temp6.setBounds(165, 180, 50, 14);
+		contentPane.add(temp6);
 		temp6.setText("temp");
 		
-		JLabel temp9 = new JLabel();
-		contentPane.add(temp9, "cell 7 4,alignx center,aligny center");
+		CustomLabel temp9 = new CustomLabel("temp");
+		temp9.setBounds(265, 180, 50, 14);
+		contentPane.add(temp9);
 		temp9.setText("temp");
 		
-		JLabel temp12 = new JLabel();
-		contentPane.add(temp12, "cell 9 4,alignx center,aligny center");
+		CustomLabel temp12 = new CustomLabel("temp");
+		temp12.setBounds(365, 180, 50, 14);
+		contentPane.add(temp12);
 		temp12.setText("temp");
 		
-		JLabel temp15 = new JLabel();
-		contentPane.add(temp15, "cell 11 4,alignx center,aligny center");
+		CustomLabel temp15 = new CustomLabel("temp");
+		temp15.setBounds(465, 180, 50, 14);
+		contentPane.add(temp15);
 		temp15.setText("temp");
 		
-		JLabel temp18 = new JLabel();
-		contentPane.add(temp18, "cell 13 4,alignx center,aligny center");
+		CustomLabel temp18 = new CustomLabel("temp");
+		temp18.setBounds(565, 180, 50, 14);
+		contentPane.add(temp18);
 		temp18.setText("temp");
 		
-		JLabel temp21 = new JLabel();
-		contentPane.add(temp21, "cell 15 4,alignx center,aligny center");
+		CustomLabel temp21 = new CustomLabel("temp");
+		temp21.setBounds(665, 180, 50, 14);
+		contentPane.add(temp21);
 		temp21.setText("temp");
 		
-		//Separators
-		JSeparator separator = new JSeparator();
-		separator.setSize(new Dimension(665, 20));
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setMinimumSize(new Dimension(7, 350));
-		separator.setForeground(Color.BLACK);
-		separator.setBackground(Color.BLACK);
-		contentPane.add(separator, "cell 6 3 1 8");
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setSize(new Dimension(650, 20));
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setMinimumSize(new Dimension(7, 350));
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBackground(Color.BLACK);
-		contentPane.add(separator_1, "cell 8 3 1 8");
-		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setSize(new Dimension(650, 20));
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setMinimumSize(new Dimension(7, 350));
-		separator_2.setForeground(Color.BLACK);
-		separator_2.setBackground(Color.BLACK);
-		contentPane.add(separator_2, "cell 10 3 1 8");
-		
-		JSeparator separator_3 = new JSeparator();
-		separator_3.setSize(new Dimension(650, 20));
-		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setMinimumSize(new Dimension(7, 350));
-		separator_3.setForeground(Color.BLACK);
-		separator_3.setBackground(Color.BLACK);
-		contentPane.add(separator_3, "cell 12 3 1 8");
-		
-		JSeparator separator_4 = new JSeparator();
-		separator_4.setSize(new Dimension(650, 20));
-		separator_4.setOrientation(SwingConstants.VERTICAL);
-		separator_4.setMinimumSize(new Dimension(7, 350));
-		separator_4.setForeground(Color.BLACK);
-		separator_4.setBackground(Color.BLACK);
-		contentPane.add(separator_4, "cell 14 3 1 8");
-		
-		JSeparator separator_5 = new JSeparator();
-		separator_5.setSize(new Dimension(650, 20));
-		separator_5.setOrientation(SwingConstants.VERTICAL);
-		separator_5.setMinimumSize(new Dimension(7, 350));
-		separator_5.setForeground(Color.BLACK);
-		separator_5.setBackground(Color.BLACK);
-		contentPane.add(separator_5, "cell 16 3 1 8");
-		
-		JSeparator sepVert = new JSeparator();
-		sepVert.setOrientation(SwingConstants.VERTICAL);
-		sepVert.setMinimumSize(new Dimension(7, 350));
-		sepVert.setBackground(Color.BLACK);
-		sepVert.setForeground(Color.BLACK);
-		sepVert.setSize(new Dimension(650, 20));
-		contentPane.add(sepVert, "cell 4 3 1 8");
+		CustomLabel temp24 = new CustomLabel("temp");
+		temp24.setBounds(765, 180, 50, 14);
+		contentPane.add(temp24);
 		
 		
-		//Wind speed
-		JLabel lblWind = new JLabel("Wind speed:");
-		lblWind.setFont(new Font("Tahoma", Font.BOLD, 14));
-		contentPane.add(lblWind, "cell 0 5,growx");
 		
-		JLabel wind3 = new JLabel();
-		contentPane.add(wind3, "cell 3 5,alignx center");
-		wind3.setText("wind");
+		//max temp
+		/*CustomLabel maxT3 = new CustomLabel();
+		maxT3.setBounds(65, 195, 24, 14);
+		contentPane.add(maxT3);
+		maxT3.setText("temp");
 		
-		JLabel wind6 = new JLabel();
-		contentPane.add(wind6, "cell 5 5,alignx center");
-		wind6.setText("wind");
+		CustomLabel maxT6 = new CustomLabel();
+		maxT6.setBounds(165, 195, 24, 14);
+		contentPane.add(maxT6);
+		maxT6.setText("temp");
 		
-		JLabel windTue = new JLabel();
-		contentPane.add(windTue, "cell 7 5,alignx center");
-		windTue.setText("wind");
+		CustomLabel maxT9 = new CustomLabel();
+		maxT9.setBounds(265, 195, 24, 14);
+		contentPane.add(maxT9);
+		maxT9.setText("temp");
 		
-		JLabel wind12 = new JLabel();
-		contentPane.add(wind12, "cell 9 5,alignx center");
-		wind12.setText("wind");
+		CustomLabel maxT12 = new CustomLabel();
+		maxT12.setBounds(365, 195, 24, 14);
+		contentPane.add(maxT12);
+		maxT12.setText("temp");
 		
-		JLabel wind15 = new JLabel();
-		contentPane.add(wind15, "cell 11 5,alignx center");
-		wind15.setText("wind");
+		CustomLabel maxT15 = new CustomLabel();
+		maxT15.setBounds(465, 195, 24, 14);
+		contentPane.add(maxT15);
+		maxT15.setText("temp");
 		
-		JLabel wind18 = new JLabel();
-		contentPane.add(wind18, "cell 13 5,alignx center");
-		wind18.setText("wind");
+		CustomLabel maxT18 = new CustomLabel();
+		maxT18.setBounds(565, 195, 24, 14);
+		contentPane.add(maxT18);
+		maxT18.setText("temp");
 		
-		JLabel wind21 = new JLabel();
-		contentPane.add(wind21, "cell 15 5,alignx center");
-		wind21.setText("wind");
+		CustomLabel maxT21 = new CustomLabel();
+		maxT21.setBounds(665, 195, 24, 14);
+		contentPane.add(maxT21);
+		maxT21.setText("temp");
 		
-		
-		//Wind direction
-		JLabel lblWindDirection = new JLabel("Wind direction:");
-		contentPane.add(lblWindDirection, "cell 0 6,growx");
-		lblWindDirection.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JLabel windDir3 = new JLabel();
-		contentPane.add(windDir3, "cell 3 6,alignx center");
-		windDir3.setText("windDir");
-		
-		JLabel windDir6 = new JLabel();
-		contentPane.add(windDir6, "cell 5 6,alignx center");
-		windDir6.setText("windDir");
-		
-		JLabel windDirTue = new JLabel();
-		contentPane.add(windDirTue, "cell 7 6,alignx center");
-		windDirTue.setText("windDir");
-		
-		JLabel windDir12 = new JLabel();
-		contentPane.add(windDir12, "cell 9 6,alignx center");
-		windDir12.setText("windDir");
-		
-		JLabel windDir15 = new JLabel();
-		contentPane.add(windDir15, "cell 11 6,alignx center");
-		windDir15.setText("windDir");
-		
-		JLabel windDir18 = new JLabel();
-		contentPane.add(windDir18, "cell 13 6,alignx center");
-		windDir18.setText("windDir");
-		
-		JLabel windDir21 = new JLabel();
-		contentPane.add(windDir21, "cell 15 6,alignx center");
-		windDir21.setText("windDir");
-		
-		//Air pressure
-		JLabel lblAirPressure = new JLabel("Air pressure:");
-		contentPane.add(lblAirPressure, "cell 0 7,growx");
-		lblAirPressure.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JLabel air3 = new JLabel();
-		contentPane.add(air3, "cell 3 7,alignx center");
-		air3.setText("Air");
-		
-		JLabel air6 = new JLabel();
-		contentPane.add(air6, "cell 5 7,alignx center");
-		air6.setText("Air");
-		
-		JLabel airTue = new JLabel();
-		contentPane.add(airTue, "cell 7 7,alignx center");
-		airTue.setText("Air");
-		
-		JLabel air12 = new JLabel();
-		contentPane.add(air12, "cell 9 7,alignx center");
-		air12.setText("Air");
-		
-		JLabel air15 = new JLabel();
-		contentPane.add(air15, "cell 11 7,alignx center");
-		air15.setText("Air");
-		
-		JLabel air18 = new JLabel();
-		contentPane.add(air18, "cell 13 7,alignx center");
-		air18.setText("Air");
-		
-		JLabel air21 = new JLabel();
-		contentPane.add(air21, "cell 15 7,alignx center");
-		air21.setText("Air");
-		
-		
-		//Humidity
-		JLabel lblHumidity = new JLabel("Humidity:");
-		contentPane.add(lblHumidity, "cell 0 8,growx");
-		lblHumidity.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JLabel hum3 = new JLabel();
-		contentPane.add(hum3, "cell 3 8,alignx center");
-		hum3.setText("hum");
-		
-		JLabel hum6 = new JLabel();
-		contentPane.add(hum6, "cell 5 8,alignx center");
-		hum6.setText("hum");
-		
-		JLabel humTue = new JLabel();
-		contentPane.add(humTue, "cell 7 8,alignx center");
-		humTue.setText("hum");
-		
-		JLabel hum12 = new JLabel();
-		contentPane.add(hum12, "cell 9 8,alignx center");
-		hum12.setText("hum");
-		
-		JLabel hum15 = new JLabel();
-		contentPane.add(hum15, "cell 11 8,alignx center");
-		hum15.setText("hum");
-		
-		JLabel hum18 = new JLabel();
-		contentPane.add(hum18, "cell 13 8,alignx center");
-		hum18.setText("hum");
-		
-		JLabel hum21 = new JLabel();
-		contentPane.add(hum21, "cell 15 8,alignx center");
-		hum21.setText("hum");
-		
-		
-		//Sky condition
-		JLabel lblSkyCondition = new JLabel("Sky condition:");
-		contentPane.add(lblSkyCondition, "cell 0 9,growx");
-		lblSkyCondition.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
-		JLabel skyCon3 = new JLabel();
-		contentPane.add(skyCon3, "cell 3 9,alignx center");
+		CustomLabel maxT24 = new CustomLabel();
+		maxT24.setBounds(765, 195, 24, 14);
+		contentPane.add(maxT24);
+		maxT24.setText("temp");
+		*/
+		CustomLabel skyCon3 = new CustomLabel("temp");
+		skyCon3.setBounds(65, 165, 50, 14);
+		contentPane.add(skyCon3);
 		skyCon3.setText("skyCon");
 		
-		JLabel skyCon6 = new JLabel();
-		contentPane.add(skyCon6, "cell 5 9,alignx center");
+		CustomLabel skyCon6 = new CustomLabel("temp");
+		skyCon6.setBounds(165, 165, 50, 14);
+		contentPane.add(skyCon6);
 		skyCon6.setText("skyCon");
 		
-		JLabel skyConTue = new JLabel();
-		contentPane.add(skyConTue, "cell 7 9,alignx center");
-		skyConTue.setText("skyCon");
+		CustomLabel skyCon9 = new CustomLabel("temp");
+		skyCon9.setBounds(265, 165, 50, 14);
+		contentPane.add(skyCon9);
+		skyCon9.setText("skyCon");
 		
-		JLabel skyCon12 = new JLabel();
-		contentPane.add(skyCon12, "cell 9 9,alignx center");
+		CustomLabel skyCon12 = new CustomLabel("temp");
+		skyCon12.setBounds(365, 165, 50, 14);
+		contentPane.add(skyCon12);
 		skyCon12.setText("skyCon");
 		
-		JLabel skyCon15 = new JLabel();
-		contentPane.add(skyCon15, "cell 11 9,alignx center");
+		CustomLabel skyCon15 = new CustomLabel("temp");
+		skyCon15.setBounds(465, 165, 50, 14);
+		contentPane.add(skyCon15);
 		skyCon15.setText("skyCon");
 		
-		JLabel skyCon18 = new JLabel();
-		contentPane.add(skyCon18, "cell 13 9,alignx center");
+		CustomLabel skyCon18 = new CustomLabel("temp");
+		skyCon18.setBounds(565, 165, 50, 14);
+		contentPane.add(skyCon18);
 		skyCon18.setText("skyCon");
 		
-		JLabel skyCon21 = new JLabel();
-		contentPane.add(skyCon21, "cell 15 9,alignx center");
+		CustomLabel skyCon21 = new CustomLabel("temp");
+		skyCon21.setBounds(665, 165, 50, 14);
+		contentPane.add(skyCon21);
 		skyCon21.setText("skyCon");
-	
-		//Sky images
-		JLabel lblSkyImage = new JLabel("\"sky image\"");
-		contentPane.add(lblSkyImage, "cell 3 10,alignx center");
 		
+		CustomLabel skyCon24 = new CustomLabel("temp");
+		skyCon24.setBounds(765, 165, 50, 14);
+		contentPane.add(skyCon24);
+		skyCon24.setText("skyCon");
+		
+		//button
 		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBounds(474, 9, 71, 23);
 		btnRefresh.addActionListener(this);
-		contentPane.add(btnRefresh, "cell 0 1,alignx center");
+		contentPane.add(btnRefresh);
 		
-		tempMax = new JLabel[7];
-		tempMax[0] = new JLabel ("test");
-		tempMax[1] = temp6;
-		contentPane.add(tempMax[0], "cell 5 10");
+		//sky condition icons
+		JLabel sImg3 = new JLabel(new ImageIcon("snow.png"));
+		sImg3.setBounds(25,60,100,100);
+		contentPane.add(sImg3);
+		
+		JLabel sImg6 = new JLabel(new ImageIcon("snow.png"));
+		sImg6.setBounds(125,60,100,100);
+		contentPane.add(sImg6);
+		
+		JLabel sImg9 = new JLabel(new ImageIcon("snow.png"));
+		sImg9.setBounds(225,60,100,100);
+		contentPane.add(sImg9);
+		
+		JLabel sImg12 = new JLabel(new ImageIcon("snow.png"));
+		sImg12.setBounds(325,60,100,100);
+		contentPane.add(sImg12);
+		
+		JLabel sImg15 = new JLabel(new ImageIcon("snow.png"));
+		sImg15.setBounds(25,230,100,100);
+		contentPane.add(sImg15);
+		
+		JLabel sImg18 = new JLabel(new ImageIcon("snow.png"));
+		sImg18.setBounds(125,230,100,100);
+		contentPane.add(sImg18);
+		
+		JLabel sImg21 = new JLabel(new ImageIcon("snow.png"));
+		sImg21.setBounds(225,230,100,100);
+		contentPane.add(sImg21);
+		
+		JLabel sImg24 = new JLabel(new ImageIcon("snow.png"));
+		sImg24.setBounds(325,230,100,100);
+		contentPane.add(sImg24);
+		
+		
+		temp = new CustomLabel[8];
+		temp[0] = temp3;
+		temp[1] = temp6;
+		temp[2] = temp9;
+		temp[3] = temp12;
+		temp[4] = temp15;
+		temp[5] = temp18;
+		temp[6] = temp21;
+		temp[7] = temp24;
+		
+		skyCondition = new CustomLabel[8];
+		skyCondition[0] = skyCon3;
+		skyCondition[1] = skyCon6;
+		skyCondition[2] = skyCon9;
+		skyCondition[3] = skyCon12;
+		skyCondition[4] = skyCon15;
+		skyCondition[5] = skyCon18;
+		skyCondition[6] = skyCon21;
+		skyCondition[7] = skyCon24;
+		
+		icon = new JLabel[8];
+		icon[0] = sImg3;
+		icon[1] = sImg6;
+		icon[2] = sImg9;
+		icon[3] = sImg12;
+		icon[4] = sImg15;
+		icon[5] = sImg18;
+		icon[6] = sImg21;
+		icon[7] = sImg24;
+		
+		date = new CustomLabel[8];
+		date[0] = lbl3;
+		date[1] = lbl6;
+		date[2] = lbl9;
+		date[3] = lbl12;
+		date[4] = lbl15;
+		date[5] = lbl18;
+		date[6] = lbl21;
+		date[7] = lbl24;
+		
+		//refresh(city);//for the time being only use the city
 	}
 
-	public void actionPerformed(ActionEvent ae){
-	
-			//temp3.setText("test");
-			tempMax[0].setText("it works");
-			tempMax[1].setText("abcdefgh");
+	public void actionPerformed(ActionEvent ae){	
 		
+		refresh(city);
+		
+	}
+	
+	public void refresh(String city){
+		try{
+		weather = new ShortTerm(city);
+		
+		
+		for(int i=0;i<8;i++){
+			temp[i].setText(weather.getTemperature(i));
+			skyCondition[i].setText(weather.getSkyCondition(i));
+			icon[i] = new JLabel(new ImageIcon(weather.getIcon(i)));
+		}
+		}catch(Exception e){
+			System.out.println("IO exception, short term refresh method");
+		}
+		
+	}
+	public void refresh(String city,String country){
+		try{
+		weather = new ShortTerm(city,country);
+		
+		for(int i=0;i<8;i++){
+			temp[i].setText(weather.getTemperature(i));
+			skyCondition[i].setText(weather.getSkyCondition(i));
+			icon[i] = new JLabel(new ImageIcon(weather.getIcon(i)));
+		}
+		}catch(Exception e){
+			System.out.println("IO exception, short term refresh method");
+		}
+		
+	}
+	
+	public void test(){
+		temp[0].setText("yes");
 	}
 	
 	public JPanel getPanel(){

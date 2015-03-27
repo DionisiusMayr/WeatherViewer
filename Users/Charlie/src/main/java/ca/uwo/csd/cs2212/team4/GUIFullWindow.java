@@ -52,36 +52,41 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	 */
 	public GUIFullWindow() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 600);
+		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
 		//contentPane.setBackground(new Color(13,191,182));
 		contentPane.setBackground(new Color(174,242,239));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.setLayout(new BorderLayout());
 		
+		JPanel userPanel = new JPanel();
 		lblCity = new CustomLabel("City: ");
 		lblCity.setFont(new Font("Gotham Light", Font.PLAIN, 20));
 		txtCity = new JTextField("");
 		txtCity.setPreferredSize(new Dimension(100,25));
-		contentPane.add(lblCity);
-		contentPane.add(txtCity);
+		userPanel.add(lblCity);
+		userPanel.add(txtCity);
 		
 		lblCountry = new CustomLabel("Country: ");
 		lblCountry.setFont(new Font("Gotham Light", Font.PLAIN, 20));
 		txtCountry = new JTextField("");
 		txtCountry.setPreferredSize(new Dimension(100,25));
-		contentPane.add(lblCountry);
-		contentPane.add(txtCountry);
+		userPanel.add(lblCountry);
+		userPanel.add(txtCountry);
 		
 		JButton btnRefresh = new JButton("Refresh");
 		this.getRootPane().setDefaultButton(btnRefresh);
 		btnRefresh.setFont(new Font("Gotham Light", Font.PLAIN, 20));
 		btnRefresh.addActionListener(this);
-		contentPane.add(btnRefresh);
+		userPanel.add(btnRefresh);
+		
+		userPanel.setOpaque(false);
+		contentPane.add(userPanel, BorderLayout.NORTH);
 		
 		JSplitPane splitPane = new JSplitPane();
-		contentPane.add(splitPane);
+		splitPane.setDividerLocation(300);
+		contentPane.add(splitPane, BorderLayout.CENTER);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);

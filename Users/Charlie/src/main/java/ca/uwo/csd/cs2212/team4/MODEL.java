@@ -14,7 +14,7 @@ import java.io.*;
 import java.util.*;
 import java.text.*;
 
-public class GUICurrentWeather extends JFrame {
+public class MODEL extends JFrame {
 
 	private JPanel contentPane;
 	private Date date;
@@ -46,7 +46,7 @@ public class GUICurrentWeather extends JFrame {
 	 * @throws IOException 
 	 * @throws JSONException 
 	 */
-	public GUICurrentWeather() throws JSONException, IOException {
+	public MODEL() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 500);
 		contentPane = new JPanel();
@@ -117,30 +117,12 @@ public class GUICurrentWeather extends JFrame {
  * Bottom Panel contains: miscPanel
  * *****************************************************************************************/		
 		JPanel topPanel = new JPanel();
+		topPanel.setBounds(12, 13, 268, 113);
 		topPanel.setOpaque(false);
 		
 		JPanel BottomPanel = new JPanel();
+		BottomPanel.setBounds(12, 132, 268, 317);
 		BottomPanel.setOpaque(false);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(BottomPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addComponent(topPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))
-					.addContainerGap(117, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(topPanel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(BottomPanel, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		contentPane.setLayout(gl_contentPane);
 
 		
 		JPanel AllTempPanel = new JPanel();
@@ -349,6 +331,9 @@ public class GUICurrentWeather extends JFrame {
 		}
 		lblIcon = new JLabel(new ImageIcon(img));
 		topPanel.add(lblIcon, BorderLayout.CENTER);
+		contentPane.setLayout(null);
+		contentPane.add(BottomPanel);
+		contentPane.add(topPanel);
 
 	}
 	
