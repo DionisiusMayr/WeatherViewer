@@ -85,7 +85,7 @@ public class LocalWeatherView {
 	 * @return string temperature
 	 */
 	public String getTemperature() throws JSONException, IOException {
-	    DecimalFormat f = new DecimalFormat("0.00");
+	    DecimalFormat f = new DecimalFormat("0.0");
 	    double temp = getMain().optDouble("temp");
 		return f.format(temp) + " \u00b0C"; 
 	}
@@ -129,7 +129,7 @@ public class LocalWeatherView {
 	 *  @return the value of wind direction
 	 */
 	public String getWindDirection() throws JSONException, IOException {
-		return getWind().optString("deg", null) + "\u00b0";
+		 double degree = getWind().getDouble("deg");
 	}
 
 	
