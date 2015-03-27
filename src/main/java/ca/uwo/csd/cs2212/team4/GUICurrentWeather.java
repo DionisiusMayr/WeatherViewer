@@ -35,7 +35,7 @@ public class GUICurrentWeather extends JFrame{
 	 * @throws JSONException 
 	*/
 	private void initUI() throws JSONException, IOException{
-		local = new LocalWeatherView("mississauga");
+		local = new LocalWeatherView("mississauga", "ca");
 
 		//General window settings
 		this.setTitle("Current Weather");
