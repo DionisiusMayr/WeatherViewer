@@ -55,6 +55,11 @@
 	    	<artifactId>forms</artifactId>
 	    	<version>1.0.5</version>
 	    </dependency>
+	<dependency>
+	    <groupId>com.miglayout</groupId>
+	    <artifactId>miglayout</artifactId>
+	    <version>3.6.3</version>
+	</dependency>
 		
     </dependencies>
 
@@ -67,7 +72,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass> ca.uwo.csd.cs2212.team4.GUIModel </mainClass>
+                            <mainClass> ca.uwo.csd.cs2212.team4.GUIApp </mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -82,7 +87,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ca.uwo.csd.cs2212.team4.GUIModel</mainClass>
+                            <mainClass>ca.uwo.csd.cs2212.team4.GUIApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
