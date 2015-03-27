@@ -38,7 +38,7 @@ public class ShortTerm {
 	public ShortTerm(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
-		this.data = new WebInterface(city);
+		this.data = new WebInterface(city,country);
         object = data.createJSONObject(data.getShortTermURL());	
         list = object.getJSONArray("list"); 
 	}

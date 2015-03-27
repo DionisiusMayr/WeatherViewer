@@ -100,124 +100,82 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		contentPane.add(lbl24);
 		
 		CustomLabel temp3 = new CustomLabel("temp");
-		temp3.setBounds(65, 180, 50, 14);
+		temp3.setBounds(50, 180, 50, 14);
 		contentPane.add(temp3);
 		temp3.setText("temp");
 		
 		CustomLabel temp6 = new CustomLabel("temp");
-		temp6.setBounds(165, 180, 50, 14);
+		temp6.setBounds(150, 180, 50, 14);
 		contentPane.add(temp6);
 		temp6.setText("temp");
 		
 		CustomLabel temp9 = new CustomLabel("temp");
-		temp9.setBounds(265, 180, 50, 14);
+		temp9.setBounds(250, 180, 50, 14);
 		contentPane.add(temp9);
 		temp9.setText("temp");
 		
 		CustomLabel temp12 = new CustomLabel("temp");
-		temp12.setBounds(365, 180, 50, 14);
+		temp12.setBounds(350, 180, 50, 14);
 		contentPane.add(temp12);
 		temp12.setText("temp");
 		
 		CustomLabel temp15 = new CustomLabel("temp");
-		temp15.setBounds(465, 180, 50, 14);
+		temp15.setBounds(50, 350, 50, 14);
 		contentPane.add(temp15);
 		temp15.setText("temp");
 		
 		CustomLabel temp18 = new CustomLabel("temp");
-		temp18.setBounds(565, 180, 50, 14);
+		temp18.setBounds(150, 350, 50, 14);
 		contentPane.add(temp18);
 		temp18.setText("temp");
 		
 		CustomLabel temp21 = new CustomLabel("temp");
-		temp21.setBounds(665, 180, 50, 14);
+		temp21.setBounds(250, 350, 50, 14);
 		contentPane.add(temp21);
 		temp21.setText("temp");
 		
 		CustomLabel temp24 = new CustomLabel("temp");
-		temp24.setBounds(765, 180, 50, 14);
+		temp24.setBounds(350, 350, 50, 14);
 		contentPane.add(temp24);
 		
-		
-		
-		//max temp
-		/*CustomLabel maxT3 = new CustomLabel();
-		maxT3.setBounds(65, 195, 24, 14);
-		contentPane.add(maxT3);
-		maxT3.setText("temp");
-		
-		CustomLabel maxT6 = new CustomLabel();
-		maxT6.setBounds(165, 195, 24, 14);
-		contentPane.add(maxT6);
-		maxT6.setText("temp");
-		
-		CustomLabel maxT9 = new CustomLabel();
-		maxT9.setBounds(265, 195, 24, 14);
-		contentPane.add(maxT9);
-		maxT9.setText("temp");
-		
-		CustomLabel maxT12 = new CustomLabel();
-		maxT12.setBounds(365, 195, 24, 14);
-		contentPane.add(maxT12);
-		maxT12.setText("temp");
-		
-		CustomLabel maxT15 = new CustomLabel();
-		maxT15.setBounds(465, 195, 24, 14);
-		contentPane.add(maxT15);
-		maxT15.setText("temp");
-		
-		CustomLabel maxT18 = new CustomLabel();
-		maxT18.setBounds(565, 195, 24, 14);
-		contentPane.add(maxT18);
-		maxT18.setText("temp");
-		
-		CustomLabel maxT21 = new CustomLabel();
-		maxT21.setBounds(665, 195, 24, 14);
-		contentPane.add(maxT21);
-		maxT21.setText("temp");
-		
-		CustomLabel maxT24 = new CustomLabel();
-		maxT24.setBounds(765, 195, 24, 14);
-		contentPane.add(maxT24);
-		maxT24.setText("temp");
-		*/
+		//skycondition
 		CustomLabel skyCon3 = new CustomLabel("temp");
-		skyCon3.setBounds(65, 165, 50, 14);
+		skyCon3.setBounds(50, 165, 50, 14);
 		contentPane.add(skyCon3);
 		skyCon3.setText("skyCon");
 		
 		CustomLabel skyCon6 = new CustomLabel("temp");
-		skyCon6.setBounds(165, 165, 50, 14);
+		skyCon6.setBounds(150, 165, 50, 14);
 		contentPane.add(skyCon6);
 		skyCon6.setText("skyCon");
 		
 		CustomLabel skyCon9 = new CustomLabel("temp");
-		skyCon9.setBounds(265, 165, 50, 14);
+		skyCon9.setBounds(250, 165, 50, 14);
 		contentPane.add(skyCon9);
 		skyCon9.setText("skyCon");
 		
 		CustomLabel skyCon12 = new CustomLabel("temp");
-		skyCon12.setBounds(365, 165, 50, 14);
+		skyCon12.setBounds(350, 165, 50, 14);
 		contentPane.add(skyCon12);
 		skyCon12.setText("skyCon");
 		
 		CustomLabel skyCon15 = new CustomLabel("temp");
-		skyCon15.setBounds(465, 165, 50, 14);
+		skyCon15.setBounds(50, 335, 50, 14);
 		contentPane.add(skyCon15);
 		skyCon15.setText("skyCon");
 		
 		CustomLabel skyCon18 = new CustomLabel("temp");
-		skyCon18.setBounds(565, 165, 50, 14);
+		skyCon18.setBounds(150, 335, 50, 14);
 		contentPane.add(skyCon18);
 		skyCon18.setText("skyCon");
 		
 		CustomLabel skyCon21 = new CustomLabel("temp");
-		skyCon21.setBounds(665, 165, 50, 14);
+		skyCon21.setBounds(250, 335, 50, 14);
 		contentPane.add(skyCon21);
 		skyCon21.setText("skyCon");
 		
 		CustomLabel skyCon24 = new CustomLabel("temp");
-		skyCon24.setBounds(765, 165, 50, 14);
+		skyCon24.setBounds(350, 335, 50, 14);
 		contentPane.add(skyCon24);
 		skyCon24.setText("skyCon");
 		
@@ -316,9 +274,9 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		
 		
 		for(int i=0;i<8;i++){
-			temp[i].setText(weather.getTemperature(i));
+			temp[i].setText(weather.getTemperature(i)+"\u00b0C");
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i] = new JLabel(new ImageIcon(weather.getIcon(i)));
+			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png"));
 		}
 		}catch(Exception e){
 			System.out.println("IO exception, short term refresh method");
@@ -330,9 +288,9 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		weather = new ShortTerm(city,country);
 		
 		for(int i=0;i<8;i++){
-			temp[i].setText(weather.getTemperature(i));
+			temp[i].setText(weather.getTemperature(i)+"\u00b0C");
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i] = new JLabel(new ImageIcon(weather.getIcon(i)));
+			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png"));
 		}
 		}catch(Exception e){
 			System.out.println("IO exception, short term refresh method");

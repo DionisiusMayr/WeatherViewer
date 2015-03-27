@@ -45,7 +45,7 @@ public class LongTerm {
 	public LongTerm(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
-		data = new WebInterface(city);
+		data = new WebInterface(city,country);
 		object = data.createJSONObject(data.getLongTermURL());
         list = object.getJSONArray("list");
 	}

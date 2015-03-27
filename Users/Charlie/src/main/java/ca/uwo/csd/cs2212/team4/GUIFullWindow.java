@@ -19,10 +19,13 @@ import javax.swing.*;
 
 import org.json.JSONException;
 
+import ca.uwo.csd.cs2212.team4.GUIShortTermWeather;
+
 public class GUIFullWindow extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private GUICurrentWeather currentWeatherWindow;
+	private GUIShortTermWeather shortForecastWindow;
 	private CustomLabel lblCity;
 	private JTextField txtCity;
 	private CustomLabel lblCountry;
@@ -96,7 +99,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
 		
-		GUIShortTermWeather shortForecastWindow = new GUIShortTermWeather("London Canada");
+		shortForecastWindow = new GUIShortTermWeather("London Canada");
 		GUILongTermWeather longForecastWindow = new GUILongTermWeather();
 		
 		
@@ -120,11 +123,13 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 			
 			if(strCity.equals("") && strCountry.equals("")){
 				currentWeatherWindow.refresh();
+				shortForecastWindow.refresh("");
 			}
 			else if(strCity.equals("")){
 				try{
 					tester = new LocalWeatherView(strCountry);
 					currentWeatherWindow.refresh(strCountry);
+					shortForecastWindow.refresh(strCountry);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
@@ -136,6 +141,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 				try{
 					tester = new LocalWeatherView(strCity);
 					currentWeatherWindow.refresh(strCity);
+					shortForecastWindow.refresh(strCity);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
@@ -147,6 +153,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 				try{
 					tester = new LocalWeatherView(strCity, strCountry);
 					currentWeatherWindow.refresh(strCity, strCountry);
+					shortForecastWindow.refresh(strCity,strCountry);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
