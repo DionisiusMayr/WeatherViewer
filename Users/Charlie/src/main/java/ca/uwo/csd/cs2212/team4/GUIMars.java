@@ -349,15 +349,15 @@ public class GUIMars extends JFrame {
 			System.out.println("Error getting info");
 		}
 		//CustomLabel lblPrecipitation = new CustomLabel("Precipitation:");
-		lblTemp.setText(strTemp);
+		//lblTemp.setText(strTemp);
 		lblMax.setText("Max: "+strMax);
 		lblMin.setText("Min: "+strMin);
 		lblCondition.setText(strCondition.toUpperCase());
 		lblPressure_1.setText(strPressure);
-		lblSunrise_1.setText(strSunrise);
+		//lblSunrise_1.setText(strSunrise);
 		lblWdSpd_1_1.setText(strWdSpd);
 		lblWddir_1.setText(strWdDir);
-		lblSunset_1.setText(strSunset);
+		//lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
 		lblIcon.setIcon(new ImageIcon(img));
 		lblLocation.setText(strLocation);
