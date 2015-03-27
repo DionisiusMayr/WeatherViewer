@@ -2,22 +2,32 @@ package ca.uwo.csd.cs2212.team4;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
+
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Dimension;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
+
+import org.json.JSONException;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -283,8 +293,8 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		}
 		
 	}
-	public void refresh(String city,String country){
-		try{
+	public void refresh(String city,String country) throws IOException, JSONException{
+		
 		weather = new ShortTerm(city,country);
 		
 		for(int i=0;i<8;i++){
@@ -292,9 +302,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 			skyCondition[i].setText(weather.getSkyCondition(i));
 			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png"));
 		}
-		}catch(Exception e){
-			System.out.println("IO exception, short term refresh method");
-		}
+
 		
 	}
 	
