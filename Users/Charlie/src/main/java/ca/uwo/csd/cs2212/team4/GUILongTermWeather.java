@@ -22,7 +22,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 	private String city,country;
 	private LongTerm weather;
 	private Boolean nextDay, addHours;
-	private JLabel[] day,skyCondition,icon,date, max, min, rise, set;
+	private JLabel[] day,skyCondition,icon,date, max, min;
 
 	/**
 	 * Launch the application.
@@ -262,80 +262,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		minday7.setBounds(250, 405, 80, 14);
 		contentPane.add(minday7);
 		minday7.setText("min");
-		
-		
-		//Sun rise
-		CustomLabel riseday1 = new CustomLabel("rise");
-		riseday1.setBounds(50, 205, 80, 14);
-		contentPane.add(riseday1);
-		riseday1.setText("rise");
-
-		CustomLabel riseday2 = new CustomLabel("rise");
-		riseday2.setBounds(150, 205, 80, 14);
-		contentPane.add(riseday2);
-		riseday2.setText("rise");
-
-		CustomLabel riseday3 = new CustomLabel("rise");
-		riseday3.setBounds(250, 205, 80, 14);
-		contentPane.add(riseday3);
-		riseday3.setText("rise");
-
-		CustomLabel riseday4 = new CustomLabel("rise");
-		riseday4.setBounds(350, 205, 80, 14);
-		contentPane.add(riseday4);
-		riseday4.setText("rise");
-
-		CustomLabel riseday5 = new CustomLabel("rise");
-		riseday5.setBounds(50, 420, 80, 14);
-		contentPane.add(riseday5);
-		riseday5.setText("rise");
-
-		CustomLabel riseday6 = new CustomLabel("rise");
-		riseday6.setBounds(150, 420, 80, 14);
-		contentPane.add(riseday6);
-		riseday6.setText("rise");
-
-		CustomLabel riseday7 = new CustomLabel("rise");
-		riseday7.setBounds(250, 420, 80, 14);
-		contentPane.add(riseday7);
-		riseday7.setText("rise");	
-		
-		
-		//Sun set
-		CustomLabel setday1 = new CustomLabel("set");
-		setday1.setBounds(50, 220, 80, 14);
-		contentPane.add(setday1);
-		setday1.setText("set");
-
-		CustomLabel setday2 = new CustomLabel("set");
-		setday2.setBounds(150, 220, 80, 14);
-		contentPane.add(setday2);
-		setday2.setText("set");
-
-		CustomLabel setday3 = new CustomLabel("set");
-		setday3.setBounds(250, 220, 80, 14);
-		contentPane.add(setday3);
-		setday3.setText("set");
-
-		CustomLabel setday4 = new CustomLabel("set");
-		setday4.setBounds(350, 220, 80, 14);
-		contentPane.add(setday4);
-		setday4.setText("set");
-
-		CustomLabel setday5 = new CustomLabel("set");
-		setday5.setBounds(50, 435, 80, 14);
-		contentPane.add(setday5);
-		setday5.setText("set");
-
-		CustomLabel setday6 = new CustomLabel("set");
-		setday6.setBounds(150, 435, 80, 14);
-		contentPane.add(setday6);
-		setday6.setText("set");
-
-		CustomLabel setday7 = new CustomLabel("set");
-		setday7.setBounds(250, 435, 80, 14);
-		contentPane.add(setday7);
-		setday7.setText("set");	
+	
 		
 		CustomLabel daytemp = new CustomLabel("Day");
 		daytemp.setBounds(2, 156, 80, 20);
@@ -349,14 +276,6 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		daymin.setBounds(2, 186, 80, 20);
 		contentPane.add(daymin);
 		
-		CustomLabel dayrise = new CustomLabel("Rise");
-		dayrise.setBounds(2, 201, 80, 20);
-		contentPane.add(dayrise);
-		
-		CustomLabel dayset = new CustomLabel("Set");
-		dayset.setBounds(2, 216, 80, 20);
-		contentPane.add(dayset);
-		
 		CustomLabel daytemp1 = new CustomLabel("Day");
 		daytemp1.setBounds(2, 373, 80, 20);
 		contentPane.add(daytemp1);
@@ -369,13 +288,6 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		daymin1.setBounds(2, 403, 80, 20);
 		contentPane.add(daymin1);
 		
-		CustomLabel dayrise1 = new CustomLabel("Rise");
-		dayrise1.setBounds(2, 418, 80, 20);
-		contentPane.add(dayrise1);
-		
-		CustomLabel dayset1 = new CustomLabel("Set");
-		dayset1.setBounds(2, 433, 80, 20);
-		contentPane.add(dayset1);
 		
 		day = new CustomLabel[7];
 		day[0] = tempday1;
@@ -435,26 +347,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		min[4] = minday5;
 		min[5] = minday6;
 		min[6] = minday7;
-		
-		
-		rise = new CustomLabel[7];
-		rise[0] = riseday1;
-		rise[1] = riseday2;
-		rise[2] = riseday3;
-		rise[3] = riseday4;
-		rise[4] = riseday5;
-		rise[5] = riseday6;
-		rise[6] = riseday7;
-		
-		
-		set = new CustomLabel[7];
-		set[0] = setday1;
-		set[1] = setday2;
-		set[2] = setday3;
-		set[3] = setday4;
-		set[4] = setday5;
-		set[5] = setday6;
-		set[6] = setday7;
+
 		
 		try{
 		refresh(city,country);
