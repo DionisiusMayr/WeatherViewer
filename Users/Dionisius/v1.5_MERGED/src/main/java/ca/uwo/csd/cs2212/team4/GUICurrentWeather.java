@@ -6,13 +6,11 @@ import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-
-import org.json.JSONException;
-
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+import org.json.JSONException;
 
 public class GUICurrentWeather extends JFrame {
 	private JPanel contentPane;
@@ -23,6 +21,7 @@ public class GUICurrentWeather extends JFrame {
 	private LocalWeatherView weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
+
 	/**
 	 * Launch the application.
 	 */
@@ -32,7 +31,8 @@ public class GUICurrentWeather extends JFrame {
 				try {
 					GUICurrentWeather frame = new GUICurrentWeather();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+                catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -48,24 +48,25 @@ public class GUICurrentWeather extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 350, 500);
 		contentPane = new JPanel();
-		//contentPane.setBackground(new Color(8,194,184));
 		contentPane.setBackground(Color.WHITE);
 
 		contentPane.setBorder(BorderFactory.createRaisedBevelBorder());
 		setContentPane(contentPane);
 
-		/***
+		/************************************************
 		 * Initialize local weather object
 		 * *********************************************/
         // TODO I changed this to instead setting just "london", getting the city from the preferences.
  		weather = new LocalWeatherView(GUIApp.pref.getCity());
 
-/***********************************************************************************************
- * initialize all strings and labels
- * ************************************************************************************************/
+        /**************************************************************************************************
+         * initialize all strings and labels
+         * ************************************************************************************************/
 
-		strTemp=strMin=strMax=strPressure=strSunrise=strSunset=strHumidity=strWdSpd=strWdDir=strLocation=strCondition="NA";
-		try{
+		strTemp = strMin = strMax = strPressure = strSunrise = strSunset = strHumidity = strWdSpd = strWdDir =
+                strLocation = strCondition = "NA";
+
+		try {
 			strTemp = weather.getTemperature();
 			strMin = weather.getTempMin();
 			strMax = weather.getTempMax();
@@ -78,9 +79,10 @@ public class GUICurrentWeather extends JFrame {
 			strCondition = weather.getSkyCondition();
 			strLocation = weather.getCityName();
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
+
 		lblTemp = new CustomLabel(strTemp);
 		lblTemp.setFont(new Font("Gotham Light", Font.PLAIN, 30));
 
@@ -97,25 +99,22 @@ public class GUICurrentWeather extends JFrame {
 		CustomLabel lblWinddirection = new CustomLabel("Winddirection");
 		lblWinddirection.setForeground(Color.gray);
 
+        lblMax = new CustomLabel("Max: "+strMax);
+        lblMin = new CustomLabel("Min: "+strMin);
+        lblCondition = new CustomLabel(strCondition.toUpperCase());
+        lblCondition.setFont(new Font("Gotham Light", Font.PLAIN, 22));
+        lblPressure_1 = new CustomLabel(strPressure);
+        lblSunrise_1 = new CustomLabel(strSunrise);
+        lblWdSpd_1 = new CustomLabel(strWdSpd);
+        lblWddir_1 = new CustomLabel(strWdDir);
+        lblSunset_1 = new CustomLabel(strSunset);
+        lblHumidity_1 = new CustomLabel(strHumidity);
+        lblWdSpd_1 = new CustomLabel(strWdSpd);
 
-		//CustomLabel lblPrecipitation = new CustomLabel("Precipitation:");
-
-		 lblMax = new CustomLabel("Max: "+strMax);
-		 lblMin = new CustomLabel("Min: "+strMin);
-		lblCondition = new CustomLabel(strCondition.toUpperCase());
-		lblCondition.setFont(new Font("Gotham Light", Font.PLAIN, 22));
-		 lblPressure_1 = new CustomLabel(strPressure);
-		 lblSunrise_1 = new CustomLabel(strSunrise);
-		 lblWdSpd_1 = new CustomLabel(strWdSpd);
-		 lblWddir_1 = new CustomLabel(strWdDir);
-		 lblSunset_1 = new CustomLabel(strSunset);
-		 lblHumidity_1 = new CustomLabel(strHumidity);
-		 lblWdSpd_1 = new CustomLabel(strWdSpd);
-
-/**********************************************************************************************
- * Top Panel contains: infoPanel, AllTempPanel
- * Bottom Panel contains: miscPanel
- * *****************************************************************************************/
+        /*******************************************************************************************
+        * Top Panel contains: infoPanel, AllTempPanel
+        * Bottom Panel contains: miscPanel
+        * *****************************************************************************************/
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false);
 
@@ -142,13 +141,12 @@ public class GUICurrentWeather extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 
-
 		JPanel AllTempPanel = new JPanel();
 		AllTempPanel.setOpaque(false);
 
-/*******************************************************************************************
- * The bottom panel contains only the MiscWeatherPanel, which contains all misc. weather data like pressure, humidity, etc.
- * **********************************************************************************************************/
+        /*************************************************************************************************************
+         * The bottom panel contains only the MiscWeatherPanel, which contains all misc. weather data like pressure, humidity, etc.
+         * **********************************************************************************************************/
 		JPanel MiscWeatherPanel = new JPanel();
 		MiscWeatherPanel.setOpaque(false);
 
@@ -232,16 +230,15 @@ public class GUICurrentWeather extends JFrame {
 
 		BottomPanel.setLayout(gl_BottomPanel);
 
-/**************************************************************************************************************
- * AllTempPanel includes: CurrentTempPanel (current temperature) and OtherTempPanel (min, max and sky condition)
- * ************************************************************************************************************
- */
+        /**************************************************************************************************************
+         * AllTempPanel includes: CurrentTempPanel (current temperature) and OtherTempPanel (min, max and sky condition)
+         * ************************************************************************************************************
+         */
 		JPanel CurrentTempPanel = new JPanel();
 		CurrentTempPanel.setOpaque(false);
 
 		JPanel OtherTempPanel = new JPanel();
 		OtherTempPanel.setOpaque(false);
-
 
 		GroupLayout gl_OtherTempPanel = new GroupLayout(OtherTempPanel);
 		gl_OtherTempPanel.setHorizontalGroup(
@@ -285,18 +282,15 @@ public class GUICurrentWeather extends JFrame {
 					.addContainerGap())
 		);
 
-
 		CurrentTempPanel.add(lblTemp);
-
-
 
 		AllTempPanel.setLayout(gl_AllTempPanel);
 		topPanel.setLayout(new BorderLayout(0, 0));
 
-/***************************************************************************************
- * infoPanel: Panel containing User info like Location, time of last update, etc.
-		 *******************************************************************************
-		 ** */
+        /*********************************************************************************
+         * infoPanel: Panel containing User info like Location, time of last update, etc.
+         *********************************************************************************
+         ** */
 		JPanel infoPanel = new JPanel();
 		infoPanel.setOpaque(false);
 		topPanel.add(infoPanel, BorderLayout.NORTH);
@@ -336,33 +330,33 @@ public class GUICurrentWeather extends JFrame {
 		infoPanel.setLayout(gl_infoPanel);
 
 
-/***********************************************************************************************
- * Weather condition icon
- * *************************************************************************************************/
+        /***********************************************************************************************
+         * Weather condition icon
+         * *************************************************************************************************/
 
 		img = null;
-		try{
-			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
+
+		try {
+			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
 		}
-		catch(IOException e){
+		catch(IOException e) {
 			System.out.println("Can't open image file");
 		}
+
 		lblIcon = new JLabel(new ImageIcon(img));
 		topPanel.add(lblIcon, BorderLayout.CENTER);
-
 	}
 
-	public JPanel getPanel(){
+	public JPanel getPanel() {
 		return contentPane;
 	}
 
-/*****************************REFRESH**************************/
+    /*****************************REFRESH**************************/
 
 	public void refresh(){
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
-		try{
-
+		try {
 			strTemp = weather.getTemperature();
 			strMin = weather.getTempMin();
 			strMax = weather.getTempMax();
@@ -373,10 +367,10 @@ public class GUICurrentWeather extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
+			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
 			strLocation =  weather.getCityName();
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
 		lblTemp.setText(strTemp);
@@ -393,12 +387,12 @@ public class GUICurrentWeather extends JFrame {
 		lblLocation.setText(strLocation);
 	}
 
-	public void refresh(String cityOrCountry) throws JSONException, IOException{
+	public void refresh(String cityOrCountry) throws JSONException, IOException {
 		weather = new LocalWeatherView(cityOrCountry);
 		this.refresh();
 	}
 
-	public void refresh(String city, String country) throws JSONException, IOException{
+	public void refresh(String city, String country) throws JSONException, IOException {
 		weather = new LocalWeatherView(city, country);
 		this.refresh();
 	}

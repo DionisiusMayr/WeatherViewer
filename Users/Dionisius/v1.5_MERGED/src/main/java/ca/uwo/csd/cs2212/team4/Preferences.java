@@ -66,6 +66,7 @@ public class Preferences implements Serializable {
         setUnit(unitp);
     }
 
+    // TODO remove this function
     public void printValues() {
         System.out.println("City: " + cityName);
         System.out.println("Country: " + countryName);

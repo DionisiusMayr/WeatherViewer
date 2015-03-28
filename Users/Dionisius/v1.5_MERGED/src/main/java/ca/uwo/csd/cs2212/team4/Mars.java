@@ -1,12 +1,8 @@
 package ca.uwo.csd.cs2212.team4;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Date;
 
 /**
  * This class is for Local Weather View
@@ -72,7 +68,6 @@ public class Mars {
 		return getReport().optString("atmo_opacity");
 	}
 
-    
 	public static void main(String[] args) throws JSONException, IOException {
 		Mars test = new Mars();
 		System.out.println("Terrestral Date:\t" + test.getTerrestrialDate());

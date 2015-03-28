@@ -5,25 +5,20 @@ import javax.swing.*;
 import java.io.*;
 
 public class CustomLabel extends JLabel{
-	
 	public CustomLabel (String text){
-		
 		super(text);
 		this.setFont(new Font("Gotham Light", Font.PLAIN, 12));
-		//this.setForeground(Color.white);
 		this.setForeground(Color.BLACK);
 
-		try{
+		try {
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Gotham Light.ttf")));
-			
 		}
-		catch(IOException e){
+		catch(IOException e) {
 			System.out.println("IOException with font -CZ");
 		}
-		catch(FontFormatException e){
-			System.out.println("FontFomatException -CZ");
+		catch(FontFormatException e) {
+			System.out.println("FontFormatException -CZ");
 		}
 	}
-
 }

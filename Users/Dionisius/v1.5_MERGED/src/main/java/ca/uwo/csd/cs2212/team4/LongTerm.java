@@ -1,5 +1,6 @@
 /**Class for short-term weather forecast.
- * Which temperatures need to be displayed?
+ *
+ * TODO Which temperatures need to be displayed?
 
  "temp":
  {
@@ -19,12 +20,10 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.Date;
 
 public class LongTerm {
-	
 	private String city;
 	private String country;
 	private WebInterface data;

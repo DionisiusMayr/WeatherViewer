@@ -3,7 +3,6 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -13,17 +12,13 @@ import java.util.Date;
  * @author team4
  */
 public class LocalWeatherView {
-
 	private String city;
 	private String country;
-
 	private WebInterface data;
 	private JSONObject object;
-
 	private JSONObject main;
 	private JSONObject wind;
 	private JSONObject sys;
-
 	private JSONArray weatherArray;
 	private JSONObject weather;
 
@@ -134,7 +129,6 @@ public class LocalWeatherView {
 		return letters[(int)Math.round((degree / 45))];
 	}
 
-
 	/** getSunrise method to return sunrise time
 	 *  @return the value of sunrise
 	 */
@@ -158,6 +152,7 @@ public class LocalWeatherView {
 		return getWeather().optString("main", null);
 	}
 
+    // TODO Remove this main method.
 	public static void main(String[] args) throws JSONException, IOException {
 		LocalWeatherView test = new LocalWeatherView("mississauga");
 		System.out.println("Date:\t" + test.getDate());
@@ -174,5 +169,4 @@ public class LocalWeatherView {
 		System.out.println("Wind Direction:\t" + test.getWindDirection());
 		System.out.println("Sky Condition:\t" + test.getSkyCondition());
 	}
-
 }

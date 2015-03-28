@@ -1,43 +1,22 @@
 package ca.uwo.csd.cs2212.team4;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-
 import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Point;
-import java.awt.Dimension;
-
 import javax.swing.JButton;
 import javax.swing.JTextField;
-
-import org.json.JSONException;
-
-import java.awt.Font;
+import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import org.json.JSONException;
 import java.io.IOException;
 
-
 public class GUIShortTermWeather extends JFrame implements ActionListener {
-
 	private JPanel contentPane;
     // TODO I don't think that we need these two variables here: txtLondonOnt and img.
 	private JTextField txtLondonOnt;
@@ -56,7 +35,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 					GUIShortTermWeather frame = new GUIShortTermWeather("london");
 					frame.setVisible(true);
 				}
-                catch (Exception e) {
+                catch(Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -279,15 +258,16 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	}
 
 	public void refresh(String city){
-		try{
+		try {
             weather = new ShortTerm(city);
 
             for(int i = 0; i < 8; i++) {
                 temp[i].setText(weather.getTemperature(i) + "\u00b0C");
                 skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png"));
+                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
             }
-		}catch(Exception e){
+		}
+        catch(Exception e) {
 			System.out.println("IO exception, short term refresh method");
 		}
 	}
@@ -295,14 +275,15 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	public void refresh(String city,String country) throws IOException, JSONException{
 		weather = new ShortTerm(city,country);
 
-		for(int i=0;i<8;i++){
-			temp[i].setText(weather.getTemperature(i)+"\u00b0C");
+		for(int i=0;i<8;i++) {
+			temp[i].setText(weather.getTemperature(i) + "\u00b0C");
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png"));
+			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
 		}
 	}
 
-	public void test(){
+    //TODO Can we remove this method?
+	public void test() {
 		temp[0].setText("yes");
 	}
 

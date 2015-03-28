@@ -17,18 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId> org.apache.logging.log4j </groupId>
-            <artifactId> log4j-api </artifactId>
-            <version> 2.0-beta9 </version>
-        </dependency>
-
-        <dependency>
-            <groupId> org.apache.logging.log4j </groupId>
-            <artifactId> log4j-core </artifactId>
-            <version> 2.0-beta9 </version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.2.3</version>
@@ -56,12 +44,6 @@
             <groupId>jgoodies</groupId>
             <artifactId>forms</artifactId>
             <version>1.0.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.miglayout</groupId>
-            <artifactId>miglayout</artifactId>
-            <version>3.6.3</version>
         </dependency>
     </dependencies>
 

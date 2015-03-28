@@ -5,24 +5,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.*;
-
+import java.io.IOException;
 import org.json.JSONException;
 
-import ca.uwo.csd.cs2212.team4.GUIShortTermWeather;
-
 public class GUIFullWindow extends JFrame implements ActionListener {
-
 	private JPanel contentPane;
 	private GUICurrentWeather currentWeatherWindow;
 	private GUIShortTermWeather shortForecastWindow;
@@ -32,22 +25,20 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	private JTextField txtCountry;
 	private String strCity, strCountry;
 
-
     // TODO we need to remove this method, it is a fake one to use while we don't have the "select unit".
     public String getUnitFromButton() {
         return "metric";
     }
 
-	/**
-	 * Launch the application.
-	 */
+	/* Launch the application. */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					GUIFullWindow frame = new GUIFullWindow();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+                catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -63,7 +54,6 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
-		//contentPane.setBackground(new Color(13,191,182));
 		contentPane.setBackground(new Color(174,242,239));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,21 +100,16 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		shortForecastWindow = new GUIShortTermWeather(GUIApp.pref.getCity());
 		GUILongTermWeather longForecastWindow = new GUILongTermWeather();
 
-
 		String strShortTermForecast = "Short Term Forecast";
 		tabbedPane.addTab("Short Term Forecast", null, shortForecastWindow.getPanel(), null);
 		tabbedPane.addTab("Long Term Forecast", null, longForecastWindow.getPanel(), null);
-
 
 		currentWeatherWindow = new GUICurrentWeather();
 		splitPane.setLeftComponent(currentWeatherWindow.getPanel());
 	}
 
-
-	public void actionPerformed(ActionEvent ae){
-
-		if(ae.getActionCommand().equals("Refresh")){
-
+	public void actionPerformed(ActionEvent ae) {
+		if(ae.getActionCommand().equals("Refresh")) {
 			LocalWeatherView tester = null;
 			strCity = txtCity.getText().toLowerCase();
 			strCountry = txtCountry.getText().toLowerCase();
@@ -142,39 +127,39 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                     txtCountry.setText("");
                 }
 			}
-			else if(strCity.equals("")){
+			else if(strCity.equals("")) {
 				try{
 					tester = new LocalWeatherView(strCountry);
 					currentWeatherWindow.refresh(strCountry);
 					shortForecastWindow.refresh(strCountry);
 				}
-				catch(Exception e){
+				catch(Exception e) {
 					this.showErrorWindow();
 					txtCity.setText("");
 					txtCountry.setText("");
 				}
 			}
-			else if(strCountry.equals("")){
-				try{
+			else if(strCountry.equals("")) {
+				try {
                     GUIApp.pref.setPreferences(strCity, "", getUnitFromButton());      // Sets the preferences to this new city and no country.
                     tester = new LocalWeatherView(strCity);
 					currentWeatherWindow.refresh(strCity);
 					shortForecastWindow.refresh(strCity);
 				}
-				catch(Exception e){
+				catch(Exception e) {
 					this.showErrorWindow();
 					txtCity.setText("");
 					txtCountry.setText("");
 				}
 			}
-			else{
+			else {
 				try{
                     GUIApp.pref.setPreferences(strCity, strCountry, getUnitFromButton());  // Sets the preferences to this new city and country.
                     tester = new LocalWeatherView(strCity, strCountry);
 					currentWeatherWindow.refresh(strCity, strCountry);
 					shortForecastWindow.refresh(strCity,strCountry);
 				}
-				catch(Exception e){
+				catch(Exception e) {
 					this.showErrorWindow();
 					txtCity.setText("");
 					txtCountry.setText("");
@@ -189,24 +174,24 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                 txtCity.setText("");
                 txtCountry.setText("");
             }
-
 		}
 		else if(ae.getActionCommand().equals("Take me to Mars!")){
+			GUIMars mars = null;
 
-			GUIMars mars =null;
 			try {
 				mars = new GUIMars();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+			}
+            catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+            catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			mars.setVisible(true);
 		}
-
-
 	}
 
 	public void showErrorWindow(){
@@ -225,7 +210,5 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 
 		errorPanel.add(errorMessage);
 		errorFrame.setVisible(true);
-
 	}
-
 }

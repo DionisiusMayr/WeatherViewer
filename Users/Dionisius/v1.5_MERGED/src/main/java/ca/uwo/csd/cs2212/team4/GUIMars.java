@@ -1,30 +1,27 @@
 package ca.uwo.csd.cs2212.team4;
 
+import java.awt.image.BufferedImage;
 import java.awt.*;
-
+import java.io.*;
+import java.util.*;
+import java.text.*;
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-
 import org.json.JSONException;
 
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
-import java.text.*;
-
 public class GUIMars extends JFrame {
-
 	private JPanel contentPane;
 	private Date date;
 	private DateFormat dateFormat;
-	private String strTemp, strMin, strMax, strPressure, strSunrise, strSunset, strHumidity, strWdSpd, strWdDir, strLocation, strCondition;
+	private String strMin, strMax, strPressure, strHumidity, strWdSpd, strWdDir, strLocation, strCondition;
 	private CustomLabel lblLocation, lblMin, lblMax, lblPressure_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
 	private CustomLabel lblWdSpd_1_1;
 	private Mars weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
+
 	/**
 	 * Launch the application.
 	 */
@@ -34,13 +31,13 @@ public class GUIMars extends JFrame {
 				try {
 					GUIMars frame = new GUIMars();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+                catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-	
 
 	/**
 	 * Create the frame.
@@ -51,36 +48,31 @@ public class GUIMars extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 350, 500);
 		contentPane = new JPanel();
-		//contentPane.setBackground(new Color(8,194,184));
 		contentPane.setBackground(Color.WHITE);
-		
 		contentPane.setBorder(BorderFactory.createRaisedBevelBorder());
 		setContentPane(contentPane);
 
-		/***
+		/**********************************************
 		 * Initialize local weather object
 		 * *********************************************/
 		weather = new Mars();
 	
-/***********************************************************************************************
- * initialize all strings and labels
- * ************************************************************************************************/
+        /***********************************************************************************************
+         * initialize all strings and labels
+         * ************************************************************************************************/
 		
-		strTemp=strMin=strMax=strPressure=strSunrise=strSunset=strHumidity=strWdSpd=strWdDir=strLocation=strCondition="NA";
-		try{
-			//strTemp = weather.getTemperature();
+		strMin = strMax = strPressure = strHumidity = strWdSpd = strWdDir = strLocation = strCondition = "NA";
+		try {
 			strMin = weather.getMinTemp();
 			strMax = weather.getMaxTemp();
 			strPressure = weather.getPressure();
-			//strSunrise = weather.getSunrise();
-			//strSunset = weather.getSunset();
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
 			strLocation = "Mars";
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
 		
@@ -93,23 +85,20 @@ public class GUIMars extends JFrame {
 		CustomLabel lblWinddirection = new CustomLabel("Winddirection");
 		lblWinddirection.setForeground(Color.gray);
 
-		
-		//CustomLabel lblPrecipitation = new CustomLabel("Precipitation:");
-		
-		 lblMax = new CustomLabel("Max: "+strMax);
-		 lblMin = new CustomLabel("Min: "+strMin);
-		lblCondition = new CustomLabel(strCondition.toUpperCase());
-		lblCondition.setFont(new Font("Gotham Light", Font.PLAIN, 22));
-		 lblPressure_1 = new CustomLabel(strPressure);
-		 lblWdSpd_1 = new CustomLabel(strWdSpd);
-		 lblWddir_1 = new CustomLabel(strWdDir);
-		 lblHumidity_1 = new CustomLabel(strHumidity);
-		 lblWdSpd_1_1 = new CustomLabel(strWdSpd);
+        lblMax = new CustomLabel("Max: " + strMax);
+        lblMin = new CustomLabel("Min: " + strMin);
+        lblCondition = new CustomLabel(strCondition.toUpperCase());
+        lblCondition.setFont(new Font("Gotham Light", Font.PLAIN, 22));
+        lblPressure_1 = new CustomLabel(strPressure);
+        lblWdSpd_1 = new CustomLabel(strWdSpd);
+        lblWddir_1 = new CustomLabel(strWdDir);
+        lblHumidity_1 = new CustomLabel(strHumidity);
+        lblWdSpd_1_1 = new CustomLabel(strWdSpd);
 
-/**********************************************************************************************
- * Top Panel contains: infoPanel, AllTempPanel
- * Bottom Panel contains: miscPanel
- * *****************************************************************************************/		
+        /**********************************************************************************************
+         * Top Panel contains: infoPanel, AllTempPanel
+         * Bottom Panel contains: miscPanel
+         * *****************************************************************************************/
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false);
 		
@@ -140,9 +129,9 @@ public class GUIMars extends JFrame {
 		JPanel AllTempPanel = new JPanel();
 		AllTempPanel.setOpaque(false);
 
-/*******************************************************************************************
- * The bottom panel contains only the MiscWeatherPanel, which contains all misc. weather data like pressure, humidity, etc.
- * **********************************************************************************************************/
+        /*******************************************************************************************
+         * The bottom panel contains only the MiscWeatherPanel, which contains all misc. weather data like pressure, humidity, etc.
+         * **********************************************************************************************************/
 		JPanel MiscWeatherPanel = new JPanel();
 		MiscWeatherPanel.setOpaque(false);
 
@@ -216,7 +205,6 @@ public class GUIMars extends JFrame {
 		
 		JPanel OtherTempPanel = new JPanel();
 		OtherTempPanel.setOpaque(false);
-		
 
 		GroupLayout gl_OtherTempPanel = new GroupLayout(OtherTempPanel);
 		gl_OtherTempPanel.setHorizontalGroup(
@@ -256,13 +244,11 @@ public class GUIMars extends JFrame {
 					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		
-		
-		
 		AllTempPanel.setLayout(gl_AllTempPanel);
 		topPanel.setLayout(new BorderLayout(0, 0));
 		
-/***************************************************************************************
- * infoPanel: Panel containing User info like Location, time of last update, etc.
+        /***************************************************************************************
+         * infoPanel: Panel containing User info like Location, time of last update, etc.
 		 *******************************************************************************
 		 ** */
 		JPanel infoPanel = new JPanel();
@@ -305,71 +291,62 @@ public class GUIMars extends JFrame {
 		infoPanel.setLayout(gl_infoPanel);
 		
 		
-/***********************************************************************************************
- * Weather condition icon
- * *************************************************************************************************/
+        /***********************************************************************************************
+        * Weather condition icon
+        * *************************************************************************************************/
 		
 		img = null;
-		try{
+
+		try {
 			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
 		}
-		catch(IOException e){
+		catch(IOException e) {
 			System.out.println("Can't open image file");
 		}
 		lblIcon = new JLabel(new ImageIcon(img));
 		topPanel.add(lblIcon, BorderLayout.CENTER);
-
 	}
 	
-	public JPanel getPanel(){
+	public JPanel getPanel() {
 		return contentPane;
 	}
 
-/*****************************REFRESH**************************/
+    /*****************************REFRESH**************************/
 	
-	public void refresh(){
+	public void refresh() {
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
-		try{
-
-			//strTemp = weather.getTemperature();
+		try {
 			strMin = weather.getMinTemp();
 			strMax = weather.getMaxTemp();
 			strPressure = weather.getPressure();
-			//strSunrise = weather.getSunrise();
-			//strSunset = weather.getSunset();
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
 			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
-			//strLocation =  weather.getCityName();
 		}
-		catch(Exception e){
+		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
-		//CustomLabel lblPrecipitation = new CustomLabel("Precipitation:");
-		//lblTemp.setText(strTemp);
+
 		lblMax.setText("Max: "+strMax);
 		lblMin.setText("Min: "+strMin);
 		lblCondition.setText(strCondition.toUpperCase());
 		lblPressure_1.setText(strPressure);
-		//lblSunrise_1.setText(strSunrise);
 		lblWdSpd_1_1.setText(strWdSpd);
 		lblWddir_1.setText(strWdDir);
-		//lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
 		lblIcon.setIcon(new ImageIcon(img));
 		lblLocation.setText(strLocation);
 	}
-	
+
+    //TODO do we really need these methods?
 	public void refresh(String cityOrCountry) throws JSONException, IOException{
-		//weather = new LocalWeatherView(cityOrCountry);
 		this.refresh();
 	}
 	
 	public void refresh(String city, String country) throws JSONException, IOException{
-		//weather = new LocalWeatherView(city, country);
 		this.refresh();
 	}
 }
