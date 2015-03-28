@@ -35,7 +35,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 
     // TODO we need to remove this method, it is a fake one to use while we don't have the "select unit".
     public String getUnitFromButton() {
-        return "imperial";
+        return "metric";
     }
 
 	/**
