@@ -26,6 +26,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private GUICurrentWeather currentWeatherWindow;
 	private GUIShortTermWeather shortForecastWindow;
+	private GUILongTermWeather longForecastWindow;
 	private CustomLabel lblCity;
 	private JTextField txtCity;
 	private CustomLabel lblCountry;
@@ -55,7 +56,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	 */
 	public GUIFullWindow() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 500);
+		setBounds(100, 100, 800, 580);
 		contentPane = new JPanel();
 		//contentPane.setBackground(new Color(13,191,182));
 		contentPane.setBackground(new Color(174,242,239));
@@ -99,8 +100,8 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
 		
-		shortForecastWindow = new GUIShortTermWeather("London Canada");
-		GUILongTermWeather longForecastWindow = new GUILongTermWeather();
+		shortForecastWindow = new GUIShortTermWeather();
+		longForecastWindow = new GUILongTermWeather();
 		
 		
 		String strShortTermForecast = "Short Term Forecast";
@@ -124,12 +125,14 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 			if(strCity.equals("") && strCountry.equals("")){
 				currentWeatherWindow.refresh();
 				shortForecastWindow.refresh("");
+				longForecastWindow.refresh("");
 			}
 			else if(strCity.equals("")){
 				try{
 					tester = new LocalWeatherView(strCountry);
 					currentWeatherWindow.refresh(strCountry);
 					shortForecastWindow.refresh(strCountry);
+					longForecastWindow.refresh(strCountry);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
@@ -142,6 +145,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 					tester = new LocalWeatherView(strCity);
 					currentWeatherWindow.refresh(strCity);
 					shortForecastWindow.refresh(strCity);
+					longForecastWindow.refresh(strCity);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
@@ -154,6 +158,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 					tester = new LocalWeatherView(strCity, strCountry);
 					currentWeatherWindow.refresh(strCity, strCountry);
 					shortForecastWindow.refresh(strCity,strCountry);
+					longForecastWindow.refresh(strCity,strCountry);
 				}
 				catch(Exception e){
 					this.showErrorWindow();
