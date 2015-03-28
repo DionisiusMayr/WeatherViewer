@@ -73,7 +73,7 @@ public class WebInterface {
 
         url.append(URLEncoder.encode(this.cityName, "UTF-8"));
 		if (this.countryCode != null) {
-			url.append(countryCode).append("&").append(APPID);
+			url.append(",").append(countryCode).append("&").append(APPID);
 		}
         else {
             url.append("&").append(APPID);
