@@ -24,6 +24,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private GUICurrentWeather currentWeatherWindow;
 	private GUIShortTermWeather shortForecastWindow;
+	private GUILongTermWeather longForecastWindow;
 	private CustomLabel lblCity;
 	private JTextField txtCity;
 	private CustomLabel lblCountry;
@@ -131,7 +132,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		splitPane.setRightComponent(tabbedPane);
 
 		shortForecastWindow = new GUIShortTermWeather();
-		GUILongTermWeather longForecastWindow = new GUILongTermWeather();
+		longForecastWindow = new GUILongTermWeather();
 
 		String strShortTermForecast = "Short Term Forecast";
 		tabbedPane.addTab("Short Term Forecast", null, shortForecastWindow.getPanel(), null);
@@ -153,6 +154,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                 try {
                     currentWeatherWindow.refresh("");
                     shortForecastWindow.refresh("");
+                    longForecastWindow.refresh("");
                 }
                 catch(Exception e) {
                     this.showErrorWindow();
@@ -165,6 +167,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 					tester = new LocalWeatherView(strCountry);
 					currentWeatherWindow.refresh(strCountry);
 					shortForecastWindow.refresh(strCountry);
+					longForecastWindow.refresh(strCountry);
 				}
 				catch(Exception e) {
 					this.showErrorWindow();
@@ -178,6 +181,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                     tester = new LocalWeatherView(strCity);
 					currentWeatherWindow.refresh(strCity);
 					shortForecastWindow.refresh(strCity);
+					longForecastWindow.refresh(strCity);
 				}
 				catch(Exception e) {
 					this.showErrorWindow();
@@ -191,6 +195,7 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                     tester = new LocalWeatherView(strCity, strCountry);
 					currentWeatherWindow.refresh(strCity, strCountry);
 					shortForecastWindow.refresh(strCity,strCountry);
+					longForecastWindow.refresh(strCity,strCountry);
 				}
 				catch(Exception e) {
 					this.showErrorWindow();
