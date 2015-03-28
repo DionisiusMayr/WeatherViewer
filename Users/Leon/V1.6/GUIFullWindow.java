@@ -79,14 +79,14 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		JPanel userPanel = new JPanel();
 		lblCity = new CustomLabel("City: ");
 		lblCity.setFont(new Font("Gotham Light", Font.PLAIN, 16));
-		txtCity = new JTextField("");
+		txtCity = new JTextField(GUIApp.pref.getCity());
 		txtCity.setPreferredSize(new Dimension(100,25));
 		userPanel.add(lblCity);
 		userPanel.add(txtCity);
 		
 		lblCountry = new CustomLabel("Country: ");
 		lblCountry.setFont(new Font("Gotham Light", Font.PLAIN, 16));
-		txtCountry = new JTextField("");
+		txtCountry = new JTextField(GUIApp.pref.getCountry());
 		txtCountry.setPreferredSize(new Dimension(100,25));
 		userPanel.add(lblCountry);
 		userPanel.add(txtCountry);
@@ -149,18 +149,20 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 			strCountry = txtCountry.getText().toLowerCase();
 			 
 			if(strCity.equals("") && strCountry.equals("")){
+				// TODO Leon -I think we should remove this code, should never do a blank refresh it causes null pointer
 				// TODO I added the try/catch here and also the "" on the refresh of the currentWeatherWindow.
                 // TODO Now if you don't type anything it still works and update the data.
-                try {
-                    currentWeatherWindow.refresh("");
-                    shortForecastWindow.refresh("");
-                    longForecastWindow.refresh("");
-                }
-                catch(Exception e) {
+				//System.out.println(strCity + strCountry);
+				//try {
+              //      currentWeatherWindow.refresh("");
+              //      shortForecastWindow.refresh("");
+              //      longForecastWindow.refresh("");
+              //  }
+             //   catch(Exception e) {
                     this.showErrorWindow();
                     txtCity.setText("");
                     txtCountry.setText("");
-                }
+              //  }
 			}
 			else if(strCity.equals("")) {
 				try{
