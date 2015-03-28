@@ -13,17 +13,13 @@ import java.util.Date;
  * @author team4
  */
 public class LocalWeatherView {
-
 	private String city;
 	private String country;
-
 	private WebInterface data;
 	private JSONObject object;
-
 	private JSONObject main;
 	private JSONObject wind;
 	private JSONObject sys;
-
 	private JSONArray weatherArray;
 	private JSONObject weather;
 
@@ -47,47 +43,50 @@ public class LocalWeatherView {
 		main = object.optJSONObject("main");
 		return main;
     }
-    
+
     private JSONObject getSys() throws JSONException, IOException {
 		sys = object.optJSONObject("sys");
 		return sys;
     }
-    
+
     private JSONObject getWind() throws JSONException, IOException {
 		wind = object.optJSONObject("wind");
 		return wind;
     }
-    
+
     private JSONObject getWeather() throws JSONException, IOException {
     	weatherArray = object.optJSONArray("weather");
 		weather = weatherArray.getJSONObject(0);
 		return weather;
     }
     ///////////////////////////HELPER METHODS///////////////////////
-    
+
     //GETTERS
     public String getDate() throws JSONException, IOException {
     	int dt = object.optInt("dt");
     	Date date = new Date(dt * 1000L);
         return date.toString();
 	}
-    
+
     public String getCityName() throws JSONException, IOException {
 		return object.optString("name");
 	}
-    
+
     public String getCountry() throws JSONException, IOException {
 		return getSys().optString("country", null);
 	}
-    
-	/** 
+
+	/**
 	 * getTemperature method to return temperature
 	 * @return string temperature
 	 */
 	public String getTemperature() throws JSONException, IOException {
 	    DecimalFormat f = new DecimalFormat("0.0");
 	    double temp = getMain().optDouble("temp");
-		return f.format(temp) + " \u00b0C"; 
+	    if(GUIApp.pref.getUnit().equals("metric"))
+	    	return f.format(temp) + " \u00b0C";
+    	else
+    		return f.format(temp) + " \u00b0F";
 	}
 
 	/** getPressure method to return pressure
@@ -108,14 +107,20 @@ public class LocalWeatherView {
 	 *  @return TempMin
 	 */
 	public String getTempMin() throws JSONException, IOException {
-		return getMain().optString("temp_min", null) + " \u00b0C";
+		if(GUIApp.pref.getUnit().equals("metric"))
+			return getMain().optString("temp_min", null) + " \u00b0C";
+    	else
+    		return getMain().optString("temp_min", null) + " \u00b0F";
 	}
 
 	/** getTempMax method to return Max temp
 	 *  @return GetTempMax
 	 */
 	public String getTempMax() throws JSONException, IOException {
-		return getMain().optString("temp_max", null) + " \u00b0C";
+		if(GUIApp.pref.getUnit().equals("metric"))
+			return getMain().optString("temp_max", null) + " \u00b0C";
+    	else
+    		return getMain().optString("temp_max", null) + " \u00b0F";
 	}
 
 	/** getWindSpeed method to return wind speed
@@ -129,10 +134,11 @@ public class LocalWeatherView {
 	 *  @return the value of wind direction
 	 */
 	public String getWindDirection() throws JSONException, IOException {
-		 double degree = getWind().getDouble("deg");
+		double degree = getWind().getDouble("deg");
+		String letters[] = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" };
+		return letters[(int)Math.round((degree / 45))];
 	}
 
-	
 	/** getSunrise method to return sunrise time
 	 *  @return the value of sunrise
 	 */
@@ -145,7 +151,7 @@ public class LocalWeatherView {
 	 *  @return the string sunset
 	 */
 	public String getSunset() throws JSONException, IOException {
-		Date date = new Date(getSys().optInt("sunset") * 1000L); 
+		Date date = new Date(getSys().optInt("sunset") * 1000L);
         return date.toString();
 	}
 
@@ -156,6 +162,7 @@ public class LocalWeatherView {
 		return getWeather().optString("main", null);
 	}
 
+    // TODO Remove this main method.
 	public static void main(String[] args) throws JSONException, IOException {
 		LocalWeatherView test = new LocalWeatherView("mississauga");
 		System.out.println("Date:\t" + test.getDate());
@@ -172,5 +179,4 @@ public class LocalWeatherView {
 		System.out.println("Wind Direction:\t" + test.getWindDirection());
 		System.out.println("Sky Condition:\t" + test.getSkyCondition());
 	}
-
 }

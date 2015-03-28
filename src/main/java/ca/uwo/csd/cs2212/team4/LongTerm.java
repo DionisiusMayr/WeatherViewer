@@ -1,5 +1,6 @@
 /**Class for short-term weather forecast.
- * Which temperatures need to be displayed?
+ *
+ * TODO Which temperatures need to be displayed?
 
  "temp":
  {
@@ -24,7 +25,6 @@ import java.io.IOException;
 import java.util.Date;
 
 public class LongTerm {
-	
 	private String city;
 	private String country;
 	private WebInterface data;
@@ -45,7 +45,7 @@ public class LongTerm {
 	public LongTerm(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
-		data = new WebInterface(city);
+		data = new WebInterface(city,country);
 		object = data.createJSONObject(data.getLongTermURL());
         list = object.getJSONArray("list");
 	}
@@ -84,27 +84,45 @@ public class LongTerm {
     }
 
     public String getTempDay(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("day");
+    	if(GUIApp.pref.getUnit().equals("metric"))
+    		return getTemperature(i).optString("day") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("day") + " \u00b0F";
     }
 
     public String getTempMin(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("min");
+        if(GUIApp.pref.getUnit().equals("metric"))
+        	return getTemperature(i).optString("min") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("min") + " \u00b0F";
     }
 
     public String getTempMax(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("max");
+    	if(GUIApp.pref.getUnit().equals("metric"))
+    		return getTemperature(i).optString("max") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("max") + " \u00b0F";
     }
 
     public String getTempNight(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("night");
+        if(GUIApp.pref.getUnit().equals("metric"))
+        	return getTemperature(i).optString("night") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("night") + " \u00b0F";
     }
 
     public String getTempEve(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("eve");
+        if(GUIApp.pref.getUnit().equals("metric"))
+        	return getTemperature(i).optString("eve") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("eve") + " \u00b0F";
     }
 
     public String getTempMorn(int i) throws  JSONException, IOException {
-        return getTemperature(i).optString("morn");
+        if(GUIApp.pref.getUnit().equals("metric"))
+        	return getTemperature(i).optString("morn") + " \u00b0C";
+    	else
+    		return getTemperature(i).optString("morn") + " \u00b0F";
     }
 
     public String getSkyCondition(int i) throws  JSONException, IOException {

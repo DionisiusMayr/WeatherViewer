@@ -1,24 +1,24 @@
 package ca.uwo.csd.cs2212.team4;
 
+import java.awt.image.BufferedImage;
 import java.awt.*;
-
+import java.io.*;
+import java.util.*;
+import java.text.*;
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
-import java.text.*;
 import org.json.JSONException;
 
-public class GUICurrentWeather extends JFrame {
+public class GUIMars extends JFrame {
 	private JPanel contentPane;
 	private Date date;
 	private DateFormat dateFormat;
-	private String strTemp, strMin, strMax, strPressure, strSunrise, strSunset, strHumidity, strWdSpd, strWdDir, strLocation, strCondition;
-	private CustomLabel lblLocation, lblTemp, lblMin, lblMax, lblPressure_1, lblSunrise_1, lblSunset_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
-	private LocalWeatherView weather;
+	private String strMin, strMax, strPressure, strHumidity, strWdSpd, strWdDir, strLocation, strCondition;
+	private CustomLabel lblLocation, lblMin, lblMax, lblPressure_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
+	private CustomLabel lblWdSpd_1_1;
+	private Mars weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
 
@@ -29,7 +29,7 @@ public class GUICurrentWeather extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUICurrentWeather frame = new GUICurrentWeather();
+					GUIMars frame = new GUIMars();
 					frame.setVisible(true);
 				}
                 catch (Exception e) {
@@ -44,80 +44,64 @@ public class GUICurrentWeather extends JFrame {
 	 * @throws java.io.IOException
 	 * @throws org.json.JSONException
 	 */
-	public GUICurrentWeather() throws JSONException, IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public GUIMars() throws JSONException, IOException {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 350, 500);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
-
 		contentPane.setBorder(BorderFactory.createRaisedBevelBorder());
 		setContentPane(contentPane);
 
-		/************************************************
+		/**********************************************
 		 * Initialize local weather object
 		 * *********************************************/
-        // TODO I changed this to instead setting just "london", getting the city from the preferences.
- 		weather = new LocalWeatherView(GUIApp.pref.getCity());
-
-        /**************************************************************************************************
+		weather = new Mars();
+	
+        /***********************************************************************************************
          * initialize all strings and labels
          * ************************************************************************************************/
-
-		strTemp = strMin = strMax = strPressure = strSunrise = strSunset = strHumidity = strWdSpd = strWdDir =
-                strLocation = strCondition = "NA";
-
+		
+		strMin = strMax = strPressure = strHumidity = strWdSpd = strWdDir = strLocation = strCondition = "NA";
 		try {
-			strTemp = weather.getTemperature();
-			strMin = weather.getTempMin();
-			strMax = weather.getTempMax();
+			strMin = weather.getMinTemp();
+			strMax = weather.getMaxTemp();
 			strPressure = weather.getPressure();
-			strSunrise = weather.getSunrise();
-			strSunset = weather.getSunset();
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			strLocation = weather.getCityName();
+			strLocation = "Mars";
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
-
-		lblTemp = new CustomLabel(strTemp);
-		lblTemp.setFont(new Font("Gotham Light", Font.PLAIN, 30));
-
+		
 		CustomLabel lblPressure = new CustomLabel("Pressure");
 		lblPressure.setForeground(Color.gray);
-		CustomLabel lblHumidity = new CustomLabel("Humidity");
+		CustomLabel lblHumidity = new CustomLabel("Humidity");	
 		lblHumidity.setForeground(Color.gray);
-		CustomLabel lblSunrise = new CustomLabel("Sunrise");
-		lblSunrise.setForeground(Color.gray);
-		CustomLabel lblSunset = new CustomLabel("Sunset");
-		lblSunset.setForeground(Color.gray);
-		CustomLabel lblWdspd = new CustomLabel("Windspeed");
+		CustomLabel lblWdspd = new CustomLabel("Windspeed");	
 		lblWdspd.setForeground(Color.gray);
 		CustomLabel lblWinddirection = new CustomLabel("Winddirection");
 		lblWinddirection.setForeground(Color.gray);
 
-        lblMax = new CustomLabel("Max: "+strMax);
-        lblMin = new CustomLabel("Min: "+strMin);
+        lblMax = new CustomLabel("Max: " + strMax);
+        lblMin = new CustomLabel("Min: " + strMin);
         lblCondition = new CustomLabel(strCondition.toUpperCase());
         lblCondition.setFont(new Font("Gotham Light", Font.PLAIN, 22));
         lblPressure_1 = new CustomLabel(strPressure);
-        lblSunrise_1 = new CustomLabel(strSunrise);
         lblWdSpd_1 = new CustomLabel(strWdSpd);
         lblWddir_1 = new CustomLabel(strWdDir);
-        lblSunset_1 = new CustomLabel(strSunset);
         lblHumidity_1 = new CustomLabel(strHumidity);
-        lblWdSpd_1 = new CustomLabel(strWdSpd);
+        lblWdSpd_1_1 = new CustomLabel(strWdSpd);
 
-        /*******************************************************************************************
-        * Top Panel contains: infoPanel, AllTempPanel
-        * Bottom Panel contains: miscPanel
-        * *****************************************************************************************/
+        /**********************************************************************************************
+         * Top Panel contains: infoPanel, AllTempPanel
+         * Bottom Panel contains: miscPanel
+         * *****************************************************************************************/
 		JPanel topPanel = new JPanel();
 		topPanel.setOpaque(false);
-
+		
 		JPanel BottomPanel = new JPanel();
 		BottomPanel.setOpaque(false);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -141,10 +125,11 @@ public class GUICurrentWeather extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 
+		
 		JPanel AllTempPanel = new JPanel();
 		AllTempPanel.setOpaque(false);
 
-        /*************************************************************************************************************
+        /*******************************************************************************************
          * The bottom panel contains only the MiscWeatherPanel, which contains all misc. weather data like pressure, humidity, etc.
          * **********************************************************************************************************/
 		JPanel MiscWeatherPanel = new JPanel();
@@ -154,30 +139,22 @@ public class GUICurrentWeather extends JFrame {
 		gl_MiscWeatherPanel.setHorizontalGroup(
 			gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_MiscWeatherPanel.createSequentialGroup()
-					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_MiscWeatherPanel.createSequentialGroup()
 							.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblPressure_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(31)
-							.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblSunrise_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_MiscWeatherPanel.createSequentialGroup()
-							.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHumidity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblHumidity_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-							.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblSunset_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblSunset, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+							.addGap(74))
+						.addGroup(Alignment.LEADING, gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
+							.addComponent(lblHumidity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblHumidity_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblWinddirection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWddir_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWdspd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblWdSpd_1))
-					.addContainerGap(12, Short.MAX_VALUE))
+						.addComponent(lblWdSpd_1_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		gl_MiscWeatherPanel.setVerticalGroup(
 			gl_MiscWeatherPanel.createParallelGroup(Alignment.LEADING)
@@ -185,27 +162,23 @@ public class GUICurrentWeather extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPressure, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWdspd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(5)
 					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPressure_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSunrise_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblWdSpd_1))
+						.addComponent(lblWdSpd_1_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHumidity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSunset, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWinddirection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_MiscWeatherPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblSunset_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWddir_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblHumidity_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(80, Short.MAX_VALUE))
+					.addContainerGap(78, Short.MAX_VALUE))
 		);
 		MiscWeatherPanel.setLayout(gl_MiscWeatherPanel);
-
+		
 		//add misc weather panel to bottom panel
 		GroupLayout gl_BottomPanel = new GroupLayout(BottomPanel);
 		gl_BottomPanel.setHorizontalGroup(
@@ -227,16 +200,9 @@ public class GUICurrentWeather extends JFrame {
 					.addComponent(MiscWeatherPanel, GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
 					.addContainerGap())
 		);
-
+		
 		BottomPanel.setLayout(gl_BottomPanel);
-
-        /**************************************************************************************************************
-         * AllTempPanel includes: CurrentTempPanel (current temperature) and OtherTempPanel (min, max and sky condition)
-         * ************************************************************************************************************
-         */
-		JPanel CurrentTempPanel = new JPanel();
-		CurrentTempPanel.setOpaque(false);
-
+		
 		JPanel OtherTempPanel = new JPanel();
 		OtherTempPanel.setOpaque(false);
 
@@ -266,44 +232,39 @@ public class GUICurrentWeather extends JFrame {
 		GroupLayout gl_AllTempPanel = new GroupLayout(AllTempPanel);
 		gl_AllTempPanel.setHorizontalGroup(
 			gl_AllTempPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_AllTempPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(CurrentTempPanel, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addGroup(Alignment.LEADING, gl_AllTempPanel.createSequentialGroup()
+					.addGap(76)
 					.addComponent(OtherTempPanel, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addContainerGap(83, Short.MAX_VALUE))
 		);
 		gl_AllTempPanel.setVerticalGroup(
 			gl_AllTempPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_AllTempPanel.createSequentialGroup()
-					.addGroup(gl_AllTempPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(OtherTempPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(CurrentTempPanel, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-					.addContainerGap())
+				.addGroup(Alignment.LEADING, gl_AllTempPanel.createSequentialGroup()
+					.addComponent(OtherTempPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(13, Short.MAX_VALUE))
 		);
-
-		CurrentTempPanel.add(lblTemp);
-
+		
 		AllTempPanel.setLayout(gl_AllTempPanel);
 		topPanel.setLayout(new BorderLayout(0, 0));
-
-        /*********************************************************************************
+		
+        /***************************************************************************************
          * infoPanel: Panel containing User info like Location, time of last update, etc.
-         *********************************************************************************
-         ** */
+		 *******************************************************************************
+		 ** */
 		JPanel infoPanel = new JPanel();
 		infoPanel.setOpaque(false);
 		topPanel.add(infoPanel, BorderLayout.NORTH);
-
+		
 		lblLocation = new CustomLabel(strLocation);
-
+		lblLocation.setFont(new Font("Gotham Light", Font.PLAIN, 16));
+		
 		CustomLabel lblLastUpdate = new CustomLabel("Last Update:");
 
 		//date and time specifications
 		dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		date = new Date();
 		lblDate = new CustomLabel(dateFormat.format(date));
-
+		
 		//add user information to infoPanel
 		GroupLayout gl_infoPanel = new GroupLayout(infoPanel);
 		gl_infoPanel.setHorizontalGroup(
@@ -328,72 +289,64 @@ public class GUICurrentWeather extends JFrame {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		infoPanel.setLayout(gl_infoPanel);
-
-
+		
+		
         /***********************************************************************************************
-         * Weather condition icon
-         * *************************************************************************************************/
-
+        * Weather condition icon
+        * *************************************************************************************************/
+		
 		img = null;
 
 		try {
-			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
+			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
 		}
 		catch(IOException e) {
 			System.out.println("Can't open image file");
 		}
-
 		lblIcon = new JLabel(new ImageIcon(img));
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
-
+	
 	public JPanel getPanel() {
 		return contentPane;
 	}
 
     /*****************************REFRESH**************************/
-
-	public void refresh(){
+	
+	public void refresh() {
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
 		try {
-			strTemp = weather.getTemperature();
-			strMin = weather.getTempMin();
-			strMax = weather.getTempMax();
+			strMin = weather.getMinTemp();
+			strMax = weather.getMaxTemp();
 			strPressure = weather.getPressure();
-			strSunrise = weather.getSunrise();
-			strSunset = weather.getSunset();
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-			strLocation =  weather.getCityName();
+			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
-		lblTemp.setText(strTemp);
+
 		lblMax.setText("Max: "+strMax);
 		lblMin.setText("Min: "+strMin);
 		lblCondition.setText(strCondition.toUpperCase());
 		lblPressure_1.setText(strPressure);
-		lblSunrise_1.setText(strSunrise);
-		lblWdSpd_1.setText(strWdSpd);
+		lblWdSpd_1_1.setText(strWdSpd);
 		lblWddir_1.setText(strWdDir);
-		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
 		lblIcon.setIcon(new ImageIcon(img));
 		lblLocation.setText(strLocation);
 	}
 
-	public void refresh(String cityOrCountry) throws JSONException, IOException {
-		weather = new LocalWeatherView(cityOrCountry);
+    //TODO do we really need these methods?
+	public void refresh(String cityOrCountry) throws JSONException, IOException{
 		this.refresh();
 	}
-
-	public void refresh(String city, String country) throws JSONException, IOException {
-		weather = new LocalWeatherView(city, country);
+	
+	public void refresh(String city, String country) throws JSONException, IOException{
 		this.refresh();
 	}
 }

@@ -1,36 +1,33 @@
 /**This class contains the main method to run the GUI window of the weather viewer*/
 
 package ca.uwo.csd.cs2212.team4;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Scanner;
-
 import javax.swing.SwingUtilities;
 
 public class GUIApp {
-	public static void main(String[]args) throws JSONException, IOException {
-		
-		SwingUtilities.invokeLater(new Runnable(){
-			@Override
-			public void run() {
-				GUICurrentWeather window;
-				try {
-					window = new GUICurrentWeather();
-					window.setVisible(true);
+    static Preferences pref; // pref has package scope.
 
-				} catch (JSONException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					
+	public static void main(String[]args) throws Exception {
+        /* Loads the preferences from the file. */
+        pref = Preferences.loadPreferences();
+
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				GUIFullWindow window = null;
+
+				try {
+					window = new GUIFullWindow();
 				}
+                catch (JSONException e) {
+					e.printStackTrace();
+				}
+                catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				window.setVisible(true);
 			}
 		});
-		
-		
 	}
-
 }

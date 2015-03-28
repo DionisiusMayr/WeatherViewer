@@ -9,13 +9,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 
 public class WebInterface {
-
-	private static final String LOCAL_WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-	private static final String SHORT_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&q=";
-	private static final String LONG_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?units=metric&cnt=10&mode=json&q=";
-	private static final String UNITS = "&units=metric";
+	private static final String LOCAL_WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?";
+	private static final String SHORT_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast?";
+	private static final String LONG_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
 	private static final String APPID = "appId=f74197d83bc45827574fcf77670f8a63";
-
 	private static final String MARS_URL = "http://marsweather.ingenology.com/v1/latest/?format=json";
 
 	private String cityName; 
@@ -29,66 +26,95 @@ public class WebInterface {
 		this.cityName = cityName;
 		this.countryCode = countryCode;
 	}
-	
+
 	public WebInterface() {
 	
 	}
 
-	//////////////////////////////////////////////////////////////////////
+    // TODO added the url building part of the units, i believe everything is right.
 	public String buildLocalWeatherURL() throws UnsupportedEncodingException {
-		if (this.countryCode != null) {
-			return new StringBuilder().append(LOCAL_WEATHER_URL)
-					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
-					.append("&").append(APPID).toString();
-		}
+        StringBuilder url = new StringBuilder();
 
-		return new StringBuilder().append(LOCAL_WEATHER_URL)
-				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
-				.append(APPID).toString();
+        url.append(LOCAL_WEATHER_URL);
+        if(GUIApp.pref.getUnit().equals("metric"))
+            url.append("units=metric&q=");
+        else if(GUIApp.pref.getUnit().equals("imperial"))
+            url.append("units=imperial&q=");     
+        else
+            System.out.println("Invalid unit.");
+
+        url.append(URLEncoder.encode(this.cityName, "UTF-8"));
+
+        if (this.countryCode != null) {
+            url.append(",").append(countryCode).append("&").append(APPID);
+		}
+        else {
+            url.append("&").append(APPID);
+        }
+
+        return url.toString();
 	}
 
 	public String getLocalWeatherURL() throws IOException{
 		return getJSON(buildLocalWeatherURL());
 	}
-	//////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////
 	public String buildShortTermURL() throws UnsupportedEncodingException {
-		if (this.countryCode != null) {
-			return new StringBuilder().append(SHORT_TERM_URL)
-					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
-					.append("&").append(APPID).toString();
-		}
+        StringBuilder url = new StringBuilder();
 
-		return new StringBuilder().append(SHORT_TERM_URL)
-				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
-				.append(APPID).toString();
+        url.append(SHORT_TERM_URL);
+
+        if(GUIApp.pref.getUnit().equals("metric"))
+            url.append("units=metric&q=");
+        else if(GUIApp.pref.getUnit().equals("imperial"))
+            url.append("units=imperial&q=");
+        else
+            System.out.println("Invalid unit.");
+
+        url.append(URLEncoder.encode(this.cityName, "UTF-8"));
+		if (this.countryCode != null) {
+			url.append(",").append(countryCode).append("&").append(APPID);
+		}
+        else {
+            url.append("&").append(APPID);
+        }
+
+        return url.toString();
 	}
 
 	public String getShortTermURL() throws IOException{
 		return getJSON(buildShortTermURL());
 	}
-	//////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////
-	public String buildLongTermURL() throws UnsupportedEncodingException {
-		if (this.countryCode != null) {
-			return new StringBuilder().append(SHORT_TERM_URL)
-					.append(URLEncoder.encode(this.cityName, "UTF-8")).append(",").append(countryCode)
-					.append("&").append(APPID).toString();
+	// TODO i wasn't able to test this method, we might need to take a look at it.
+    public String buildLongTermURL() throws UnsupportedEncodingException {
+        StringBuilder url = new StringBuilder();
+
+        url.append(LONG_TERM_URL);
+
+        if(GUIApp.pref.getUnit().equals("metric"))
+            url.append("units=metric&");
+        else if(GUIApp.pref.getUnit().equals("imperial"))
+            url.append("units=imperial&");
+        else
+            System.out.println("Invalid unit.");
+
+        url.append("cnt=10&mode=json&q=");
+
+        if (this.countryCode != null) {
+			url.append(",").append(countryCode).append("&").append(APPID);
 		}
+        else {
+            url.append("&").append(APPID);
+        }
 
-		return new StringBuilder().append(LONG_TERM_URL)
-				.append(URLEncoder.encode(this.cityName, "UTF-8")).append("&")
-				.append(APPID).toString();
+        return url.toString();
 	}
 
 	public String getLongTermURL() throws IOException{
 		return getJSON(buildLongTermURL());
 	}
-	//////////////////////////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////////////////////
 	public String buildMarsURL() throws UnsupportedEncodingException {
 		return new StringBuilder().append(MARS_URL).toString();
 	}
@@ -96,7 +122,6 @@ public class WebInterface {
 	public String getMarsURL() throws IOException{
 		return getJSON(buildMarsURL());
 	}
-	//////////////////////////////////////////////////////////////////////
 
 	public JSONObject createJSONObject(String stringNotParsed) throws JSONException {
 		JSONObject jsonObject;
