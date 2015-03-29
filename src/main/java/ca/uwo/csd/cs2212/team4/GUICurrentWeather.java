@@ -57,7 +57,10 @@ public class GUICurrentWeather extends JFrame {
 		 * Initialize local weather object
 		 * *********************************************/
         // TODO I changed this to instead setting just "london", getting the city from the preferences.
- 		weather = new LocalWeatherView(GUIApp.pref.getCity());
+ 		if(GUIApp.pref.getCountry() != null)
+            weather = new LocalWeatherView(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+        else
+            weather = new LocalWeatherView(GUIApp.pref.getCity());
 
         /**************************************************************************************************
          * initialize all strings and labels
@@ -333,17 +336,19 @@ public class GUICurrentWeather extends JFrame {
         /***********************************************************************************************
          * Weather condition icon
          * *************************************************************************************************/
+		//img = null;
 
-		img = null;
+		//try {
+		//	img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
+		//}
+		//catch(IOException e) {
+		//	System.out.println("Can't open image file");
+		//}
 
-		try {
-			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-		}
-		catch(IOException e) {
-			System.out.println("Can't open image file");
-		}
+		//lblIcon = new JLabel(new ImageIcon(img));
 
-		lblIcon = new JLabel(new ImageIcon(img));
+		lblIcon = new JLabel(new ImageIcon(GUIApp.getImage(strCondition.toLowerCase()+ ".png" )));
+
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
 
@@ -367,15 +372,16 @@ public class GUICurrentWeather extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-			strLocation =  weather.getCityName();
+			//img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
+			strLocation =  weather.getCityName() + " " + weather.getCountry();
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
 		}
+
 		lblTemp.setText(strTemp);
-		lblMax.setText("Max: "+strMax);
-		lblMin.setText("Min: "+strMin);
+		lblMax.setText("Max: " + strMax);
+		lblMin.setText("Min: " + strMin);
 		lblCondition.setText(strCondition.toUpperCase());
 		lblPressure_1.setText(strPressure);
 		lblSunrise_1.setText(strSunrise);
@@ -383,12 +389,13 @@ public class GUICurrentWeather extends JFrame {
 		lblWddir_1.setText(strWdDir);
 		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
-		lblIcon.setIcon(new ImageIcon(img));
+		lblIcon.setIcon(new ImageIcon(GUIApp.getImage(strCondition.toLowerCase()+ ".png" )));
+		//lblIcon.setIcon(new ImageIcon(img));
 		lblLocation.setText(strLocation);
 	}
 
-	public void refresh(String cityOrCountry) throws JSONException, IOException {
-		weather = new LocalWeatherView(cityOrCountry);
+	public void refresh(String city) throws JSONException, IOException {
+		weather = new LocalWeatherView(city);
 		this.refresh();
 	}
 

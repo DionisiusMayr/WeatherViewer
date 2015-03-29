@@ -3,7 +3,6 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -34,7 +33,7 @@ public class LocalWeatherView {
 	public LocalWeatherView(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
-		data = new WebInterface(city);
+		data = new WebInterface(city, country);
 		object = data.createJSONObject(data.getLocalWeatherURL());
 	}
 

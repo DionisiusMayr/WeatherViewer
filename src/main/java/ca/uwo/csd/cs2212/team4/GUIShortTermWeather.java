@@ -265,7 +265,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
             	date[i].setText(dateParse(weather.getDate(i+1)));
                 temp[i].setText(weather.getTemperature(i));
                 skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
+                icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
             }
 		}
         catch(Exception e) {
@@ -273,17 +273,17 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
-	public void refresh(String city,String country) throws IOException, JSONException{
-		weather = new ShortTerm(city,country);
+	public void refresh(String city, String country) throws IOException, JSONException{
+		weather = new ShortTerm(city, country);
 
-		for(int i=0;i<8;i++) {
+		for(int i = 0; i < 8; i++) {
 			date[i].setText(dateParse(weather.getDate(i+1)));
 			temp[i].setText(weather.getTemperature(i));
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
+			//icon[i].setIcon(new ImageIcon(GUIShortTermWeather.class.getResource(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
+			icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
 		}
 	}
-
 
 	private String dateParse(String date) {
 		StringTokenizer st = new StringTokenizer(date);

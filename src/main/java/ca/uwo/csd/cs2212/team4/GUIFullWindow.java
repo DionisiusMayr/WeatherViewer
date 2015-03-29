@@ -9,15 +9,12 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 import javax.swing.*;
-
 import java.io.IOException;
-
 import org.json.JSONException;
 
 public class GUIFullWindow extends JFrame implements ActionListener {
@@ -25,28 +22,26 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	private GUICurrentWeather currentWeatherWindow;
 	private GUIShortTermWeather shortForecastWindow;
 	private GUILongTermWeather longForecastWindow;
-	private CustomLabel lblCity;
-	private JTextField txtCity;
-	private CustomLabel lblCountry;
-	private JTextField txtCountry;
+	private CustomLabel lblCity, lblCountry;
+	private JTextField txtCity, txtCountry;
 	private String strCity, strCountry;
 	private ButtonGroup group;
 
-    
     public String getUnitFromButton() {
     	Enumeration<AbstractButton> buttons = group.getElements();
 		AbstractButton button = buttons.nextElement();
-		if(button.getText().compareTo("Metric")==0 && button.isSelected()){
+
+		if(button.getText().compareTo("Metric") == 0 && button.isSelected()) {
 			buttons = group.getElements();
 			return "metric";
-        }else{
+        }
+        else {
         	buttons = group.getElements();
         	return "imperial";
-			
         }
-        
     }
 
+    // TODO Remove this main
 	/* Launch the application. */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -100,11 +95,13 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		JRadioButton imperial = new JRadioButton("Imperial");
 		imperial.setFont(new Font("Gotham Light", Font.PLAIN, 16));
 		imperial.setBackground(new Color(174,242,239));
+		imperial.addActionListener(this);
 		userPanel.add(imperial);
 		
 		JRadioButton metric = new JRadioButton("Metric");
 		metric.setFont(new Font("Gotham Light", Font.PLAIN, 16));
 		metric.setBackground(new Color(174,242,239));
+		metric.addActionListener(this);
 		userPanel.add(metric);
 		
 		group = new ButtonGroup();
@@ -134,7 +131,6 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		shortForecastWindow = new GUIShortTermWeather();
 		longForecastWindow = new GUILongTermWeather();
 
-		String strShortTermForecast = "Short Term Forecast";
 		tabbedPane.addTab("Short Term Forecast", null, shortForecastWindow.getPanel(), null);
 		tabbedPane.addTab("Long Term Forecast", null, longForecastWindow.getPanel(), null);
 
@@ -149,30 +145,45 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 			strCountry = txtCountry.getText().toLowerCase();
 			 
 			if(strCity.equals("") && strCountry.equals("")){
-				// TODO Leon -I think we should remove this code, should never do a blank refresh it causes null pointer
-				// TODO I added the try/catch here and also the "" on the refresh of the currentWeatherWindow.
-                // TODO Now if you don't type anything it still works and update the data.
-				//System.out.println(strCity + strCountry);
-				//try {
-              //      currentWeatherWindow.refresh("");
-              //      shortForecastWindow.refresh("");
-              //      longForecastWindow.refresh("");
-              //  }
-             //   catch(Exception e) {
-                    this.showErrorWindow();
+				try {
+                    if(GUIApp.pref.getCountry() != null) {
+                        currentWeatherWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        shortForecastWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        longForecastWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                    }
+                    else {
+                        currentWeatherWindow.refresh(GUIApp.pref.getCity());
+                        shortForecastWindow.refresh(GUIApp.pref.getCity());
+                        longForecastWindow.refresh(GUIApp.pref.getCity());
+                    }
+                }
+                catch(Exception e) {
+                    this.showErrorWindow("Nothing found on city/country. Please, insert something.");
                     txtCity.setText("");
                     txtCountry.setText("");
-              //  }
+                }
 			}
 			else if(strCity.equals("")) {
-				try{
-					tester = new LocalWeatherView(strCountry);
-					currentWeatherWindow.refresh(strCountry);
-					shortForecastWindow.refresh(strCountry);
-					longForecastWindow.refresh(strCountry);
+				try {
+                    if(GUIApp.pref.getCountry() != null) {
+                        tester = new LocalWeatherView(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        currentWeatherWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        shortForecastWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        longForecastWindow.refresh(GUIApp.pref.getCity(), GUIApp.pref.getCountry());
+                        txtCity.setText(GUIApp.pref.getCity());
+                        txtCountry.setText(GUIApp.pref.getCountry());
+                    }
+                    else {
+                        tester = new LocalWeatherView(GUIApp.pref.getCity());
+                        currentWeatherWindow.refresh(GUIApp.pref.getCity());
+                        shortForecastWindow.refresh(GUIApp.pref.getCity());
+                        longForecastWindow.refresh(GUIApp.pref.getCity());
+                        txtCity.setText(GUIApp.pref.getCity());
+                    }
+                    this.showErrorWindow("Nothing found on city. Using the previous one.");
 				}
 				catch(Exception e) {
-					this.showErrorWindow();
+					this.showErrorWindow("Nothing found on city. Please, insert something.");
 					txtCity.setText("");
 					txtCountry.setText("");
 				}
@@ -192,12 +203,12 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 				}
 			}
 			else {
-				try{
+				try {
                     GUIApp.pref.setPreferences(strCity, strCountry, getUnitFromButton());  // Sets the preferences to this new city and country.
                     tester = new LocalWeatherView(strCity, strCountry);
 					currentWeatherWindow.refresh(strCity, strCountry);
-					shortForecastWindow.refresh(strCity,strCountry);
-					longForecastWindow.refresh(strCity,strCountry);
+					shortForecastWindow.refresh(strCity, strCountry);
+					longForecastWindow.refresh(strCity, strCountry);
 				}
 				catch(Exception e) {
 					this.showErrorWindow();
@@ -210,11 +221,11 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                 GUIApp.pref.storePreferences();
             }
             catch(Exception e) {
-                this.showErrorWindow();
+                // TODO This is just for debugging purposes, we need to get rid of it soon
+                this.showErrorWindow("Couldn't store the preferences.");
                 txtCity.setText("");
                 txtCountry.setText("");
             }
-   
 		}
 		else if(ae.getActionCommand().equals("Take me to Mars!")){
 			GUIMars mars = null;
@@ -233,23 +244,41 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 
 			mars.setVisible(true);
 		}
+		else if(ae.getActionCommand().equals("Metric")){
+			GUIApp.pref.setUnit("metric");
+			try {
+                GUIApp.pref.storePreferences();
+            }
+            catch(Exception e) {}
+		}
+		else if(ae.getActionCommand().equals("Imperial")){
+			GUIApp.pref.setUnit("imperial");
+			try {
+                GUIApp.pref.storePreferences();
+            }
+            catch(Exception e) {}
+		}
 	}
 
+    public void showErrorWindow(String errorMsg){
+        JFrame errorFrame = new JFrame();
+        errorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        errorFrame.setBounds(100, 100, 500, 150);
+        JPanel errorPanel = new JPanel();
+        errorPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        errorFrame.setContentPane(errorPanel);
+        errorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        errorPanel.setBackground(Color.WHITE);
+
+        CustomLabel errorMessage = new CustomLabel(errorMsg);
+        errorMessage.setFont(new Font("Gotham Light", Font.PLAIN, 16));
+        errorMessage.setForeground(Color.BLACK);
+
+        errorPanel.add(errorMessage);
+        errorFrame.setVisible(true);
+    }
+
 	public void showErrorWindow(){
-		JFrame errorFrame = new JFrame();
-		errorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		errorFrame.setBounds(100, 100, 500, 150);
-		JPanel errorPanel = new JPanel();
-		errorPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		errorFrame.setContentPane(errorPanel);
-		errorPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		errorPanel.setBackground(Color.WHITE);
-
-		CustomLabel errorMessage = new CustomLabel("Sorry, your entry was invalid! Nice try, though.");
-		errorMessage.setFont(new Font("Gotham Light", Font.PLAIN, 16));
-		errorMessage.setForeground(Color.BLACK);
-
-		errorPanel.add(errorMessage);
-		errorFrame.setVisible(true);
+        showErrorWindow("Sorry, your entry was invalid! Nice try, though.");
 	}
 }

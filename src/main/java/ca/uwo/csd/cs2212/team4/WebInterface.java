@@ -9,10 +9,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 
 public class WebInterface {
-	private static final String LOCAL_WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?";
-	private static final String SHORT_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast?";
-	private static final String LONG_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
-	private static final String APPID = "appId=f74197d83bc45827574fcf77670f8a63";
+	private static final String LOCAL_WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+	private static final String SHORT_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast?q=";
+	private static final String LONG_TERM_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
+	private static final String APPID = "&appId=f74197d83bc45827574fcf77670f8a63";
 	private static final String MARS_URL = "http://marsweather.ingenology.com/v1/latest/?format=json";
 
 	private String cityName; 
@@ -31,26 +31,24 @@ public class WebInterface {
 	
 	}
 
-    // TODO added the url building part of the units, i believe everything is right.
 	public String buildLocalWeatherURL() throws UnsupportedEncodingException {
         StringBuilder url = new StringBuilder();
 
         url.append(LOCAL_WEATHER_URL);
+
+        if(this.countryCode != null)
+            url.append(URLEncoder.encode(this.cityName + "," + this.countryCode, "UTF-8"));
+        else
+            url.append(URLEncoder.encode(this.cityName, "UTF-8"));
+
         if(GUIApp.pref.getUnit().equals("metric"))
-            url.append("units=metric&q=");
+            url.append("&units=metric");
         else if(GUIApp.pref.getUnit().equals("imperial"))
-            url.append("units=imperial&q=");     
+            url.append("&units=imperial");
         else
             System.out.println("Invalid unit.");
 
-        url.append(URLEncoder.encode(this.cityName, "UTF-8"));
-
-        if (this.countryCode != null) {
-            url.append(",").append(countryCode).append("&").append(APPID);
-		}
-        else {
-            url.append("&").append(APPID);
-        }
+        url.append(APPID);
 
         return url.toString();
 	}
@@ -64,20 +62,19 @@ public class WebInterface {
 
         url.append(SHORT_TERM_URL);
 
+        if(this.countryCode != null)
+            url.append(URLEncoder.encode(this.cityName + "," + this.countryCode, "UTF-8"));
+        else
+            url.append(URLEncoder.encode(this.cityName, "UTF-8"));
+
         if(GUIApp.pref.getUnit().equals("metric"))
-            url.append("units=metric&q=");
+            url.append("&units=metric");
         else if(GUIApp.pref.getUnit().equals("imperial"))
-            url.append("units=imperial&q=");
+            url.append("&units=imperial");
         else
             System.out.println("Invalid unit.");
 
-        url.append(URLEncoder.encode(this.cityName, "UTF-8"));
-		if (this.countryCode != null) {
-			url.append(",").append(countryCode).append("&").append(APPID);
-		}
-        else {
-            url.append("&").append(APPID);
-        }
+        url.append(APPID);
 
         return url.toString();
 	}
@@ -86,27 +83,26 @@ public class WebInterface {
 		return getJSON(buildShortTermURL());
 	}
 
-	// TODO i wasn't able to test this method, we might need to take a look at it.
     public String buildLongTermURL() throws UnsupportedEncodingException {
         StringBuilder url = new StringBuilder();
 
         url.append(LONG_TERM_URL);
 
+        if(this.countryCode != null)
+            url.append(URLEncoder.encode(this.cityName + "," + this.countryCode, "UTF-8"));
+        else
+            url.append(URLEncoder.encode(this.cityName, "UTF-8"));
+
+        url.append("&cnt=10").append("&mode=json").append("&units=");
+
         if(GUIApp.pref.getUnit().equals("metric"))
-            url.append("units=metric&");
+            url.append("metric");
         else if(GUIApp.pref.getUnit().equals("imperial"))
-            url.append("units=imperial&");
+            url.append("imperial");
         else
             System.out.println("Invalid unit.");
 
-        url.append("cnt=10&mode=json&q=");
-
-        if (this.countryCode != null) {
-			url.append(",").append(countryCode).append("&").append(APPID);
-		}
-        else {
-            url.append("&").append(APPID);
-        }
+        url.append(APPID);
 
         return url.toString();
 	}

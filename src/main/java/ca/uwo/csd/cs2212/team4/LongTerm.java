@@ -36,8 +36,8 @@ public class LongTerm {
 	private JSONObject weather;
 
 	public LongTerm(String cityName) throws JSONException, IOException {
-		city = cityName;
-		data = new WebInterface(city);
+        city = cityName;
+        data = new WebInterface(city);
 		object = data.createJSONObject(data.getLongTermURL());
         list = object.getJSONArray("list");
 	}
