@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -321,7 +322,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
             	date[i].setText(dateParse(weather.getDate(i)));
             	day[i].setText(weather.getTempDay(i));
                 skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
+                icon[i].setIcon(new ImageIcon(GUIApp.getImage("resources/"+weather.getSkyCondition(i).toLowerCase()+ ".png" )));
                 max[i].setText("High:" + weather.getTempMax(i));
                 min[i].setText("Low:" + weather.getTempMin(i));
             }
@@ -338,7 +339,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 			date[i].setText(dateParse(weather.getDate(i+1)));
 			day[i].setText(weather.getTempDay(i));
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
+			icon[i].setIcon(new ImageIcon(GUIApp.getImage("resources/"+weather.getSkyCondition(i).toLowerCase()+ ".png" )));
             max[i].setText("High: "+ weather.getTempMax(i));
             min[i].setText("Low: "+ weather.getTempMin(i));
 		}
