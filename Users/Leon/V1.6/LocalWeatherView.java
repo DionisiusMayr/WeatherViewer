@@ -34,7 +34,7 @@ public class LocalWeatherView {
 	public LocalWeatherView(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
-		data = new WebInterface(city);
+		data = new WebInterface(city,country);
 		object = data.createJSONObject(data.getLocalWeatherURL());
 	}
 

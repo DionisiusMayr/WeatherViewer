@@ -44,8 +44,8 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GUILongTermWeather() {
-		//city = GUIApp.pref.getCity();
-		//country = GUIApp.pref.getCountry();
+		city = GUIApp.pref.getCity();
+		country = GUIApp.pref.getCountry();
 		nextDay=false;
 
 		setTitle("Long-Term Weather");
@@ -59,31 +59,31 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		CustomLabel lbl1 = new CustomLabel("Day 1");
-		lbl1.setBounds(50, 5, 80, 20);
+		lbl1.setBounds(55, 5, 80, 20);
 		contentPane.add(lbl1);
 
 		CustomLabel lbl2 = new CustomLabel("Day 2");
-		lbl2.setBounds(150, 5, 80, 20);
+		lbl2.setBounds(155, 5, 80, 20);
 		contentPane.add(lbl2);
 
 		CustomLabel lbl3 = new CustomLabel("Day 3");
-		lbl3.setBounds(250, 5, 80, 20);
+		lbl3.setBounds(255, 5, 80, 20);
 		contentPane.add(lbl3);
 
 		CustomLabel lbl4 = new CustomLabel("Day 4");
-		lbl4.setBounds(350, 5, 80, 20);
+		lbl4.setBounds(355, 5, 80, 20);
 		contentPane.add(lbl4);
 
 		CustomLabel lbl5 = new CustomLabel("Day 5");
-		lbl5.setBounds(100, 195, 80, 20);
+		lbl5.setBounds(105, 195, 80, 20);
 		contentPane.add(lbl5);
 
 		CustomLabel lbl6 = new CustomLabel("Day 6");
-		lbl6.setBounds(200,195, 80, 20);
+		lbl6.setBounds(205,195, 80, 20);
 		contentPane.add(lbl6);
 
 		CustomLabel lbl7 = new CustomLabel("Day 7");
-		lbl7.setBounds(300, 195, 80, 20);
+		lbl7.setBounds(305, 195, 80, 20);
 		contentPane.add(lbl7);
 
 
@@ -184,61 +184,61 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		
 		//Max temp
 		CustomLabel maxday1 = new CustomLabel("max");
-		maxday1.setBounds(50, 150, 80, 14);
+		maxday1.setBounds(40, 150, 90, 14);
 		contentPane.add(maxday1);
 
 		CustomLabel maxday2 = new CustomLabel("max");
-		maxday2.setBounds(150, 150, 80, 14);
+		maxday2.setBounds(140, 150, 90, 14);
 		contentPane.add(maxday2);
 
 		CustomLabel maxday3 = new CustomLabel("max");
-		maxday3.setBounds(250, 150, 80, 14);
+		maxday3.setBounds(240, 150, 90, 14);
 		contentPane.add(maxday3);
 
 		CustomLabel maxday4 = new CustomLabel("max");
-		maxday4.setBounds(350, 150, 80, 14);
+		maxday4.setBounds(340, 150, 90, 14);
 		contentPane.add(maxday4);
 
 		CustomLabel maxday5 = new CustomLabel("max");
-		maxday5.setBounds(100, 340, 80, 14);
+		maxday5.setBounds(90, 340, 90, 14);
 		contentPane.add(maxday5);
 
 		CustomLabel maxday6 = new CustomLabel("max");
-		maxday6.setBounds(200, 340, 80, 14);
+		maxday6.setBounds(190, 340, 90, 14);
 		contentPane.add(maxday6);
 
 		CustomLabel maxday7 = new CustomLabel("max");
-		maxday7.setBounds(300, 340, 80, 14);
+		maxday7.setBounds(290, 340, 90, 14);
 		contentPane.add(maxday7);
 		
 		
 		//Min temp
 		CustomLabel minday1 = new CustomLabel("min");
-		minday1.setBounds(50, 165, 80, 14);
+		minday1.setBounds(40, 165, 90, 14);
 		contentPane.add(minday1);
 
 		CustomLabel minday2 = new CustomLabel("min");
-		minday2.setBounds(150, 165, 80, 14);
+		minday2.setBounds(140, 165, 90, 14);
 		contentPane.add(minday2);
 
 		CustomLabel minday3 = new CustomLabel("min");
-		minday3.setBounds(250, 165, 80, 14);
+		minday3.setBounds(240, 165, 90, 14);
 		contentPane.add(minday3);
 
 		CustomLabel minday4 = new CustomLabel("min");
-		minday4.setBounds(350, 165, 80, 14);
+		minday4.setBounds(340, 165, 90, 14);
 		contentPane.add(minday4);
 
 		CustomLabel minday5 = new CustomLabel("min");
-		minday5.setBounds(100, 355, 80, 14);
+		minday5.setBounds(90, 355, 90, 14);
 		contentPane.add(minday5);
 
 		CustomLabel minday6 = new CustomLabel("min");
-		minday6.setBounds(200, 355, 80, 14);
+		minday6.setBounds(190, 355, 90, 14);
 		contentPane.add(minday6);
 
 		CustomLabel minday7 = new CustomLabel("min");
-		minday7.setBounds(300, 355, 80, 14);
+		minday7.setBounds(290, 355, 90, 14);
 		contentPane.add(minday7);
 		
 		
@@ -322,10 +322,8 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
             	day[i].setText(weather.getTempDay(i));
                 skyCondition[i].setText(weather.getSkyCondition(i));
                 icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
-                max[i].setText(weather.getTempMax(i));
-                min[i].setText(weather.getTempMin(i));
-               // rise[i].setText(weather.getSunrise(i));
-               // set[i].setText(weather.getSunset(i));
+                max[i].setText("High:" + weather.getTempMax(i));
+                min[i].setText("Low:" + weather.getTempMin(i));
             }
 		}
         catch(Exception e) {
@@ -341,10 +339,8 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 			day[i].setText(weather.getTempDay(i));
 			skyCondition[i].setText(weather.getSkyCondition(i));
 			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase() + ".png"));
-            max[i].setText(weather.getTempMax(i));
-            min[i].setText(weather.getTempMin(i));
-            //rise[i].setText(weather.getSunrise(i));
-            //set[i].setText(weather.getSunset(i));
+            max[i].setText("High: "+ weather.getTempMax(i));
+            min[i].setText("Low: "+ weather.getTempMin(i));
 		}
 	}
 

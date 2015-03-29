@@ -368,7 +368,7 @@ public class GUICurrentWeather extends JFrame {
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
 			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-			strLocation =  weather.getCityName();
+			strLocation =  weather.getCityName() + " " + weather.getCountry();
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
