@@ -6,10 +6,12 @@ import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
+
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+
 import org.json.JSONException;
 
 public class GUICurrentWeather extends JFrame {
@@ -97,9 +99,9 @@ public class GUICurrentWeather extends JFrame {
 		lblSunrise.setForeground(Color.gray);
 		CustomLabel lblSunset = new CustomLabel("Sunset");
 		lblSunset.setForeground(Color.gray);
-		CustomLabel lblWdspd = new CustomLabel("Windspeed");
+		CustomLabel lblWdspd = new CustomLabel("Wind Speed");
 		lblWdspd.setForeground(Color.gray);
-		CustomLabel lblWinddirection = new CustomLabel("Winddirection");
+		CustomLabel lblWinddirection = new CustomLabel("Wind Direction");
 		lblWinddirection.setForeground(Color.gray);
 
         lblMax = new CustomLabel("Max: "+strMax);
@@ -366,8 +368,10 @@ public class GUICurrentWeather extends JFrame {
 			strMin = weather.getTempMin();
 			strMax = weather.getTempMax();
 			strPressure = weather.getPressure();
+			
 			strSunrise = weather.getSunrise();
 			strSunset = weather.getSunset();
+			
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
@@ -403,4 +407,5 @@ public class GUICurrentWeather extends JFrame {
 		weather = new LocalWeatherView(city, country);
 		this.refresh();
 	}
+	
 }

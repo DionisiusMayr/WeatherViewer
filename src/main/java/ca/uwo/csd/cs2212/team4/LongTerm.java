@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class LongTerm {
@@ -84,24 +85,30 @@ public class LongTerm {
     }
 
     public String getTempDay(int i) throws  JSONException, IOException {
+    	DecimalFormat f = new DecimalFormat("0");
+	    double temp = getTemperature(i).optDouble("day");
     	if(GUIApp.pref.getUnit().equals("metric"))
-    		return getTemperature(i).optString("day") + " \u00b0C";
+	    	return f.format(temp) + " \u00b0C";
     	else
-    		return getTemperature(i).optString("day") + " \u00b0F";
+    		return f.format(temp) + " \u00b0F";
     }
 
     public String getTempMin(int i) throws  JSONException, IOException {
+    	DecimalFormat f = new DecimalFormat("0");
+	    double temp = getTemperature(i).optDouble("min");
         if(GUIApp.pref.getUnit().equals("metric"))
-        	return getTemperature(i).optString("min") + " \u00b0C";
+	    	return f.format(temp) + " \u00b0C";
     	else
-    		return getTemperature(i).optString("min") + " \u00b0F";
+    		return f.format(temp) + " \u00b0F";
     }
 
     public String getTempMax(int i) throws  JSONException, IOException {
+    	DecimalFormat f = new DecimalFormat("0");
+	    double temp = getTemperature(i).optDouble("max");
     	if(GUIApp.pref.getUnit().equals("metric"))
-    		return getTemperature(i).optString("max") + " \u00b0C";
+	    	return f.format(temp) + " \u00b0C";
     	else
-    		return getTemperature(i).optString("max") + " \u00b0F";
+    		return f.format(temp) + " \u00b0F";
     }
 
     public String getTempNight(int i) throws  JSONException, IOException {

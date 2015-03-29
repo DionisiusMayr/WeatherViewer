@@ -3,9 +3,11 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 /**
  * This class is for Local Weather View
@@ -80,7 +82,7 @@ public class LocalWeatherView {
 	 * @return string temperature
 	 */
 	public String getTemperature() throws JSONException, IOException {
-	    DecimalFormat f = new DecimalFormat("0.0");
+	    DecimalFormat f = new DecimalFormat("0");
 	    double temp = getMain().optDouble("temp");
 	    if(GUIApp.pref.getUnit().equals("metric"))
 	    	return f.format(temp) + " \u00b0C";
@@ -106,20 +108,24 @@ public class LocalWeatherView {
 	 *  @return TempMin
 	 */
 	public String getTempMin() throws JSONException, IOException {
+	    DecimalFormat f = new DecimalFormat("0");
+	    double temp_min = getMain().optDouble("temp_min");
 		if(GUIApp.pref.getUnit().equals("metric"))
-			return getMain().optString("temp_min", null) + " \u00b0C";
+			return f.format(temp_min) + " \u00b0C";
     	else
-    		return getMain().optString("temp_min", null) + " \u00b0F";
+    		return f.format(temp_min) + " \u00b0F";
 	}
 
 	/** getTempMax method to return Max temp
 	 *  @return GetTempMax
 	 */
 	public String getTempMax() throws JSONException, IOException {
+	    DecimalFormat f = new DecimalFormat("0");
+	    double temp_max = getMain().optDouble("temp_max");
 		if(GUIApp.pref.getUnit().equals("metric"))
-			return getMain().optString("temp_max", null) + " \u00b0C";
+			return f.format(temp_max) + " \u00b0C";
     	else
-    		return getMain().optString("temp_max", null) + " \u00b0F";
+    		return f.format(temp_max) + " \u00b0F";
 	}
 
 	/** getWindSpeed method to return wind speed
@@ -143,7 +149,7 @@ public class LocalWeatherView {
 	 */
 	public String getSunrise() throws JSONException, IOException {
 		Date date = new Date(getSys().optInt("sunrise") * 1000L);
-        return date.toString();
+        return dateParse(date.toString());
 	}
 
 	/** getSunset method to return sunset time
@@ -151,7 +157,7 @@ public class LocalWeatherView {
 	 */
 	public String getSunset() throws JSONException, IOException {
 		Date date = new Date(getSys().optInt("sunset") * 1000L);
-        return date.toString();
+        return dateParse(date.toString());
 	}
 
 	/** getSkyCondition method to return Sky condition
@@ -159,6 +165,15 @@ public class LocalWeatherView {
 	 */
 	public String getSkyCondition() throws JSONException, IOException {
 		return getWeather().optString("main", null);
+	}
+	
+	private String dateParse(String date) {
+		StringTokenizer st = new StringTokenizer(date);
+		st.nextToken();
+		st.nextToken();
+		st.nextToken();
+		String time = st.nextToken().substring(0, 5);		
+		return (time);
 	}
 
     // TODO Remove this main method.

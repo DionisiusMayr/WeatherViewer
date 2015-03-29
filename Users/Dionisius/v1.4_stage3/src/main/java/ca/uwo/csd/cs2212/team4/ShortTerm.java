@@ -1,7 +1,4 @@
 /**Class for short-term weather forecast.
- * -> Still need to implement something to build the url, but i think it should be on the webgetter class.
- * -> I think it is also a good thing to put the getDate/getCity/getCountry method on the current weather class; but we might need to change some little details on these methods.
- * ->
  * @author team4
  */
 
@@ -11,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.Date;
 
 public class ShortTerm {
     public ShortTerm() {
@@ -78,14 +74,6 @@ public class ShortTerm {
 				return weatherObject.optString("icon");
 		}
 
-    public static String getDate(int i) throws JSONException, IOException {
-        JSONObject object = data.createJsonObject(data.getJSON(URL));
-        JSONArray list = object.getJSONArray("list");
-        JSONObject internObject = list.getJSONObject(i);
-        Date date = new Date(internObject.getInt("dt") * 1000); // It has to be in miliseconds, thus the * 1000.
-        return date.toString();
-    }
-
     /* TODO take out this main. */
     public static void main(String[] args) throws JSONException, IOException {
         System.out.println("Starting execution.");
@@ -98,8 +86,6 @@ public class ShortTerm {
             System.out.println("Temperature " + i * 3 + ":\t\t" + ShortTerm.getTemperature(i) + "/\t\t" + ShortTerm.getTempMin(i) + "/\t" + ShortTerm.getTempMax(i));
         for(int i = 0; i < 8; i++)
             System.out.println("Sky cond/icon " + i * 3 + ":\t" + ShortTerm.getSkyCondition(i) + "/\t" + ShortTerm.getIcon(i));
-        for(int i = 0; i < 8; i++)
-          System.out.println(getDate(i));
         System.out.println("End of execution.");
     }
 }

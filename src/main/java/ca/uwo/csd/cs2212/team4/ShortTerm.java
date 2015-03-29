@@ -7,7 +7,9 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class ShortTerm {
@@ -75,10 +77,12 @@ public class ShortTerm {
     }
 
     public String getTemperature(int i) throws  JSONException, IOException {
+    	DecimalFormat f = new DecimalFormat("0");
+	    double temp = getMain(i).optDouble("temp");
     	if(GUIApp.pref.getUnit().equals("metric"))
-    		return getMain(i).optString("temp")+  "\u00b0C";
+	    	return f.format(temp) + " \u00b0C";
     	else
-    		return getMain(i).optString("temp")+  "\u00b0F";
+    		return f.format(temp) + " \u00b0F";
     }
 
     public String getTempMin(int i) throws  JSONException, IOException {

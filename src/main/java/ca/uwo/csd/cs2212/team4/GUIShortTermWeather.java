@@ -263,8 +263,8 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 
             for(int i = 0; i < 8; i++) {
             	date[i].setText(dateParse(weather.getDate(i+1)));
-                temp[i].setText(weather.getTemperature(i));
-                skyCondition[i].setText(weather.getSkyCondition(i));
+            	temp[i].setText(weather.getTemperature(i));
+            	skyCondition[i].setText(weather.getSkyCondition(i));
                 icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
             }
 		}
