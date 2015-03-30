@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -263,9 +262,9 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 
             for(int i = 0; i < 8; i++) {
             	date[i].setText(dateParse(weather.getDate(i+1)));
-            	temp[i].setText(weather.getTemperature(i));
-            	skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
+            	temp[i].setText(weather.getTemperature(i+1));
+            	skyCondition[i].setText(weather.getSkyCondition(i+1));
+                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
             }
 		}
         catch(Exception e) {
@@ -278,10 +277,9 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 
 		for(int i = 0; i < 8; i++) {
 			date[i].setText(dateParse(weather.getDate(i+1)));
-			temp[i].setText(weather.getTemperature(i));
-			skyCondition[i].setText(weather.getSkyCondition(i));
-			//icon[i].setIcon(new ImageIcon(GUIShortTermWeather.class.getResource(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
-			icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
+			temp[i].setText(weather.getTemperature(i+1));
+			skyCondition[i].setText(weather.getSkyCondition(i+1));
+			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
 		}
 	}
 
@@ -293,38 +291,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		String time = st.nextToken().substring(0, 3)+ "00";		
 		return (day + " " + time);
 	}
-	//not needed but maybe useful for long term
-	/*private String addHours(String time,int i){
-		//i=i-1;
-		System.out.println(i);
-		int temp = Integer.parseInt(time);
-		if(temp>=24){
-			temp = temp-24;
-			nextDay=true;
-		}
-		if(temp>=10){
-			return Integer.toString(temp);
-		}
-		return "0" + Integer.toString(temp);
-	}
-	
-	private String nextDay(String day){
-		if(day.compareTo("Mon")==0){
-			return "Tue";
-		}else if(day.compareTo("Tue")==0){
-			return "Wed";
-		}else if(day.compareTo("Wed")==0){
-			return "Thu";
-		}else if(day.compareTo("Thu")==0){
-			return "Fri";
-		}else if(day.compareTo("Fri")==0){
-			return "Sat";
-		}else if(day.compareTo("Sat")==0){
-			return "Sun";
-		}
-		return "Mon";
-		
-	}*/
+
 	public JPanel getPanel(){
 		return contentPane;
 	}

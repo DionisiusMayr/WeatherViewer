@@ -314,7 +314,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
             	date[i].setText(dateParse(weather.getDate(i)));
             	day[i].setText(weather.getTempDay(i));
                 skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
+                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
                 max[i].setText("High:" + weather.getTempMax(i));
                 min[i].setText("Low:" + weather.getTempMin(i));
             }
@@ -331,7 +331,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 			date[i].setText(dateParse(weather.getDate(i+1)));
 			day[i].setText(weather.getTempDay(i));
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i].setIcon(new ImageIcon(GUIApp.getImage(weather.getSkyCondition(i).toLowerCase()+ ".png" )));
+			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
             max[i].setText("High: "+ weather.getTempMax(i));
             min[i].setText("Low: "+ weather.getTempMin(i));
 		}
@@ -345,22 +345,6 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		//String time = st.nextToken().substring(0, 3)+ "00";		
 		return (day);
 	}
-	
-	//not needed but maybe useful for long term
-    /* private String addHours(String time,int i)
-     {
-		//i=i-1;
-		System.out.println(i);
-		int temp = Integer.parseInt(time);
-		if(temp>=24){
-			temp = temp-24;
-			nextDay=true;
-		}
-		if(temp>=10){
-			return Integer.toString(temp);
-		}
-		return "0" + Integer.toString(temp);
-	}*/
 	
 	private String nextDay(String day){
 		if(day.compareTo("Mon")==0){

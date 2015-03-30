@@ -23,6 +23,7 @@ public class GUICurrentWeather extends JFrame {
 	private LocalWeatherView weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
+	private ClassLoader cl;
 
 	/**
 	 * Launch the application.
@@ -82,7 +83,7 @@ public class GUICurrentWeather extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			strLocation = weather.getCityName();
+			strLocation = weather.getCityName() + " " + weather.getCountry();
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
@@ -338,18 +339,19 @@ public class GUICurrentWeather extends JFrame {
         /***********************************************************************************************
          * Weather condition icon
          * *************************************************************************************************/
-		//img = null;
+		img = null;
 
-		//try {
-		//	img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-		//}
-		//catch(IOException e) {
-		//	System.out.println("Can't open image file");
-		//}
+		try {
+			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
+		}
+		catch(IOException e) {
+			System.out.println("Can't open image file");
+		}
 
-		//lblIcon = new JLabel(new ImageIcon(img));
-
-		lblIcon = new JLabel(new ImageIcon(GUIApp.getImage(strCondition.toLowerCase()+ ".png" )));
+		lblIcon = new JLabel(new ImageIcon(img));
+		
+		cl = this.getClass().getClassLoader();
+		
 
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
@@ -393,7 +395,7 @@ public class GUICurrentWeather extends JFrame {
 		lblWddir_1.setText(strWdDir);
 		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
-		lblIcon.setIcon(new ImageIcon(GUIApp.getImage(strCondition.toLowerCase()+ ".png" )));
+		lblIcon.setIcon(new ImageIcon(strCondition.toLowerCase()+ ".png" ));
 		//lblIcon.setIcon(new ImageIcon(img));
 		lblLocation.setText(strLocation);
 	}

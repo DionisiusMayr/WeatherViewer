@@ -11,12 +11,7 @@ import javax.swing.SwingUtilities;
 public class GUIApp {
     static Preferences pref; // pref has package scope.
 
-    //public static Image getImage(final String pathAndFileName) {
-    public static String getImage(final String pathAndFileName) {
-        //final URL url = Thread.currentThread().getContextClassLoader().getResource(pathAndFileName);
-        //return Toolkit.getDefaultToolkit().getImage(url);
-        return pathAndFileName;
-    }
+   
 	public static void main(String[]args) throws Exception {
         /* Loads the preferences from the file. */
         pref = Preferences.loadPreferences();
