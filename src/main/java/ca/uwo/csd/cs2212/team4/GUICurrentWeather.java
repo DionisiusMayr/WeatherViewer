@@ -1,17 +1,13 @@
 package ca.uwo.csd.cs2212.team4;
 
-import java.awt.*;
-
-import javax.imageio.ImageIO;
+import java.awt.*;;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 import java.text.*;
-
 import org.json.JSONException;
 
 public class GUICurrentWeather extends JFrame {
@@ -23,7 +19,6 @@ public class GUICurrentWeather extends JFrame {
 	private LocalWeatherView weather;
 	private BufferedImage img;
 	private JLabel lblIcon;
-	private ClassLoader cl;
 
 	/**
 	 * Launch the application.
@@ -335,23 +330,10 @@ public class GUICurrentWeather extends JFrame {
 		);
 		infoPanel.setLayout(gl_infoPanel);
 
-
         /***********************************************************************************************
          * Weather condition icon
          * *************************************************************************************************/
-		img = null;
-
-		try {
-			img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
-		}
-		catch(IOException e) {
-			System.out.println("Can't open image file");
-		}
-
-		lblIcon = new JLabel(new ImageIcon(img));
-		
-		cl = this.getClass().getClassLoader();
-		
+        lblIcon = new JLabel(new ImageIcon(getClass().getResource("/images/" + strCondition.toLowerCase()+ ".png" )));
 
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
@@ -378,7 +360,6 @@ public class GUICurrentWeather extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			//img = ImageIO.read(new File(strCondition.toLowerCase() + ".png"));
 			strLocation =  weather.getCityName() + " " + weather.getCountry();
 		}
 		catch(Exception e) {
@@ -395,8 +376,7 @@ public class GUICurrentWeather extends JFrame {
 		lblWddir_1.setText(strWdDir);
 		lblSunset_1.setText(strSunset);
 		lblHumidity_1.setText(strHumidity);
-		lblIcon.setIcon(new ImageIcon(strCondition.toLowerCase()+ ".png" ));
-		//lblIcon.setIcon(new ImageIcon(img));
+		lblIcon.setIcon(new ImageIcon(getClass().getResource("/images/" + strCondition.toLowerCase()+ ".png" )));
 		lblLocation.setText(strLocation);
 	}
 

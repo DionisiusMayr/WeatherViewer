@@ -3,7 +3,6 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -174,23 +173,5 @@ public class LocalWeatherView {
 		st.nextToken();
 		String time = st.nextToken().substring(0, 5);		
 		return (time);
-	}
-
-    // TODO Remove this main method.
-	public static void main(String[] args) throws JSONException, IOException {
-		LocalWeatherView test = new LocalWeatherView("mississauga");
-		System.out.println("Date:\t" + test.getDate());
-		System.out.println("City:\t" + test.getCityName());
-		System.out.println("Country:\t" + test.getCountry());
-		System.out.println("Temperature:\t" + test.getTemperature());
-		System.out.println("Pressure:\t" + test.getPressure());
-		System.out.println("Humidity:\t" + test.getHumidity());
-		System.out.println("Sunrise:\t" + test.getSunrise());
-		System.out.println("Sunset:\t\t" + test.getSunset());
-		System.out.println("TempMax:\t" + test.getTempMax());
-		System.out.println("TempMin:\t" + test.getTempMin());
-		System.out.println("Wind Speed:\t" + test.getWindSpeed());
-		System.out.println("Wind Direction:\t" + test.getWindDirection());
-		System.out.println("Sky Condition:\t" + test.getSkyCondition());
 	}
 }

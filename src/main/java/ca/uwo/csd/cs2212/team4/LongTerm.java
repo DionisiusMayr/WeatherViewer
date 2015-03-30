@@ -1,26 +1,8 @@
-/**Class for short-term weather forecast.
- *
- * TODO Which temperatures need to be displayed?
-
- "temp":
- {
-     "day":        6.9,
-     "min":        1.07,
-     "max":        6.9,
-     "night":      1.07,
-     "eve":        6.9,
-     "morn":       6.9
- },
- *
- * @author team4
- */
-
 package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -138,31 +120,6 @@ public class LongTerm {
 
     public String getIcon(int i) throws  JSONException, IOException {
         return getWeather(i).optString("icon");
-    }
-
-    /* TODO take out this main. */
-    public static void main(String[] args) throws JSONException, IOException {
-        
-    	LongTerm test = new LongTerm("london", "ca");
-
-        System.out.println("City name: \t\t" + test.getCityName());
-        System.out.println("Country: \t\t" + test.getCountry());
-        /* I think that when we get the array on the position 0 it is related to the actual day,
-         * so maybe our loop would have to go from 1 to 6, instead of 0 to 5. */
-        for(int i = 0; i < 5; i++) {
-        	System.out.println(test.getDate(i));
-            System.out.println("Temperature Min: \t\t" + test.getTempMin(i));
-            System.out.println("Temperature Max: \t\t" + test.getTempMax(i));
-            
-            System.out.println("Temperature Morn: \t\t" + test.getTempMorn(i));
-            System.out.println("Temperature Day: \t\t" + test.getTempDay(i));
-            System.out.println("Temperature Eve: \t\t" + test.getTempEve(i));
-            System.out.println("Temperature Night: \t\t" + test.getTempNight(i));
-            
-            System.out.println("Sky Condition: \t\t\t" + test.getSkyCondition(i));
-            System.out.println("Icon: \t\t\t\t\t" + test.getIcon(i));
-            System.out.println();
-        }
     }
 }
 

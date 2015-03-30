@@ -2,7 +2,6 @@ package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 
@@ -50,7 +49,8 @@ public class Mars {
     	DecimalFormat f = new DecimalFormat("0");
     	double temp = getReport().optDouble("max_temp");
 	    return f.format(temp) + " \u00b0C";
-    }
+	}
+    
     public String getMaxTempF() throws JSONException, IOException {
     	DecimalFormat f = new DecimalFormat("0");
     	double temp = getReport().optDouble("max_temp_fahrenheit");
@@ -76,20 +76,4 @@ public class Mars {
     public String getSkyCondition() throws JSONException, IOException {
 		return getReport().optString("atmo_opacity");
 	}
-
-	public static void main(String[] args) throws JSONException, IOException {
-		Mars test = new Mars();
-		System.out.println("Terrestral Date:\t" + test.getTerrestrialDate());
-		System.out.println("MinTemp:\t" + test.getMinTemp());
-		System.out.println("MinTempF:\t" + test.getMinTempF());
-		System.out.println("MaxTemp:\t" + test.getMaxTemp());
-		System.out.println("MaxTempF:\t" + test.getMaxTempF());
-		System.out.println("Wind Speed:\t" + test.getWindSpeed());
-		System.out.println("Wind Direction:\t" + test.getWindDirection());
-		System.out.println("Pressure:\t" + test.getPressure());
-		System.out.println("Humidity:\t" + test.getHumidity());
-		System.out.println("Sky Condition:\t" + test.getSkyCondition());
-
-	}
-
 }

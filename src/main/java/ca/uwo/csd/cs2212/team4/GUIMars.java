@@ -1,16 +1,12 @@
 package ca.uwo.csd.cs2212.team4;
 
-import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.text.*;
-
-import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-
 import org.json.JSONException;
 
 public class GUIMars extends JFrame {
@@ -23,23 +19,6 @@ public class GUIMars extends JFrame {
 	private Mars weather;
 	private ImageIcon img;
 	private JLabel lblIcon;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIMars frame = new GUIMars();
-					frame.setVisible(true);
-				}
-                catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -349,7 +328,6 @@ public class GUIMars extends JFrame {
 		lblLocation.setText(strLocation);
 	}
 
-    //TODO do we really need these methods?
 	public void refresh(String cityOrCountry) throws JSONException, IOException{
 		this.refresh();
 	}

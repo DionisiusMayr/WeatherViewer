@@ -7,7 +7,6 @@ package ca.uwo.csd.cs2212.team4;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
@@ -99,19 +98,5 @@ public class ShortTerm {
 
     public String getIcon(int i) throws  JSONException, IOException {
         return getWeather(i).optString("icon");
-    }
-
-    /* TODO take out this main. */
-    public static void main(String[] args) throws JSONException, IOException {
-		ShortTerm test = new ShortTerm("mississauga");
-
-        System.out.println("City name: \t\t" + test.getCityName());
-        System.out.println("Country: \t\t" + test.getCountry());
-        
-        for(int i = 0; i < 8; i++) {
-            System.out.println(test.getDate(i));
-            System.out.println("Temperature " + i * 3 + ":\t\t" + test.getTemperature(i) + "/\t\t" + test.getTempMin(i) + "/\t" + test.getTempMax(i));
-            System.out.println("Sky cond/icon " + i * 3 + ":\t" + test.getSkyCondition(i) + "/\t" + test.getIcon(i));
-        }
     }
 }

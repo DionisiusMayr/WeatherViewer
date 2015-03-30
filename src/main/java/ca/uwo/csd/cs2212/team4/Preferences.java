@@ -1,6 +1,5 @@
 package ca.uwo.csd.cs2212.team4;
 
-import java.awt.Toolkit;
 import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
@@ -27,7 +26,7 @@ public class Preferences implements Serializable {
         out.close();
     }
 
-    public static Preferences loadPreferences() throws Exception {
+    public Preferences loadPreferences() throws Exception {
         ObjectInputStream in = new ObjectInputStream(new FileInputStream("preferences.dat"));
 
         Preferences objectRead = (Preferences) in.readObject();
@@ -72,15 +71,5 @@ public class Preferences implements Serializable {
         System.out.println("City: " + cityName);
         System.out.println("Country: " + countryName);
         System.out.println("Units: " + unit);
-    }
-
-    // TODO remove this main function
-    public static void main(String[] args) throws Exception {
-        System.out.println("Start");
-        Preferences pref = new Preferences("London", "Canada", "metric");
-        pref.storePreferences();
-        //Preferences pref = Preferences.loadPreferences();
-        pref.printValues();
-        
     }
 }

@@ -20,25 +20,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private String city,country;
 	private LongTerm weather;
-	private Boolean nextDay, addHours;
-	private JLabel[] day,skyCondition,icon,date, max, min, rise, set;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUILongTermWeather frame = new GUILongTermWeather();
-					frame.setVisible(true);
-				}
-                catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JLabel[] day,skyCondition,icon,date, max, min;
 
 	/**
 	 * Create the frame.
@@ -46,7 +28,6 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 	public GUILongTermWeather() {
 		city = GUIApp.pref.getCity();
 		country = GUIApp.pref.getCountry();
-		nextDay=false;
 
 		setTitle("Long-Term Weather");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -314,7 +295,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
             	date[i].setText(dateParse(weather.getDate(i)));
             	day[i].setText(weather.getTempDay(i));
                 skyCondition[i].setText(weather.getSkyCondition(i));
-                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
+                icon[i].setIcon(new ImageIcon(getClass().getResource("/images/" + weather.getSkyCondition(i).toLowerCase() + ".png")));
                 max[i].setText("High:" + weather.getTempMax(i));
                 min[i].setText("Low:" + weather.getTempMin(i));
             }
@@ -331,7 +312,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 			date[i].setText(dateParse(weather.getDate(i+1)));
 			day[i].setText(weather.getTempDay(i));
 			skyCondition[i].setText(weather.getSkyCondition(i));
-			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
+			icon[i].setIcon(new ImageIcon(getClass().getResource("/images/" + weather.getSkyCondition(i).toLowerCase() + ".png")));
             max[i].setText("High: "+ weather.getTempMax(i));
             min[i].setText("Low: "+ weather.getTempMin(i));
 		}
@@ -342,27 +323,10 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		String day = st.nextToken();
 		st.nextToken();
 		st.nextToken();
-		//String time = st.nextToken().substring(0, 3)+ "00";		
+
 		return (day);
 	}
-	
-	private String nextDay(String day){
-		if(day.compareTo("Mon")==0){
-			return "Tue";
-		}else if(day.compareTo("Tue")==0){
-			return "Wed";
-		}else if(day.compareTo("Wed")==0){
-			return "Thu";
-		}else if(day.compareTo("Thu")==0){
-			return "Fri";
-		}else if(day.compareTo("Fri")==0){
-			return "Sat";
-		}else if(day.compareTo("Sat")==0){
-			return "Sun";
-		}
-		return "Mon";
-		
-	}
+
 	public JPanel getPanel(){
 		return contentPane;
 	}

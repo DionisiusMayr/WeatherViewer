@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -20,25 +19,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private String city,country;
 	private ShortTerm weather;
-	private Boolean nextDay;
 	private JLabel[] temp,skyCondition,icon,date;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIShortTermWeather frame = new GUIShortTermWeather();
-					frame.setVisible(true);
-				}
-                catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -46,7 +27,6 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	public GUIShortTermWeather() {
 		city = GUIApp.pref.getCity();
 		country = GUIApp.pref.getCountry();
-		nextDay=false;
 
 		setTitle("Short-Term Weather");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -242,8 +222,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		date[5] = lbl18;
 		date[6] = lbl21;
 		date[7] = lbl24;
-		
-		
+
 		try{
 		refresh(city,country);
 		}
@@ -264,7 +243,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
             	date[i].setText(dateParse(weather.getDate(i+1)));
             	temp[i].setText(weather.getTemperature(i+1));
             	skyCondition[i].setText(weather.getSkyCondition(i+1));
-                icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
+                icon[i].setIcon(new ImageIcon(getClass().getResource("/images/" + weather.getSkyCondition(i + 1).toLowerCase() + ".png")));
             }
 		}
         catch(Exception e) {
@@ -279,7 +258,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 			date[i].setText(dateParse(weather.getDate(i+1)));
 			temp[i].setText(weather.getTemperature(i+1));
 			skyCondition[i].setText(weather.getSkyCondition(i+1));
-			icon[i].setIcon(new ImageIcon(weather.getSkyCondition(i).toLowerCase()+ ".png" ));
+			icon[i].setIcon(new ImageIcon(getClass().getResource("/images/" + weather.getSkyCondition(i+1).toLowerCase()+ ".png" )));
 		}
 	}
 
