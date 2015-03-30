@@ -19,7 +19,7 @@ public class GUIMars extends JFrame {
 	private CustomLabel lblLocation, lblMin, lblMax, lblPressure_1, lblHumidity_1, lblWdSpd_1, lblWddir_1, lblDate, lblCondition;
 	private CustomLabel lblWdSpd_1_1;
 	private Mars weather;
-	private BufferedImage img;
+	private ImageIcon img;
 	private JLabel lblIcon;
 
 	/**
@@ -298,12 +298,12 @@ public class GUIMars extends JFrame {
 		img = null;
 
 		try {
-			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
+			img = new ImageIcon(getClass().getResource("/images/" + strCondition.toLowerCase() + ".png" ));
 		}
-		catch(IOException e) {
+		catch(Exception e) {
 			System.out.println("Can't open image file");
 		}
-		lblIcon = new JLabel(new ImageIcon(img));
+		lblIcon = new JLabel(img);
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
 	
@@ -312,7 +312,7 @@ public class GUIMars extends JFrame {
 	}
 
     /*****************************REFRESH**************************/
-	
+
 	public void refresh() {
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
@@ -324,7 +324,7 @@ public class GUIMars extends JFrame {
 			strWdSpd = weather.getWindSpeed();
 			strWdDir = weather.getWindDirection();
 			strCondition = weather.getSkyCondition();
-			img = ImageIO.read(new File(strCondition.toLowerCase() +".png"));
+            img = new ImageIcon(getClass().getResource("/images/" + strCondition.toLowerCase() + ".png" ));
 		}
 		catch(Exception e) {
 			System.out.println("Error getting info");
@@ -337,7 +337,7 @@ public class GUIMars extends JFrame {
 		lblWdSpd_1_1.setText(strWdSpd);
 		lblWddir_1.setText(strWdDir);
 		lblHumidity_1.setText(strHumidity);
-		lblIcon.setIcon(new ImageIcon(img));
+		lblIcon.setIcon(img);
 		lblLocation.setText(strLocation);
 	}
 
