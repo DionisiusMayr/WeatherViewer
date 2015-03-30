@@ -2,7 +2,9 @@ package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /**
  * This class is for Local Weather View
@@ -33,19 +35,26 @@ public class Mars {
 	}
     
     public String getMinTemp() throws JSONException, IOException {
-		return getReport().optString("min_temp");
+    	DecimalFormat f = new DecimalFormat("0");
+    	double temp = getReport().optDouble("min_temp");
+	    return f.format(temp) + " \u00b0C";
 	}
     
     public String getMinTempF() throws JSONException, IOException {
-		return getReport().optString("min_temp_fahrenheit");
+    	DecimalFormat f = new DecimalFormat("0");
+    	double temp = getReport().optDouble("min_temp_fahrenheit");
+	    return f.format(temp) + " \u00b0C";
 	}
     
     public String getMaxTemp() throws JSONException, IOException {
-		return getReport().optString("max_temp");
-	}
-    
+    	DecimalFormat f = new DecimalFormat("0");
+    	double temp = getReport().optDouble("max_temp");
+	    return f.format(temp) + " \u00b0C";
+    }
     public String getMaxTempF() throws JSONException, IOException {
-		return getReport().optString("max_temp_fahrenheit");
+    	DecimalFormat f = new DecimalFormat("0");
+    	double temp = getReport().optDouble("max_temp_fahrenheit");
+	    return f.format(temp) + " \u00b0C";
 	}
     
     public String getWindSpeed() throws JSONException, IOException {
@@ -57,7 +66,7 @@ public class Mars {
 	}
     
     public String getPressure() throws JSONException, IOException {
-		return getReport().optString("pressure");
+		return getReport().optString("pressure") + " hpa";
 	}
     
     public String getHumidity() throws JSONException, IOException {

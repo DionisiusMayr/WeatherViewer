@@ -5,10 +5,12 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
+
 import org.json.JSONException;
 
 public class GUIMars extends JFrame {
@@ -317,8 +319,14 @@ public class GUIMars extends JFrame {
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
 		try {
-			strMin = weather.getMinTemp();
-			strMax = weather.getMaxTemp();
+		    if(GUIApp.pref.getUnit().equals("metric")) {
+		    	strMin = weather.getMinTemp();
+		    	strMax = weather.getMaxTemp();
+		    }
+			else {
+				strMin = weather.getMinTempF();
+		    	strMax = weather.getMaxTempF();
+			}
 			strPressure = weather.getPressure();
 			strHumidity = weather.getHumidity();
 			strWdSpd = weather.getWindSpeed();
