@@ -61,9 +61,9 @@ public class GUIMars extends JFrame {
 		lblPressure.setForeground(Color.gray);
 		CustomLabel lblHumidity = new CustomLabel("Humidity");	
 		lblHumidity.setForeground(Color.gray);
-		CustomLabel lblWdspd = new CustomLabel("Windspeed");	
+		CustomLabel lblWdspd = new CustomLabel("Wind Speed");	
 		lblWdspd.setForeground(Color.gray);
-		CustomLabel lblWinddirection = new CustomLabel("Winddirection");
+		CustomLabel lblWinddirection = new CustomLabel("Wind Direction");
 		lblWinddirection.setForeground(Color.gray);
 
         lblMax = new CustomLabel("Max: " + strMax);
