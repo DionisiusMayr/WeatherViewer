@@ -1,6 +1,6 @@
 package ca.uwo.csd.cs2212.team4;
 
-import java.awt.*;;
+import java.awt.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
