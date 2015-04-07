@@ -9,10 +9,8 @@ This app allows users to view the current weather in their current location. The
 # Installation
 
 Download the sources on Github, unzip everything in one folder, open a terminal and type
-
-**Installation with pip:** if you have ``pip`` installed, just type this in a terminal: ::
-(sudo) pip install moviepy
- 
+    
+    (sudo) pip install moviepy
  
  
  
