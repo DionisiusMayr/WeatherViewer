@@ -20,6 +20,7 @@ Java and Maven are required to build the program. Once you have installed them, 
 
 Useful info
 - For examples of openweathermap api, click <a href="http://openweathermap.org/examples">here</a>
+- How to access current weather data in JSON format, click <a href="http://openweathermap.org/current">here</a>
 
  
  
