@@ -6,7 +6,13 @@ This app allows users to view the current weather in their current location. The
 
  It connects to openweathermap.org’s <a href="http://openweathermap.org/api">API</a> and it is developed in Java with a Swing graphical user interface.
  
- # Installation
+# Installation
+
+Download the sources on Github, unzip everything in one folder, open a terminal and type
+
+**Installation with pip:** if you have ``pip`` installed, just type this in a terminal: ::
+    
+    (sudo) pip install moviepy
  
  
  
