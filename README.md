@@ -13,12 +13,17 @@ Download the sources on Github, unzip everything in one folder, open a terminal 
     java –jar 4_TheWeather.jar
  
 # Build
-Java and Maven is required to build the program. Once you have installed them, you can compile your application sources by typing the following in the terminal
+Java and Maven are required to build the program. Once you have installed them, you can compile your application sources by typing the following in the terminal
 
    
     mvn compile
 
+For advanced image processing you will need one or several of these packages. For instance using the method ``clip.resize`` requires that at least one of Scipy, PIL, Pillow or OpenCV are installed.
 
+- The Python Imaging Library (PIL) or, better, its branch Pillow_ .
+- Scipy_ (for tracking, segmenting, etc.), and can be used for resizing video clips if PIL and OpenCV aren't installed on your computer.
+- `Scikit Image`_ may be needed for some advanced image manipulation.
+- `OpenCV 2.4.6`_ or more recent (which provides the package ``cv2``) may be needed for some advanced image manipulation.
 
  
  
