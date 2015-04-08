@@ -1,5 +1,7 @@
 # Weather-viewing App 
 
+.. image:: https://raw.githubusercontent.com/Zulko/moviepy/master/docs/demo_preview.jpeg
+
 # Description
 
 This app allows users to view the current weather in their current location. The base functional specifications include Start up and Exit, and Local Weather View. Our additional component specifications include Short-term Forecast, Long-term Forecast, and Weather on Mars.
