@@ -26,6 +26,7 @@ Useful info
 
 # Usage
 
+Click <a href="https://www.youtube.com/watch?v=YdSvyNU3DuA&feature=youtu.be">here</a> to see the project in action.
 
  
  
