@@ -32,7 +32,7 @@ Click <a href="https://www.youtube.com/watch?v=YdSvyNU3DuA&feature=youtu.be">her
 
 #Documentation
 
-Click <a href="https://github.com/UWO-2212-W2015/team4/tree/master/doc">here</a to view JavaDoc
+Click <a href="https://github.com/UWO-2212-W2015/team4/tree/master/doc">here</a> to view JavaDoc.
  
  
  
