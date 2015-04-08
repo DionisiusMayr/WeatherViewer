@@ -31,8 +31,8 @@ public class GUICurrentWeather extends JFrame {
 	/**
 	 * Constructor to create the frame.
 	 * 
-	 * @throws IOException 
-	 * @throws JSONException
+	 * @throws java.io.IOException
+	 * @throws org.json.JSONException
 	 */
 	public GUICurrentWeather() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -387,8 +387,8 @@ public class GUICurrentWeather extends JFrame {
 	 * Open Weather Map is queried with the text for the new city.
 	 * 
 	 * @param city Text for new query
-	 * @throws JSONException if new query fails
-	 * @throws IOException 
+	 * @throws org.json.JSONException if new query fails
+	 * @throws java.io.IOException
 	 * */
 	public void refresh(String city) throws JSONException, IOException {
 		weather = new LocalWeatherView(city);
@@ -400,8 +400,8 @@ public class GUICurrentWeather extends JFrame {
 	 * 
 	 * @param city city text for new query
 	 * @param country country text for new query
-	 * @throws JSONException if new query fails
-	 * @throws IOException 
+	 * @throws org.json.JSONException if new query fails
+	 * @throws java.io.IOException
 	 * */
 	public void refresh(String city, String country) throws JSONException, IOException {
 		weather = new LocalWeatherView(city, country);

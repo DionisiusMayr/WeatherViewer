@@ -14,7 +14,7 @@ import org.json.JSONException;
  * GUIMars is a JFrame that displays the weather information on Mars.
  * It includes labels for both the titles and contents of max/min temperature, humidity, windspeed, wind direction.
  * The data generated is from marsweather.ingenology.com.
- * This window is opened when the button "Take me to Mars!" is pressed on {@link GUIFullWindow}.
+ * This window is opened when the button "Take me to Mars!" is pressed on {@link ca.uwo.csd.cs2212.team4.GUIFullWindow}.
  * 
  * @author Team 4
  * */
@@ -32,8 +32,8 @@ public class GUIMars extends JFrame {
 	/**
 	 * Constructor to create the frame.
 	 * 
-	 * @throws IOException 
-	 * @throws JSONException
+	 * @throws java.io.IOException
+	 * @throws org.json.JSONException
 	 */
 	public GUIMars() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

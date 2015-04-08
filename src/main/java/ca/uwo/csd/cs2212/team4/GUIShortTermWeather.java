@@ -276,8 +276,8 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	 * 
 	 * @param city city text for new query
 	 * @param country country text for new query
-	 * @throws JSONException if new query fails
-	 * @throws IOException 
+	 * @throws org.json.JSONException if new query fails
+	 * @throws java.io.IOException
 	 * */
 	public void refresh(String city, String country) throws IOException, JSONException{
 		weather = new ShortTerm(city, country);
@@ -308,7 +308,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	
 	/**
 	 * returns the panel that is in the local frame, which can be used as part of the larger frame 
-	 * {@link GUIFullWindow}. 
+	 * {@link ca.uwo.csd.cs2212.team4.GUIFullWindow}.
 	 * 
 	 * @return content panel of current frame
 	 */

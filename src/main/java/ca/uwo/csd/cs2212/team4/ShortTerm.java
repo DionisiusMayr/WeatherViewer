@@ -1,7 +1,3 @@
-/**Class for short-term weather forecast.
- * @author team4
- */
-
 package ca.uwo.csd.cs2212.team4;
 
 import org.json.JSONArray;
@@ -11,6 +7,10 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Date;
 
+/**
+ * This is the class responsible for getting the information about the Short Term Forecast.
+ * @author team4
+ */
 public class ShortTerm {
 	private String city;
 	private String country;
@@ -23,7 +23,11 @@ public class ShortTerm {
 	private JSONArray weatherArray;
 	private JSONObject weather;
 
-	//constructor 1
+    /** Constructor to build the object from just a city
+     * @param cityName Name of the city to be used on the query.
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     * */
 	public ShortTerm(String cityName) throws JSONException, IOException {
 		city = cityName;
 		data = new WebInterface(city);
@@ -31,7 +35,12 @@ public class ShortTerm {
         list = object.getJSONArray("list");
 	}
 
-	//constructor 2
+    /** Constructor to build the object from a city and the respective country.
+     * @param cityName Name of the city to be used on the query.
+     * @param countryCode Name of the country of the city to be used on the query.
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     * */
 	public ShortTerm(String cityName, String countryCode) throws JSONException, IOException {
 		city = cityName;
 		country = countryCode;
@@ -40,41 +49,55 @@ public class ShortTerm {
         list = object.getJSONArray("list"); 
 	}
 	
-	///////////////////////////HELPER METHODS///////////////////////
-    private JSONObject getCity() throws JSONException, IOException {
-        cityJSON = object.getJSONObject("city");
-        return cityJSON;
-    }
-	
+	/* HELPER METHODS */
+
+    /** Auxiliary method to get the main object i from the JSONArray
+     * @param i int the index of the array that you want to get the object
+     * @return the i'th "main" JSON object inside the JSONArray
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     * */
     private JSONObject getMain(int i) throws JSONException, IOException {
         internObject = list.getJSONObject(i);
         main = internObject.getJSONObject("main");
         return main;
     }
 
+    /** Auxiliary method to get the weather object i from the JSONArray
+     * @param i int the index of the array that you want to get the object
+     * @return the i'th "weather" JSON object inside the JSONArray
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     * */
     private JSONObject getWeather(int i) throws JSONException, IOException {
         internObject = list.getJSONObject(i);
         weatherArray = internObject.getJSONArray("weather");
         weather = weatherArray.getJSONObject(0);
         return weather;
     }
-    ///////////////////////////HELPER METHODS///////////////////////
-    
-    //GETTERS
+
+    /* END OF HELPER METHODS */
+
+    /* GETTERS */
+
+    /** Method used to get the date/time of the hour i * 3.
+     * @param i int offset of the forecast
+     * @return String the complete date/time for the day i * 3.
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     */
     public String getDate(int i) throws JSONException, IOException {
         internObject = list.getJSONObject(i);
         Date date = new Date(internObject.getInt("dt") * 1000L); // It has to be in miliseconds, thus the * 1000.
         return date.toString();
     }
-    
-    public String getCityName() throws  JSONException, IOException {
-        return getCity().optString("name");
-    }
 
-    public String getCountry() throws  JSONException, IOException {
-        return getCity().optString("country");
-    }
-
+    /** Method used to get the temperature of the hour i * 3.
+     * @param i int offset of the forecast
+     * @return String temperature and the correct unit for hour i * 3.
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     */
     public String getTemperature(int i) throws  JSONException, IOException {
     	DecimalFormat f = new DecimalFormat("0");
 	    double temp = getMain(i).optDouble("temp");
@@ -84,19 +107,15 @@ public class ShortTerm {
     		return f.format(temp) + " \u00b0F";
     }
 
-    public String getTempMin(int i) throws  JSONException, IOException {
-        return getMain(i).optString("temp_min");
-    }
-
-    public String getTempMax(int i) throws  JSONException, IOException {
-        return getMain(i).optString("temp_max");
-    }
-
+    /** Method used to get the sky condition of the hour i * 3.
+     * @param i int offset of the forecast
+     * @return String the sky condition, like Clear or Clouds for hour i * 3.
+     * @throws org.json.JSONException if it fails to build the JSON object
+     * @throws java.io.IOException
+     */
     public String getSkyCondition(int i) throws  JSONException, IOException {
         return getWeather(i).optString("main");
     }
 
-    public String getIcon(int i) throws  JSONException, IOException {
-        return getWeather(i).optString("icon");
-    }
+    /* END OF GETTERS */
 }

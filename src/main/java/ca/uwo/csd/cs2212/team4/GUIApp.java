@@ -1,5 +1,3 @@
-
-
 package ca.uwo.csd.cs2212.team4;
 import org.json.JSONException;
 import java.io.IOException;
