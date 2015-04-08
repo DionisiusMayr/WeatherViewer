@@ -4,11 +4,20 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.text.*;
+
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-import org.json.JSONException;
 
+import org.json.JSONException;
+/**
+ * GUIMars is a JFrame that displays the weather information on Mars.
+ * It includes labels for both the titles and contents of max/min temperature, humidity, windspeed, wind direction.
+ * The data generated is from marsweather.ingenology.com.
+ * This window is opened when the button "Take me to Mars!" is pressed on {@link GUIFullWindow}.
+ * 
+ * @author Team 4
+ * */
 public class GUIMars extends JFrame {
 	private JPanel contentPane;
 	private Date date;
@@ -21,9 +30,10 @@ public class GUIMars extends JFrame {
 	private JLabel lblIcon;
 
 	/**
-	 * Create the frame.
-	 * @throws java.io.IOException
-	 * @throws org.json.JSONException
+	 * Constructor to create the frame.
+	 * 
+	 * @throws IOException 
+	 * @throws JSONException
 	 */
 	public GUIMars() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -288,12 +298,20 @@ public class GUIMars extends JFrame {
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * returns the panel that is in the local frame.
+	 * 
+	 * @return content panel of current frame
+	 */
 	public JPanel getPanel() {
 		return contentPane;
 	}
 
-    /*****************************REFRESH**************************/
-
+    /**
+     * Refreshes the data. 
+     * It re-queries Mars Weather for the new data and updates the date to reflect
+     * the local computer time when the refresh button is clicked.
+    */
 	public void refresh() {
 		date = new Date();
 		lblDate.setText(dateFormat.format(date));
@@ -328,10 +346,20 @@ public class GUIMars extends JFrame {
 		lblLocation.setText(strLocation);
 	}
 
+    /**
+     * Refreshes the data. 
+     * It re-queries Mars Weather for the new data and updates the date to reflect
+     * the local computer time when the refresh button is clicked.
+    */
 	public void refresh(String cityOrCountry) throws JSONException, IOException{
 		this.refresh();
 	}
 	
+    /**
+     * Refreshes the data. 
+     * It re-queries Mars Weather for the new data and updates the date to reflect
+     * the local computer time when the refresh button is clicked.
+    */
 	public void refresh(String city, String country) throws JSONException, IOException{
 		this.refresh();
 	}

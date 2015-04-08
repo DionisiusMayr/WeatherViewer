@@ -17,6 +17,14 @@ import javax.swing.*;
 import java.io.IOException;
 import org.json.JSONException;
 
+/**
+ * GUIFullWindow is a JFrame that forms the main frame of the app. 
+ * It contains 3 sub-panels: current weather, long term and short term.
+ * The long term and short term panels are implemented as a tabbed panel.
+ * It also contains a text box and control buttons for the user.
+ * 
+ * @author Team 4
+ * */
 public class GUIFullWindow extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private GUICurrentWeather currentWeatherWindow;
@@ -26,6 +34,12 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 	private JTextField txtCity, txtCountry;
 	private String strCity, strCountry;
 	private ButtonGroup group;
+	
+	/**Returns the unit (metric or imperial) when the user makes the selection on the GUI.
+	 * The return value is used to change units and also stored into user preferences.
+	 * 
+	 * @return metric or imperial
+	 * */
 
     public String getUnitFromButton() {
     	Enumeration<AbstractButton> buttons = group.getElements();
@@ -42,7 +56,8 @@ public class GUIFullWindow extends JFrame implements ActionListener {
     }
 
 	/**
-	 * Create the frame.
+	 * Constructor to create the frame.
+	 * 
 	 * @throws java.io.IOException
 	 * @throws org.json.JSONException
 	 */
@@ -121,6 +136,14 @@ public class GUIFullWindow extends JFrame implements ActionListener {
 		currentWeatherWindow = new GUICurrentWeather();
 		splitPane.setLeftComponent(currentWeatherWindow.getPanel());
 	}
+	
+	/**Implements the actions associated with user interactions with the GUI.
+	 * Possible interactions include: pressing refresh button, pressing refresh button after
+	 * entering into text boxes, pressing refresh after changing units (radio buttons),
+	 * pressing button for Mars weather.
+	 * 
+	 * @param ae action event that user has done.
+	 * */
 
 	public void actionPerformed(ActionEvent ae) {
 		if(ae.getActionCommand().equals("Refresh")) {
@@ -205,7 +228,6 @@ public class GUIFullWindow extends JFrame implements ActionListener {
                 GUIApp.pref.storePreferences();
             }
             catch(Exception e) {
-                // TODO This is just for debugging purposes, we need to get rid of it soon
                 this.showErrorWindow("Couldn't store the preferences.");
                 txtCity.setText("");
                 txtCountry.setText("");
@@ -243,7 +265,13 @@ public class GUIFullWindow extends JFrame implements ActionListener {
             catch(Exception e) {}
 		}
 	}
-
+	
+	/**
+	 * Displays a new frame with a custom error message. This is called when something
+	 * invalid occurs in the user's interaction with the GUI.
+	 * 
+	 * @param errorMsg Specific type of error that has occurred.
+	 * */
     public void showErrorWindow(String errorMsg){
         JFrame errorFrame = new JFrame();
         errorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -261,7 +289,12 @@ public class GUIFullWindow extends JFrame implements ActionListener {
         errorPanel.add(errorMessage);
         errorFrame.setVisible(true);
     }
-
+    
+	/**
+	 * Displays a new frame with a default error message. This is called when something
+	 * invalid occurs in the user's interaction with the GUI. In the event of an unknown error
+	 * this method is called.
+	 * */
 	public void showErrorWindow(){
         showErrorWindow("Sorry, your entry was invalid! Nice try, though.");
 	}

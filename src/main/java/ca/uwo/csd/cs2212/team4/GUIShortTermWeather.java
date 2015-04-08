@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
@@ -14,7 +15,14 @@ import java.util.StringTokenizer;
 import org.json.JSONException;
 
 import java.io.IOException;
-
+/**
+ * GUIShortTermWeather is a frame that shows the short term weather data (24 hours). The information
+ * is queried from OpenWeatherApp. It responds to user interactions with the GUI and interacts
+ * with the Preferences class to generate appropriate data.
+ * 
+ * @author Team 4
+ * 
+ * */
 public class GUIShortTermWeather extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private String city,country;
@@ -22,7 +30,7 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 	private JLabel[] temp,skyCondition,icon,date;
 
 	/**
-	 * Create the frame.
+	 * Constructor to create the frame.
 	 */
 	public GUIShortTermWeather() {
 		city = GUIApp.pref.getCity();
@@ -231,10 +239,22 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Calls the refresh method with the new city the user has inputted. This occurs in response
+	 * to the refresh button being pressed.
+	 * 
+	 * @param ae Action performed by user via interaction with the GUI.
+	 * 
+	 * */
 	public void actionPerformed(ActionEvent ae) {
 		refresh(city);
 	}
 
+	/**Refreshes the data, given that the user has entered a value in the city text box.
+	 * Open Weather Map is queried with the text for the new city.
+	 * 
+	 * @param city Text for new query
+	 * */
 	public void refresh(String city){
 		try {
             weather = new ShortTerm(city);
@@ -251,6 +271,14 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
+	/**Refreshes the data, given that the user has entered a value in both the country city
+	 * text boxes. Open Weather Map is queried with the text for the new city and country.
+	 * 
+	 * @param city city text for new query
+	 * @param country country text for new query
+	 * @throws JSONException if new query fails
+	 * @throws IOException 
+	 * */
 	public void refresh(String city, String country) throws IOException, JSONException{
 		weather = new ShortTerm(city, country);
 
@@ -262,6 +290,13 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Parses the date to give the hour of the day. Used to display correct labels for each
+	 * day of the short term forecast.
+	 * 
+	 * @param date raw format of the date value.
+	 * @return hour of the day corresponding to input date value.
+	 * */
 	private String dateParse(String date) {
 		StringTokenizer st = new StringTokenizer(date);
 		String day = st.nextToken();
@@ -270,7 +305,13 @@ public class GUIShortTermWeather extends JFrame implements ActionListener {
 		String time = st.nextToken().substring(0, 3)+ "00";		
 		return (day + " " + time);
 	}
-
+	
+	/**
+	 * returns the panel that is in the local frame, which can be used as part of the larger frame 
+	 * {@link GUIFullWindow}. 
+	 * 
+	 * @return content panel of current frame
+	 */
 	public JPanel getPanel(){
 		return contentPane;
 	}

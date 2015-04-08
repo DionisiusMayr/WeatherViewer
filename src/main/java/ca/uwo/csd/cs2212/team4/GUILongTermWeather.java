@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.EventQueue;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,6 +17,14 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
+/**
+ * GUILongTermWeather is a frame that shows the long term weather data (7 days). The information
+ * is queried from OpenWeatherApp. It responds to user interactions with the GUI and interacts
+ * with the Preferences class to generate appropriate data.
+ * 
+ * @author Team 4
+ * 
+ * */
 public class GUILongTermWeather extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private String city,country;
@@ -23,7 +32,7 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 	private JLabel[] day,skyCondition,icon,date, max, min;
 
 	/**
-	 * Create the frame.
+	 * Constructor to construct the frame.
 	 */
 	public GUILongTermWeather() {
 		city = GUIApp.pref.getCity();
@@ -282,11 +291,23 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 			System.out.println("GUILongTermWeather(): IO exception, Long term refresh method");
 		}
 	}
-
+	
+	/**
+	 * Calls the refresh method with the new city the user has inputted. This occurs in response
+	 * to the refresh button being pressed.
+	 * 
+	 * @param ae Action performed by user via interaction with the GUI.
+	 * 
+	 * */
 	public void actionPerformed(ActionEvent ae) {
 		refresh(city);
 	}
 
+	/**Refreshes the data, given that the user has entered a value in the city text box.
+	 * Open Weather Map is queried with the text for the new city.
+	 * 
+	 * @param city Text for new query
+	 * */
 	public void refresh(String city){
 		try {
             weather = new LongTerm(city);
@@ -305,6 +326,14 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
+	/**Refreshes the data, given that the user has entered a value in both the country city
+	 * text boxes. Open Weather Map is queried with the text for the new city and country.
+	 * 
+	 * @param city city text for new query
+	 * @param country country text for new query
+	 * @throws JSONException if new query fails
+	 * @throws IOException 
+	 * */
 	public void refresh(String city, String country) throws IOException, JSONException {
 		weather = new LongTerm(city, country);
 
@@ -318,6 +347,13 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Parses the date to give the day of the week. Used to display correct labels for each
+	 * day of the long term forecast.
+	 * 
+	 * @param date raw format of the date value.
+	 * @return day of the week corresponding to input date value.
+	 * */
 	private String dateParse(String date) {
 		StringTokenizer st = new StringTokenizer(date);
 		String day = st.nextToken();
@@ -326,7 +362,13 @@ public class GUILongTermWeather extends JFrame implements ActionListener {
 
 		return (day);
 	}
-
+	
+	/**
+	 * returns the panel that is in the local frame, which can be used as part of the larger frame 
+	 * {@link GUIFullWindow}. 
+	 * 
+	 * @return content panel of current frame
+	 */
 	public JPanel getPanel(){
 		return contentPane;
 	}

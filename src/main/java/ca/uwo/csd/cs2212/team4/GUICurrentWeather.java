@@ -10,7 +10,15 @@ import java.util.*;
 import java.text.*;
 import org.json.JSONException;
 
+/**
+ * GUICurrentWeather is a JFrame that displays the weather information of the current weather.
+ * It includes labels for both the titles and contents of current temperature, humidity, pressure, etc.
+ * The data generated is from Open Weather Map.
+ * 
+ * @author Team 4
+ * */
 public class GUICurrentWeather extends JFrame {
+	
 	private JPanel contentPane;
 	private Date date;
 	private DateFormat dateFormat;
@@ -21,26 +29,10 @@ public class GUICurrentWeather extends JFrame {
 	private JLabel lblIcon;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUICurrentWeather frame = new GUICurrentWeather();
-					frame.setVisible(true);
-				}
-                catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * @throws java.io.IOException
-	 * @throws org.json.JSONException
+	 * Constructor to create the frame.
+	 * 
+	 * @throws IOException 
+	 * @throws JSONException
 	 */
 	public GUICurrentWeather() throws JSONException, IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -337,12 +329,23 @@ public class GUICurrentWeather extends JFrame {
 
 		topPanel.add(lblIcon, BorderLayout.CENTER);
 	}
+	
+	/**
+	 * returns the panel that is in the local frame, which can be used as part of the larger frame 
+	 * {@link GUIFullWindow}. 
+	 * 
+	 * @return content panel of current frame
+	 */
 
 	public JPanel getPanel() {
 		return contentPane;
 	}
 
-    /*****************************REFRESH**************************/
+    /**
+     * Refreshes the data, given that the user has not entered a new location. 
+     * It re-queries Open Weather Map for the new data and updates the date to reflect
+     * the local computer time when the refresh button is clicked.
+    */
 
 	public void refresh(){
 		date = new Date();
@@ -380,11 +383,26 @@ public class GUICurrentWeather extends JFrame {
 		lblLocation.setText(strLocation);
 	}
 
+	/**Refreshes the data, given that the user has entered a value in the city text box.
+	 * Open Weather Map is queried with the text for the new city.
+	 * 
+	 * @param city Text for new query
+	 * @throws JSONException if new query fails
+	 * @throws IOException 
+	 * */
 	public void refresh(String city) throws JSONException, IOException {
 		weather = new LocalWeatherView(city);
 		this.refresh();
 	}
 
+	/**Refreshes the data, given that the user has entered a value in both the country city
+	 * text boxes. Open Weather Map is queried with the text for the new city and country.
+	 * 
+	 * @param city city text for new query
+	 * @param country country text for new query
+	 * @throws JSONException if new query fails
+	 * @throws IOException 
+	 * */
 	public void refresh(String city, String country) throws JSONException, IOException {
 		weather = new LocalWeatherView(city, country);
 		this.refresh();
