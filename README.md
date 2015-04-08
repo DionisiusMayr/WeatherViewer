@@ -21,7 +21,11 @@ Java and Maven are required to build the program. Once you have installed them, 
 Useful info
 - For examples of openweathermap api, click <a href="http://openweathermap.org/examples">here</a>
 - How to access current weather data in JSON format, click <a href="http://openweathermap.org/current">here</a>
-- Examples of weather data in JSON format, click <a href="http://api.openweathermap.org/data/2.5/weather?q=London,uk">here</a>
+- Example of weather data in JSON format, click <a href="http://api.openweathermap.org/data/2.5/weather?q=London,uk">here</a>
+- {MAAS} API source code,  click <a href="https://github.com/ingenology/mars_weather_api/">here</a>
+
+# Usage
+
 
  
  
