@@ -1,6 +1,10 @@
 # Weather-viewing App 
 
+MoviePy can read and write all the most common audio and video formats, including GIF, and runs on Windows/Mac/Linux, with Python 2.7+ and 3. Here it is in action in an IPython notebook:
+
 .. image:: https://raw.githubusercontent.com/Zulko/moviepy/master/docs/demo_preview.jpeg
+    :alt: [logo]
+    :align: center
 
 # Description
 
