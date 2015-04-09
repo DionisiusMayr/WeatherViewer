@@ -1,7 +1,7 @@
-*.class
 .classpath
-preferences.dat
 .project
+preferences.dat
 Gotham Light.ttf
 target/
-Users
+bin/
+Users/
