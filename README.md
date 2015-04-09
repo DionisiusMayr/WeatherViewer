@@ -18,7 +18,7 @@ Download the sources on Github, unzip everything in one folder, open a terminal 
 Java and Maven are required to build the program. Once you have installed them, you can compile your application sources by typing the following in the terminal
 
    
-    mvn compile
+    mvn package
 
 Useful info
 - For examples of openweathermap api, click <a href="http://openweathermap.org/examples">here</a>
