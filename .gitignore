@@ -1,2 +1,6 @@
-*.class 
+*.class
+.classpath
+preferences.dat
+.project
+Gotham Light.ttf 
 target/
